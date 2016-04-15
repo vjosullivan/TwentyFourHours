@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15F18b" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
@@ -18,42 +19,86 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="24 Hours" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="63u-kk-UpL" userLabel="24 Hours">
+                                <rect key="frame" x="20" y="20" width="560" height="20.5"/>
+                                <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="hGL-lb-XWF">
-                                <rect key="frame" x="0.0" y="21" width="600" height="579"/>
+                                <rect key="frame" x="0.0" y="40" width="600" height="559.5"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="HourCell" id="12E-4T-IrF" customClass="WeatherTableViewCell" customModule="TwentyFourHours" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="12E-4T-IrF" id="QJO-hw-cP3">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="22:00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="B8Y-GV-VwF" userLabel="timeLabel">
-                                                    <rect key="frame" x="8" y="11" width="88" height="21"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="28°C" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0Bq-Pm-xLl" userLabel="tempLabel">
+                                                    <rect key="frame" x="83" y="11" width="48" height="21"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="48" id="sC5-fz-Os5"/>
+                                                    </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="28.8 C" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0Bq-Pm-xLl" userLabel="tempLabel">
-                                                    <rect key="frame" x="116" y="11" width="64" height="21"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="UCU-ye-Mzx" userLabel="rainLabel">
+                                                    <rect key="frame" x="186.5" y="11" width="405.5" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UCU-ye-Mzx" userLabel="rainLabel">
-                                                    <rect key="frame" x="188" y="11" width="404" height="21"/>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="hZX-gX-sm0" userLabel="icon">
+                                                    <rect key="frame" x="137" y="0.0" width="43.5" height="43.5"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" secondItem="hZX-gX-sm0" secondAttribute="height" multiplier="1:1" id="iip-jV-4It"/>
+                                                    </constraints>
+                                                </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="22:00" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="B8Y-GV-VwF" userLabel="timeLabel">
+                                                    <rect key="frame" x="29" y="11" width="48" height="21"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="48" id="KKb-S9-MCy"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tue" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="RGT-OZ-17x" userLabel="dayLabel">
+                                                    <rect key="frame" x="8" y="11" width="18" height="21"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="18" id="iMA-Jo-pWd"/>
+                                                    </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
+                                            <constraints>
+                                                <constraint firstItem="UCU-ye-Mzx" firstAttribute="trailing" secondItem="QJO-hw-cP3" secondAttribute="trailingMargin" id="3an-Mc-p4a"/>
+                                                <constraint firstItem="UCU-ye-Mzx" firstAttribute="leading" secondItem="hZX-gX-sm0" secondAttribute="trailing" constant="6" id="7gq-N4-Aiq"/>
+                                                <constraint firstItem="B8Y-GV-VwF" firstAttribute="leading" secondItem="RGT-OZ-17x" secondAttribute="trailing" constant="3" id="F6a-4A-h6C"/>
+                                                <constraint firstItem="hZX-gX-sm0" firstAttribute="top" secondItem="QJO-hw-cP3" secondAttribute="top" id="GTg-9w-xpE"/>
+                                                <constraint firstItem="RGT-OZ-17x" firstAttribute="centerY" secondItem="QJO-hw-cP3" secondAttribute="centerY" id="Mq3-Ih-Kv3"/>
+                                                <constraint firstItem="UCU-ye-Mzx" firstAttribute="centerY" secondItem="QJO-hw-cP3" secondAttribute="centerY" id="Q6G-nE-3mw"/>
+                                                <constraint firstItem="0Bq-Pm-xLl" firstAttribute="leading" secondItem="B8Y-GV-VwF" secondAttribute="trailing" constant="6" id="SJC-Kn-4uC"/>
+                                                <constraint firstItem="hZX-gX-sm0" firstAttribute="leading" secondItem="0Bq-Pm-xLl" secondAttribute="trailing" constant="6" id="WSd-bd-IUl"/>
+                                                <constraint firstItem="RGT-OZ-17x" firstAttribute="leading" secondItem="QJO-hw-cP3" secondAttribute="leadingMargin" id="dLL-MN-7de"/>
+                                                <constraint firstItem="0Bq-Pm-xLl" firstAttribute="centerY" secondItem="QJO-hw-cP3" secondAttribute="centerY" id="oru-RX-3pd"/>
+                                                <constraint firstAttribute="bottom" secondItem="hZX-gX-sm0" secondAttribute="bottom" id="tnh-cm-7FK"/>
+                                                <constraint firstItem="B8Y-GV-VwF" firstAttribute="centerY" secondItem="QJO-hw-cP3" secondAttribute="centerY" id="xfy-Ke-HPY"/>
+                                            </constraints>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                         <connections>
+                                            <outlet property="dayLabel" destination="RGT-OZ-17x" id="dra-7U-QAs"/>
                                             <outlet property="rainLabel" destination="UCU-ye-Mzx" id="Lve-gA-szY"/>
                                             <outlet property="tempLabel" destination="0Bq-Pm-xLl" id="9eO-1j-GQk"/>
                                             <outlet property="timeLabel" destination="B8Y-GV-VwF" id="KoK-Gd-NkI"/>
+                                            <outlet property="weatherIcon" destination="hZX-gX-sm0" id="H0i-hp-sak"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -62,22 +107,15 @@
                                     <outlet property="delegate" destination="BYZ-38-t0r" id="1BF-9v-giF"/>
                                 </connections>
                             </tableView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="24 Hours" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="63u-kk-UpL" userLabel="24 Hours">
-                                <rect key="frame" x="20" y="0.0" width="560" height="21"/>
-                                <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                         </subviews>
                         <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="63u-kk-UpL" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="6o5-ee-k0u"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="hGL-lb-XWF" secondAttribute="bottom" id="8iw-pn-Wek"/>
                             <constraint firstAttribute="trailingMargin" secondItem="63u-kk-UpL" secondAttribute="trailing" id="Q8Q-5f-RFA"/>
                             <constraint firstItem="hGL-lb-XWF" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="ZFY-yW-Axi"/>
                             <constraint firstItem="hGL-lb-XWF" firstAttribute="top" secondItem="63u-kk-UpL" secondAttribute="bottom" id="dtO-Fd-sgW"/>
                             <constraint firstItem="63u-kk-UpL" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="giG-ey-ndA"/>
-                            <constraint firstItem="63u-kk-UpL" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="topMargin" id="hfo-az-fd5"/>
                             <constraint firstAttribute="trailing" secondItem="hGL-lb-XWF" secondAttribute="trailing" id="lC2-8V-tx1"/>
                         </constraints>
                     </view>
@@ -87,7 +125,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="205" y="449"/>
+            <point key="canvasLocation" x="197" y="434"/>
         </scene>
     </scenes>
 </document>

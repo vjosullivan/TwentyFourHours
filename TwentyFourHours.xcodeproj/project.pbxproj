@@ -7,8 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3424C40D1CC0CB2F00ABE283 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3424C40C1CC0CB2F00ABE283 /* ViewController.swift */; };
+		3424C4131CC0CBC400ABE283 /* WeatherIcons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3424C4121CC0CBC400ABE283 /* WeatherIcons.swift */; };
+		3424C4141CC0CBC400ABE283 /* WeatherIcons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3424C4121CC0CBC400ABE283 /* WeatherIcons.swift */; };
 		34EBD46E1CBFDB5F0033B651 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34EBD46D1CBFDB5F0033B651 /* AppDelegate.swift */; };
-		34EBD4701CBFDB5F0033B651 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34EBD46F1CBFDB5F0033B651 /* ViewController.swift */; };
 		34EBD4731CBFDB5F0033B651 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 34EBD4711CBFDB5F0033B651 /* Main.storyboard */; };
 		34EBD4751CBFDB5F0033B651 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 34EBD4741CBFDB5F0033B651 /* Assets.xcassets */; };
 		34EBD4781CBFDB5F0033B651 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 34EBD4761CBFDB5F0033B651 /* LaunchScreen.storyboard */; };
@@ -61,9 +63,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		3424C40C1CC0CB2F00ABE283 /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		3424C4121CC0CBC400ABE283 /* WeatherIcons.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeatherIcons.swift; sourceTree = "<group>"; };
 		34EBD46A1CBFDB5F0033B651 /* TwentyFourHours.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TwentyFourHours.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		34EBD46D1CBFDB5F0033B651 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		34EBD46F1CBFDB5F0033B651 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		34EBD4721CBFDB5F0033B651 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		34EBD4741CBFDB5F0033B651 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		34EBD4771CBFDB5F0033B651 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -115,6 +118,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3424C40A1CC0CAD400ABE283 /* weatherControllers */ = {
+			isa = PBXGroup;
+			children = (
+				3424C40C1CC0CB2F00ABE283 /* ViewController.swift */,
+			);
+			path = weatherControllers;
+			sourceTree = "<group>";
+		};
 		34EBD4611CBFDB5F0033B651 = {
 			isa = PBXGroup;
 			children = (
@@ -138,16 +149,16 @@
 		34EBD46C1CBFDB5F0033B651 /* TwentyFourHours */ = {
 			isa = PBXGroup;
 			children = (
-				34EBD4BB1CBFDF620033B651 /* extensions */,
-				34EBD4AE1CBFDF180033B651 /* weatherModel */,
-				34EBD4A11CBFDCCD0033B651 /* weatherData */,
 				34EBD46D1CBFDB5F0033B651 /* AppDelegate.swift */,
-				34EBD46F1CBFDB5F0033B651 /* ViewController.swift */,
-				F1E09CF71CC0353000D9B55B /* WeatherTableViewCell.swift */,
 				34EBD4711CBFDB5F0033B651 /* Main.storyboard */,
-				34EBD4741CBFDB5F0033B651 /* Assets.xcassets */,
 				34EBD4761CBFDB5F0033B651 /* LaunchScreen.storyboard */,
 				34EBD4791CBFDB5F0033B651 /* Info.plist */,
+				3424C40A1CC0CAD400ABE283 /* weatherControllers */,
+				34EBD4AE1CBFDF180033B651 /* weatherModel */,
+				34EBD4A11CBFDCCD0033B651 /* weatherData */,
+				34EBD4BB1CBFDF620033B651 /* extensions */,
+				F1E09CF71CC0353000D9B55B /* WeatherTableViewCell.swift */,
+				34EBD4741CBFDB5F0033B651 /* Assets.xcassets */,
 			);
 			path = TwentyFourHours;
 			sourceTree = "<group>";
@@ -190,6 +201,7 @@
 		34EBD4AE1CBFDF180033B651 /* weatherModel */ = {
 			isa = PBXGroup;
 			children = (
+				3424C4121CC0CBC400ABE283 /* WeatherIcons.swift */,
 				34EBD4B51CBFDF480033B651 /* OneDayForecast.swift */,
 				34EBD4CF1CBFDFE10033B651 /* OneHourForecast.swift */,
 				34EBD4AF1CBFDF3A0033B651 /* Forecast.swift */,
@@ -350,9 +362,10 @@
 				34EBD4B61CBFDF480033B651 /* OneDayForecast.swift in Sources */,
 				34EBD4A81CBFDD3E0033B651 /* ForecastIOManager.swift in Sources */,
 				34EBD4DC1CBFDFF20033B651 /* Flags.swift in Sources */,
+				3424C4131CC0CBC400ABE283 /* WeatherIcons.swift in Sources */,
 				34EBD4D61CBFDFEA0033B651 /* SixtyMinuteForecast.swift in Sources */,
 				F1E09CF81CC0353000D9B55B /* WeatherTableViewCell.swift in Sources */,
-				34EBD4701CBFDB5F0033B651 /* ViewController.swift in Sources */,
+				3424C40D1CC0CB2F00ABE283 /* ViewController.swift in Sources */,
 				34EBD4A61CBFDD3E0033B651 /* ForecastIOBuilder.swift in Sources */,
 				34EBD46E1CBFDB5F0033B651 /* AppDelegate.swift in Sources */,
 				34EBD4CA1CBFDFD80033B651 /* SevenDayForecast.swift in Sources */,
@@ -380,6 +393,7 @@
 				34EBD4E91CBFE0170033B651 /* NSDateExtension.swift in Sources */,
 				34EBD4C51CBFDFCE0033B651 /* Weather.swift in Sources */,
 				34EBD4CB1CBFDFD80033B651 /* SevenDayForecast.swift in Sources */,
+				3424C4141CC0CBC400ABE283 /* WeatherIcons.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -515,7 +529,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = TwentyFourHours/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.vjosullivan.TwentyFourHours;
+				PRODUCT_BUNDLE_IDENTIFIER = com.britishairwaysent.TwentyFourHours;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -526,7 +540,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = TwentyFourHours/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.vjosullivan.TwentyFourHours;
+				PRODUCT_BUNDLE_IDENTIFIER = com.britishairwaysent.TwentyFourHours;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;

@@ -35,53 +35,5 @@
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "TwentyFourHours/weatherData/forecastIO/ForecastIOManager.swift"
-            timestampString = "482340023.852525"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "26"
-            endingLineNumber = "26"
-            landmarkName = "fetchWeather(latitude:longitude:units:handle:)"
-            landmarkType = "5">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "TwentyFourHours.ForecastIOManager.fetchWeather (latitude : Swift.Double, longitude : Swift.Double, units : Swift.String, handle : (data : Swift.Optional&lt;__ObjC.NSData&gt;, error : Swift.Optional&lt;__ObjC.NSError&gt;) -&gt; ()) -&gt; ()"
-                  moduleName = "TwentyFourHours"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/vincentosullivan/Dropbox/development/swift/TwentyFourHours/TwentyFourHours/weatherData/forecastIO/ForecastIOManager.swift"
-                  timestampString = "482340252.43443"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "26"
-                  endingLineNumber = "26"
-                  offsetFromSymbolStart = "208">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "TwentyFourHours.ForecastIOManager.(fetchWeather (latitude : Swift.Double, longitude : Swift.Double, units : Swift.String, handle : (data : Swift.Optional&lt;__ObjC.NSData&gt;, error : Swift.Optional&lt;__ObjC.NSError&gt;) -&gt; ()) -&gt; ()).(closure #1)"
-                  moduleName = "TwentyFourHours"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/vincentosullivan/Dropbox/development/swift/TwentyFourHours/TwentyFourHours/weatherData/forecastIO/ForecastIOManager.swift"
-                  timestampString = "482340252.43454"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "27"
-                  endingLineNumber = "27"
-                  offsetFromSymbolStart = "36">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
    </Breakpoints>
 </Bucket>

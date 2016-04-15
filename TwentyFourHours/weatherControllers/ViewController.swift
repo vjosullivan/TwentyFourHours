@@ -51,6 +51,53 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         self.forecast = forecast
         weatherTable.reloadData()
     }
+
+    private func weatherImage(iconName: String?) -> UIImage {
+        let image: UIImage
+        if let iconName = iconName {
+            switch iconName {
+            case "clear-day":
+                image = UIImage(named: "sun")!
+            case "clear-night":
+                image = UIImage(named: "moon")!
+            case "rain":
+                image = UIImage(named: "rain")!
+            case "snow":
+                image = UIImage(named: "snow")!
+            case "sleet":
+                image = UIImage(named: "sleet")!
+            case "wind":
+                image = UIImage(named: "wind")!
+            case "fog":
+                image = UIImage(named: "fog")!
+            case "cloudy":
+                image = UIImage(named: "cloudy")!
+            case "partly-cloudy-day":
+                image = UIImage(named: "partly cloudy day")!
+            case "partly-cloudy-night":
+                image = UIImage(named: "partly cloudy night")!
+            case "hail":
+                image = UIImage(named: "hail")!
+            case "thunderstorm":
+                image = UIImage(named: "thunderstorm")!
+            case "tornado":
+                image = UIImage(named: "tornado")!
+            default:
+                let alertController = UIAlertController(title: "Current Weather", message: "No icon found for weather condition: '\(iconName).\n\nHence the 'alien' face.", preferredStyle: .Alert)
+                let okAction = UIAlertAction(title: "OK", style: .Default, handler: nil)
+                alertController.addAction(okAction)
+                presentViewController(alertController, animated: true, completion: nil)
+                image = UIImage(named: "sun.png")!
+            }
+        } else {
+            let alertController = UIAlertController(title: "Current Weather", message: "No weather condition icon selector supplied by the forecast.  Hence the circle.", preferredStyle: .Alert)
+            let okAction = UIAlertAction(title: "OK", style: .Default, handler: nil)
+            alertController.addAction(okAction)
+            presentViewController(alertController, animated: true, completion: nil)
+            image = UIImage(named: "sun.png")!
+        }
+        return image
+    }
 }
 
 extension ViewController: CLLocationManagerDelegate {
@@ -126,8 +173,9 @@ extension ViewController: CLLocationManagerDelegate {
         let cell = tableView.dequeueReusableCellWithIdentifier("HourCell")! as! WeatherTableViewCell
 
         let temp = forecast?.oneHourForecasts?[indexPath.row].temperature ?? 0.0
-        cell.tempLabel!.text = "\(round(temp * 10.0) / 10.0)"
+        cell.tempLabel!.text = "\(Int(round(temp)))°C"
 
+        cell.dayLabel!.text  =  dayStringFromUnixTime(Double(forecast?.oneHourForecasts?[indexPath.row].time ?? 0.0))
         cell.timeLabel!.text = timeStringFromUnixTime(Double(forecast?.oneHourForecasts?[indexPath.row].time ?? 0.0))
 
         let precip    = Int(round((forecast?.oneHourForecasts?[indexPath.row].precipProbability ?? 0.0) * 100))
@@ -136,15 +184,62 @@ extension ViewController: CLLocationManagerDelegate {
         let summary  = forecast?.oneHourForecasts?[indexPath.row].summary ?? ""
         let icon  = forecast?.oneHourForecasts?[indexPath.row].icon ?? ""
         //cell.rainLabel!.text = "\(precip)% \(intensity) \(rainType) (\(icon)) \(summary)"
-        cell.rainLabel!.text = "(\(icon)) \(summary)"
+        cell.rainLabel!.text = "\(summary)"
+        cell.weatherIcon.image = weatherImage(icon)
+
+        let style = indexPath.row < 11
+            ? CellStyle.Day
+            : indexPath.row < 12
+                ? CellStyle.Evening
+                : indexPath.row < 13
+                    ? CellStyle.Dusk
+                    : CellStyle.Night
+        setCellColours(cell, style: style)
         return cell
+    }
+
+    func setCellColours(cell: WeatherTableViewCell, style: CellStyle) {
+        switch style {
+        case .Day:
+            cell.backgroundColor = UIColor.whiteColor()
+            cell.dayLabel.textColor = UIColor.blackColor()
+            cell.timeLabel.textColor = UIColor.blackColor()
+            cell.tempLabel.textColor = UIColor.blackColor()
+            cell.rainLabel.textColor = UIColor.blackColor()
+        case .Evening:
+            cell.backgroundColor = UIColor(red: 1.0, green: 0.8, blue: 0.6, alpha: 1.0)
+            cell.dayLabel.textColor = UIColor.blackColor()
+            cell.timeLabel.textColor = UIColor.blackColor()
+            cell.tempLabel.textColor = UIColor.blackColor()
+            cell.rainLabel.textColor = UIColor.blackColor()
+        case .Dusk:
+            cell.backgroundColor = UIColor(red: 0.1, green: 0.1, blue: 0.3, alpha: 1.0)
+            cell.dayLabel.textColor = UIColor.whiteColor()
+            cell.timeLabel.textColor = UIColor.whiteColor()
+            cell.tempLabel.textColor = UIColor.whiteColor()
+            cell.rainLabel.textColor = UIColor.whiteColor()
+        case .Night:
+            cell.backgroundColor = UIColor.blackColor()
+            cell.dayLabel.textColor = UIColor.whiteColor()
+            cell.timeLabel.textColor = UIColor.whiteColor()
+            cell.tempLabel.textColor = UIColor.whiteColor()
+            cell.rainLabel.textColor = UIColor.whiteColor()
+        }
+    }
+
+    func dayStringFromUnixTime(unixTime: Double) -> String {
+        let date = NSDate(timeIntervalSince1970: unixTime)
+
+        let dateFormatter = NSDateFormatter()
+        dateFormatter.dateFormat = "EEEEEE"
+        return dateFormatter.stringFromDate(date)
     }
 
     func timeStringFromUnixTime(unixTime: Double) -> String {
         let date = NSDate(timeIntervalSince1970: unixTime)
 
         let dateFormatter = NSDateFormatter()
-        dateFormatter.dateFormat = "E HH:mm"
+        dateFormatter.dateFormat = "HH:mm"
         return dateFormatter.stringFromDate(date)
     }
 }
@@ -152,4 +247,11 @@ extension ViewController: CLLocationManagerDelegate {
 struct WeatherKeys {
     static let units    = "weather.units"
     static let windType = "weather.windtype"
+}
+
+enum CellStyle {
+    case Day
+    case Night
+    case Evening
+    case Dusk
 }
