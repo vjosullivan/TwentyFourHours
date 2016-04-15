@@ -190,7 +190,7 @@ extension ViewController: CLLocationManagerDelegate {
         let cell = tableView.dequeueReusableCellWithIdentifier("HourCell")! as! WeatherTableViewCell
 
         let temp = forecast?.oneHourForecasts?[indexPath.row].temperature ?? 0.0
-        cell.tempLabel!.text = "\(Int(round(temp)))°C"
+        cell.tempLabel!.text = "\(Int(round(temp)))"
 
         cell.dayLabel!.text  =  dayStringFromUnixTime(Double(forecast?.oneHourForecasts?[indexPath.row].time ?? 0.0))
         cell.timeLabel!.text = timeStringFromUnixTime(Double(forecast?.oneHourForecasts?[indexPath.row].time ?? 0.0))
@@ -221,25 +221,33 @@ extension ViewController: CLLocationManagerDelegate {
             cell.backgroundColor = UIColor.whiteColor()
             cell.dayLabel.textColor = UIColor.blackColor()
             cell.timeLabel.textColor = UIColor.blackColor()
+            cell.minsLabel.textColor = UIColor.blackColor()
             cell.tempLabel.textColor = UIColor.blackColor()
+            cell.CFLabel.textColor = UIColor.blackColor()
             cell.rainLabel.textColor = UIColor.blackColor()
         case .Evening:
             cell.backgroundColor = UIColor(red: 1.0, green: 0.8, blue: 0.6, alpha: 1.0)
             cell.dayLabel.textColor = UIColor.blackColor()
             cell.timeLabel.textColor = UIColor.blackColor()
+            cell.minsLabel.textColor = UIColor.blackColor()
             cell.tempLabel.textColor = UIColor.blackColor()
+            cell.CFLabel.textColor = UIColor.blackColor()
             cell.rainLabel.textColor = UIColor.blackColor()
         case .Dusk:
             cell.backgroundColor = UIColor(red: 0.1, green: 0.1, blue: 0.3, alpha: 1.0)
             cell.dayLabel.textColor = UIColor.whiteColor()
             cell.timeLabel.textColor = UIColor.whiteColor()
+            cell.minsLabel.textColor = UIColor.whiteColor()
             cell.tempLabel.textColor = UIColor.whiteColor()
+            cell.CFLabel.textColor = UIColor.whiteColor()
             cell.rainLabel.textColor = UIColor.whiteColor()
         case .Night:
             cell.backgroundColor = UIColor.blackColor()
             cell.dayLabel.textColor = UIColor.whiteColor()
+            cell.minsLabel.textColor = UIColor.whiteColor()
             cell.timeLabel.textColor = UIColor.whiteColor()
             cell.tempLabel.textColor = UIColor.whiteColor()
+            cell.CFLabel.textColor = UIColor.whiteColor()
             cell.rainLabel.textColor = UIColor.whiteColor()
         }
     }
@@ -256,7 +264,7 @@ extension ViewController: CLLocationManagerDelegate {
         let date = NSDate(timeIntervalSince1970: unixTime)
 
         let dateFormatter = NSDateFormatter()
-        dateFormatter.dateFormat = "HH:mm"
+        dateFormatter.dateFormat = "HH"
         return dateFormatter.stringFromDate(date)
     }
 }

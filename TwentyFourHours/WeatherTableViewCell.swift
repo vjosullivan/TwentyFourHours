@@ -12,7 +12,9 @@ class WeatherTableViewCell: UITableViewCell {
 
     @IBOutlet var dayLabel: UILabel!
     @IBOutlet var timeLabel: UILabel!
+    @IBOutlet var minsLabel: UILabel!
     @IBOutlet var tempLabel: UILabel!
+    @IBOutlet var CFLabel: UILabel!
     @IBOutlet var rainLabel: UILabel!
     @IBOutlet weak var weatherIcon: UIImageView!
 }
