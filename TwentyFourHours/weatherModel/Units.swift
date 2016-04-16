@@ -14,8 +14,12 @@ struct Units {
 
     private let unitSystem: Int
 
-    var temperature: String { return temperatures[unitSystem] }
-    var windSpeed: String   { return windSpeeds[unitSystem]   }
+    var temperature: String {
+        return temperatures[unitSystem]
+    }
+    var windSpeed: String   {
+        return windSpeeds[unitSystem]
+    }
 
     init(units: String) {
         if let index = systems.indexOf(units) {

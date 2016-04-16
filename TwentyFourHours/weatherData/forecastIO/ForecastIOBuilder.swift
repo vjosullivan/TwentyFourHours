@@ -25,15 +25,7 @@ class ForecastIOBuilder {
         let latitude         = json["latitude"] as? Double
         let longitude        = json["longitude"] as? Double
         let weather          = parseWeather(json)
-        let sevenDayForecast = parseSevenDayForecast(json)
-        var todaysForecast: OneDayForecast? = nil
-        var earliestDate = NSDate.distantFuture()
-        for day in (sevenDayForecast?.oneDayForecasts)! {
-            if day.time! < earliestDate {
-                earliestDate = day.time!
-                todaysForecast = day
-            }
-        }
+        let oneDayForecasts = parseOneDayForecasts(json)
         let oneHourForecasts = parseOneHourForecasts(json)
         let flags    = parseFlags(json)
         let timezone = json["timezone"] as? String
@@ -42,8 +34,7 @@ class ForecastIOBuilder {
             latitude: latitude,
             longitude: longitude,
             weather: weather,
-            oneDayForecast: todaysForecast,
-            sevenDayForecast: sevenDayForecast,
+            oneDayForecasts: oneDayForecasts,
             oneHourForecasts: oneHourForecasts,
             flags: flags,
             timezone:  timezone,
@@ -103,18 +94,6 @@ class ForecastIOBuilder {
             allFlags = Flags(units: units)
         }
         return allFlags ?? nil
-    }
-    
-    private func parseSevenDayForecast(json: [String: AnyObject]) -> SevenDayForecast? {
-        var sevenDayForecast: SevenDayForecast?
-        if let dailyData = json["daily"] as? [String: AnyObject] {
-            //print("Daily: \(dailyData)")
-            let oneDayForecasts = parseOneDayForecasts(dailyData)
-            let icon     = dailyData["icon"] as? String
-            let summary  = dailyData["summary"] as? String
-            sevenDayForecast = SevenDayForecast(icon: icon, summary: summary, oneDayForecasts: oneDayForecasts)
-        }
-        return sevenDayForecast ?? nil
     }
     
     private func parseOneDayForecasts(data: [String: AnyObject]) -> [OneDayForecast]? {

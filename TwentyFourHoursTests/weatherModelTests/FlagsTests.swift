@@ -17,11 +17,18 @@ class FlagsTests: XCTestCase {
     override func tearDown() {
         super.tearDown()
     }
-    
+
     func testCreatable() {
         let testUnits = "Auto"
         let flags = Flags(units: testUnits)
         XCTAssertNotNil(flags)
         XCTAssertEqual(testUnits, flags.units)
+    }
+
+    func testNoUnits() {
+        let testUnits: String? = nil
+        let flags = Flags(units: testUnits)
+        XCTAssertNotNil(flags)
+        XCTAssertNil(flags.units)
     }
 }
