@@ -36,10 +36,9 @@ class ForecastIOBuilder {
             currentConditions: currentConditions,
             oneDayForecasts: oneDayForecasts,
             oneHourForecasts: oneHourForecasts,
-            flags: flags,
             timezone:  timezone,
             offset: offset,
-            units: Units(units: flags?.units ?? ""))
+            units: Units(units: flags?.units ?? "si"))
         return forecast
     }
     
@@ -58,8 +57,7 @@ class ForecastIOBuilder {
     private func parseFlags(json: [String: AnyObject]) -> Flags? {
         var allFlags: Flags?
         if let flags = json["flags"] as? [String: AnyObject] {
-            let units = flags["units"] as? String
-            allFlags = Flags(units: units)
+            allFlags = Flags(units: flags["units"] as? String)
         }
         return allFlags ?? nil
     }
@@ -68,13 +66,10 @@ class ForecastIOBuilder {
         var oneDayForecasts = [OneDayForecast]()
         if let allDays = data["data"] as? [[String: AnyObject]] {
             for day in allDays {
-                let sunriseTime = NSDate(timeIntervalSince1970: day["sunriseTime"] as! Double)
-                let sunsetTime = NSDate(timeIntervalSince1970: day["sunsetTime"] as! Double)
-                let time = NSDate(timeIntervalSince1970: day["time"] as! Double)
                 let oneDayForecast = OneDayForecast(
-                    sunriseTime: sunriseTime,
-                    sunsetTime: sunsetTime,
-                    time: time)
+                    sunriseTime: NSDate(timeIntervalSince1970: day["sunriseTime"] as! Double),
+                    sunsetTime:  NSDate(timeIntervalSince1970: day["sunsetTime"] as! Double),
+                    time:        NSDate(timeIntervalSince1970: day["time"] as! Double))
                 oneDayForecasts.append(oneDayForecast)
                 print("ODF \(oneDayForecast)")
             }
@@ -87,40 +82,12 @@ class ForecastIOBuilder {
         if let hourly = json["hourly"] as? [String: AnyObject],
             let hourlyData = hourly["data"] as? [[String: AnyObject]] {
                 for hour in hourlyData {
-                    // TODO: Absorb temporary variables.
-                    let apparentTemperature = hour["apparentTemperature"] as? Double
-                    let cloudCover = hour["cloudCover"] as? Double
-                    let dewPoint = hour["dewPoint"] as? Double
-                    let humidity = hour["humidity"] as? Double
-                    let icon = hour["icon"] as? String
-                    let ozone = hour["ozone"] as? Double
-                    let precipIntensity = hour["precipIntensity"] as? Double
-                    let precipProbability = hour["precipProbability"] as? Double
-                    let precipType = hour["precipType"] as? String
-                    let pressure = hour["pressure"] as? Double
-                    let summary = hour["summary"] as? String
-                    let temperature = hour["temperature"] as? Double
-                    let time = hour["time"] as? Int
-                    let visibility = hour["visibility"] as? Int
-                    let windBearing = hour["windBearing"] as? Int
-                    let windSpeed = hour["windSpeed"] as? Double
                     oneHourForecasts.append(OneHourForecast(
-                        apparentTemperature: apparentTemperature,
-                        cloudCover: cloudCover,
-                        dewPoint: dewPoint,
-                        humidity: humidity,
-                        icon: icon,
-                        ozone: ozone,
-                        precipIntensity: precipIntensity,
-                        precipProbability: precipProbability,
-                        precipType: precipType,
-                        pressure: pressure,
-                        summary: summary,
-                        temperature: temperature,
-                        time: time,
-                        visibility: visibility,
-                        windBearing: windBearing,
-                        windSpeed: windSpeed))
+                        icon:        hour["icon"] as? String,
+                        summary:     hour["summary"] as? String,
+                        temperature: hour["temperature"] as? Double,
+                        time:        hour["time"] as? Int)
+                    )
                 }
         }
         return oneHourForecasts.count > 0 ? oneHourForecasts : nil
