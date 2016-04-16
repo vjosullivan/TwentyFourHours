@@ -28,16 +28,6 @@ class NSDateExtensionTests: XCTestCase {
         XCTAssertEqual(asHpm(expected), testTime.asHpm())
     }
 
-    func testHpmMidday() {
-        let testTime    = middayTodayLocal()
-        XCTAssertEqual("midday", testTime.asHpm(showMidday: true))
-    }
-
-    func testHpmMidNight() {
-        let testTime    = midNightTodayLocal()
-        XCTAssertEqual("midnight", testTime.asHpm(showMidday: true))
-    }
-
     func testStartOfToday() {
         let testTime = NSDate.startOfToday()
         let expected = midNightTodayLocal()
@@ -59,10 +49,10 @@ class NSDateExtensionTests: XCTestCase {
     }
 
     /// Returns midday today as a date.
-    private func middayTodayLocal() -> NSDate {
+    private func middayTodayLocal() -> Double {
         let cal = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian)!
         cal.timeZone = NSTimeZone.localTimeZone()
-        return cal.dateBySettingHour(12, minute: 0, second: 0, ofDate: NSDate(), options: NSCalendarOptions.MatchFirst)!
+        return cal.dateBySettingHour(12, minute: 0, second: 0, ofDate: NSDate(), options: NSCalendarOptions.MatchFirst)!.timeIntervalSince1970
     }
 
     /// Returns midnight at the start of today as a date.

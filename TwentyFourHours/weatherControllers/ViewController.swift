@@ -9,27 +9,27 @@
 import UIKit
 import CoreLocation
 
-class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class ViewController: UIViewController, UITableViewDelegate {
 
     // MARK: Properties
 
     private var forecast: Forecast?
+    private var weatherData: WeatherDataSource?
 
     @IBOutlet weak var weatherTable: UITableView!
+
     // MARK: Location
 
     let locationManager = CLLocationManager()
 
     // MARK: Functions
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
         weatherTable.delegate = self
-        weatherTable.dataSource = self
-        //weatherTable.registerClass(WeatherTableViewCell.self, forCellReuseIdentifier: "HourCell")
+        weatherTable.dataSource = weatherData
 
-        configureUI()
         configureLocationManager()
         start()
     }
@@ -39,16 +39,13 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         // Dispose of any resources that can be recreated.
     }
 
-    private func configureUI() {
-
-    }
-
     private func start() {
         locationManager.requestLocation()
     }
 
     private func updateView(forecast: Forecast) {
-        self.forecast = forecast
+        weatherData = WeatherDataSource(forecast: forecast)
+        weatherTable.dataSource = weatherData
         weatherTable.reloadData()
     }
 }
@@ -70,7 +67,6 @@ extension ViewController: CLLocationManagerDelegate {
     }
 
     func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        print("Wahey! \(manager.description)")
         if let location = manager.location {
             fetchWeather(location)
             let info = location
@@ -94,11 +90,11 @@ extension ViewController: CLLocationManagerDelegate {
     func fetchWeather(location: CLLocation) {
         let coords = location.coordinate
         let units = NSUserDefaults.read(key: WeatherKeys.units, defaultValue: "auto")
-        print("Fetching forecast at \(coords.latitude), \(coords.longitude) in \(units).  Altitude \(location.altitude)")
         ForecastIOManager().fetchWeather(latitude: coords.latitude, longitude: coords.longitude, units: units) {(data, error) in
             if let data = data {
                 dispatch_async(dispatch_get_main_queue()) {
                     if let forecast = ForecastIOBuilder().buildForecast(data) {
+                        print("Got weather!")
                         self.updateView(forecast)
                     } else {
                         let alertController = UIAlertController(title: "Current Weather", message: "No weather forecast available at the moment.", preferredStyle: .Alert)
@@ -120,21 +116,6 @@ extension ViewController: CLLocationManagerDelegate {
 
     func locationManager(manager: CLLocationManager, didFailWithError error: NSError) {
         print("CLONK! \(error.description)")
-    }
-
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return 1
-    }
-    
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return forecast?.oneHourForecasts!.count ?? 0
-    }
-
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("HourCell")! as! WeatherTableViewCell
-
-        cell.configure(rowIndex: indexPath.row, forecast: forecast)
-        return cell
     }
 }
 

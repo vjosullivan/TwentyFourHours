@@ -20,7 +20,7 @@ class OneDayForecastTests: XCTestCase {
     }
 
     func testCreatable() {
-        let odf = OneDayForecast(sunriseTime: nil, sunsetTime: nil, time: nil)
+        let odf = OneDayForecast(sunriseTime: nil, sunsetTime: nil, time: NSDate())
         XCTAssertNotNil(odf)
     }
 
@@ -49,5 +49,4 @@ class OneDayForecastTests: XCTestCase {
         formatter.dateFormat = "HH:mm"
         return formatter.stringFromDate(date)
     }
-
 }

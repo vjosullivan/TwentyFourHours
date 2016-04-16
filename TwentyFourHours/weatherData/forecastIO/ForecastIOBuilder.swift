@@ -71,7 +71,6 @@ class ForecastIOBuilder {
                     sunsetTime:  NSDate(timeIntervalSince1970: day["sunsetTime"] as! Double),
                     time:        NSDate(timeIntervalSince1970: day["time"] as! Double))
                 oneDayForecasts.append(oneDayForecast)
-                print("ODF \(oneDayForecast)")
             }
         }
         return oneDayForecasts.count > 0 ? oneDayForecasts : nil

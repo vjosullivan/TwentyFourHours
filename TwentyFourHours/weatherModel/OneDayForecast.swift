@@ -11,13 +11,13 @@ struct OneDayForecast {
 
     let sunriseTime: NSDate?
     let sunsetTime: NSDate?
-    let time: NSDate?
+    let time: NSDate
 }
 
 extension OneDayForecast: CustomStringConvertible {
 
     var description: String {
-        let sun  = "Date=\(time?.asYYYYMMDD() ?? "?"), time=\(time?.asHHMM() ?? "?"), rise=\(sunriseTime?.asHHMM() ?? "?"), set=\(sunsetTime?.asHHMM() ?? "?")"
+        let sun  = "Date=\(time.asYYYYMMDD()), time=\(time.asHHMM()), rise=\(sunriseTime?.asHHMM() ?? "No sunrise"), set=\(sunsetTime?.asHHMM() ?? "No sunset")"
         return "OneDay: \(sun)\n"
     }
 }
