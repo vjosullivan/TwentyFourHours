@@ -25,10 +25,10 @@ class OneDayForecastTests: XCTestCase {
     }
 
     func testDescription() {
-        let testTime    = NSDate(timeIntervalSinceReferenceDate: 1460723696) // 2016-04-15 12:34:56
+        let testTime    = NSDate(timeIntervalSince1970: 1460723696) // 2016-04-15 12:34:56
         testTime.asYYYYMMDD()
-        let testSunrise = NSDate(timeIntervalSinceReferenceDate: 1460705700) // 2016-04-15 07:35:00
-        let testSunset  = NSDate(timeIntervalSinceReferenceDate: 1460754300) // 2016-04-15 21:05:00
+        let testSunrise = NSDate(timeIntervalSince1970: 1460705700) // 2016-04-15 07:35:00
+        let testSunset  = NSDate(timeIntervalSince1970: 1460754300) // 2016-04-15 21:05:00
         let odf = OneDayForecast(sunriseTime: testSunrise, sunsetTime: testSunset, time: testTime)
         let desc = odf.description
 

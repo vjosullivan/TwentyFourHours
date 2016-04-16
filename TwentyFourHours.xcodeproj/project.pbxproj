@@ -27,6 +27,7 @@
 		F17CF9AD1CC22FA100F5C4A9 /* OneDayForecastTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F17CF9AC1CC22FA100F5C4A9 /* OneDayForecastTests.swift */; };
 		F17CF9AF1CC2332B00F5C4A9 /* UserDefaultsExtensionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F17CF9AE1CC2332B00F5C4A9 /* UserDefaultsExtensionTests.swift */; };
 		F17CF9B11CC2415B00F5C4A9 /* CurrentConditionsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F17CF9B01CC2415B00F5C4A9 /* CurrentConditionsTests.swift */; };
+		F17CF9B51CC24B7C00F5C4A9 /* NSDateExtensionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F17CF9B41CC24B7C00F5C4A9 /* NSDateExtensionTests.swift */; };
 		F1E09CF81CC0353000D9B55B /* WeatherTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1E09CF71CC0353000D9B55B /* WeatherTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
@@ -65,6 +66,7 @@
 		F17CF9AC1CC22FA100F5C4A9 /* OneDayForecastTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OneDayForecastTests.swift; sourceTree = "<group>"; };
 		F17CF9AE1CC2332B00F5C4A9 /* UserDefaultsExtensionTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDefaultsExtensionTests.swift; sourceTree = "<group>"; };
 		F17CF9B01CC2415B00F5C4A9 /* CurrentConditionsTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrentConditionsTests.swift; sourceTree = "<group>"; };
+		F17CF9B41CC24B7C00F5C4A9 /* NSDateExtensionTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSDateExtensionTests.swift; sourceTree = "<group>"; };
 		F1E09CF71CC0353000D9B55B /* WeatherTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeatherTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -194,6 +196,7 @@
 			isa = PBXGroup;
 			children = (
 				F17CF9AE1CC2332B00F5C4A9 /* UserDefaultsExtensionTests.swift */,
+				F17CF9B41CC24B7C00F5C4A9 /* NSDateExtensionTests.swift */,
 			);
 			name = extensionsTests;
 			path = TwentyFourHoursTests/extensionsTests;
@@ -320,6 +323,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F17CF9B51CC24B7C00F5C4A9 /* NSDateExtensionTests.swift in Sources */,
 				F17CF9AD1CC22FA100F5C4A9 /* OneDayForecastTests.swift in Sources */,
 				F17CF9AA1CC226C100F5C4A9 /* UnitsTests.swift in Sources */,
 				F17CF9AF1CC2332B00F5C4A9 /* UserDefaultsExtensionTests.swift in Sources */,

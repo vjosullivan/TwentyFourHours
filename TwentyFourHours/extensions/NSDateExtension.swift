@@ -26,17 +26,19 @@ extension NSDate {
         let formatter = NSDateFormatter()
         formatter.dateFormat = "ha"
         let time = formatter.stringFromDate(self).lowercaseString
-        if showMidday {
-            if time == "12pm" {
-                return "midday"
-            } else if time == "12am" {
-                return "midnight"
-            }
+        let result: String
+        switch true {
+        case time == "12pm" && showMidday:
+            result = "midday"
+        case time == "12am" && showMidday:
+            result = "midnight"
+        default:
+            result = time
         }
-        return time
+        return result
     }
 
-    ///  Returns the exact date for the start of today.
+    ///  Returns the exact date for the local start of today.
     ///
     class func startOfToday() -> NSDate {
         let cal = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian)!
@@ -44,14 +46,4 @@ extension NSDate {
         let components = cal.components([.Day , .Month, .Year ], fromDate: NSDate())
         return cal.dateFromComponents(components)!
     }
-}
-
-//extension NSDate: Comparable { }
-//
-//public func ==(lhs: NSDate, rhs: NSDate) -> Bool {
-//    return lhs === rhs || lhs.compare(rhs) == .OrderedSame
-//}
-//
-public func <(lhs: NSDate, rhs: NSDate) -> Bool {
-    return lhs.compare(rhs) == .OrderedAscending
 }
