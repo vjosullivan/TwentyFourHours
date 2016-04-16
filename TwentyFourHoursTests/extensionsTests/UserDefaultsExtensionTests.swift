@@ -7,29 +7,35 @@
 //
 
 import XCTest
+@testable import TwentyFourHours
 
 class UserDefaultsExtensionTests: XCTestCase {
-    
-    override func setUp() {
-        super.setUp()
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+
+    func testWriteAndReadString() {
+        let testKey   = "24H.unitTest"
+        let testValue = "testString"
+        NSUserDefaults.write(key: testKey, value: testValue)
+        XCTAssertEqual(testValue, NSUserDefaults.read(key: testKey, defaultValue: "X"))
     }
-    
-    override func tearDown() {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
-        super.tearDown()
+
+    func testWriteAndReadDefaultString() {
+        let testKey   = "24H.unitTest"
+        let testValue = "testString"
+        NSUserDefaults.write(key: testKey, value: testValue)
+        XCTAssertEqual("DEFAULT", NSUserDefaults.read(key: "badKey", defaultValue: "DEFAULT"))
     }
-    
-    func testExample() {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
+
+    func testWriteAndReadInt() {
+        let testKey   = "24H.unitTest"
+        let testValue = 100
+        NSUserDefaults.writeInt(key: testKey, value: testValue)
+        XCTAssertEqual(testValue, NSUserDefaults.readInt(key: testKey, defaultValue: 99))
     }
-    
-    func testPerformanceExample() {
-        // This is an example of a performance test case.
-        self.measureBlock {
-            // Put the code you want to measure the time of here.
-        }
+
+    func testWriteAndReadDefaultInt() {
+        let testKey   = "24H.unitTest"
+        let testValue = 100
+        NSUserDefaults.writeInt(key: testKey, value: testValue)
+        XCTAssertEqual(99, NSUserDefaults.readInt(key: "badKey", defaultValue: 99))
     }
-    
 }
