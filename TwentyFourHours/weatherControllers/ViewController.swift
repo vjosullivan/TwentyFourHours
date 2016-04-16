@@ -89,25 +89,8 @@ extension ViewController: CLLocationManagerDelegate {
 
     func fetchWeather(location: CLLocation) {
         let coords = location.coordinate
-        let units = NSUserDefaults.read(key: WeatherKeys.units, defaultValue: "auto")
-        ForecastIOManager().fetchWeather(latitude: coords.latitude, longitude: coords.longitude, units: units) {(data, error) in
-            if let data = data {
-                dispatch_async(dispatch_get_main_queue()) {
-                    if let forecast = ForecastIOBuilder().buildForecast(data) {
-                        print("Got weather!")
-                        self.updateView(forecast)
-                    } else {
-                        let alertController = UIAlertController(title: "Current Weather", message: "No weather forecast available at the moment.", preferredStyle: .Alert)
-                        let okAction = UIAlertAction(title: "OK", style: .Default, handler: nil)
-                        alertController.addAction(okAction)
-                        self.presentViewController(alertController, animated: true, completion: nil)
-                    }
-                }
-            }
-            if let error = error {
-                print("ERROR: \(error.description)")
-            }
-        }
+        let units = NSUserDefaults.read(key: WeatherKeys.units, defaultValue: "si")
+        ForecastIOManager().fetchWeather(latitude: coords.latitude, longitude: coords.longitude, units: units, delegate: self)
     }
 
     private func updateLocationLabel(location: CLLocation) {
@@ -116,6 +99,23 @@ extension ViewController: CLLocationManagerDelegate {
 
     func locationManager(manager: CLLocationManager, didFailWithError error: NSError) {
         print("CLONK! \(error.description)")
+    }
+}
+
+extension ViewController: ForecastIOManagerDelegate {
+
+    func fetchWeatherSuccess(forecast: Forecast) {
+        print("Got more weather!")
+        dispatch_async(dispatch_get_main_queue()) {
+            self.updateView(forecast)
+        }
+    }
+
+    func fetchWeatherFail(error: NSError) {
+        let alertController = UIAlertController(title: "Current Weather", message: "No weather forecast available at the moment.", preferredStyle: .Alert)
+        let okAction = UIAlertAction(title: "OK", style: .Default, handler: nil)
+        alertController.addAction(okAction)
+        self.presentViewController(alertController, animated: true, completion: nil)
     }
 }
 

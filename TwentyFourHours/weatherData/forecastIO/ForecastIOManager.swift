@@ -19,29 +19,36 @@ public class ForecastIOManager {
     
     ///  Fetches the weather data and passes it to the supplied handler.
     ///
-    public func fetchWeather(latitude latitude: Double, longitude: Double, units: String, handle: (data: NSData?, error: NSError?) -> Void) {
-        
+    func fetchWeather(latitude latitude: Double, longitude: Double, units: String, delegate: ForecastIOManagerDelegate) {
+
         let session = NSURLSession.sharedSession()
         let weatherURL = forecastURL(latitude: latitude, longitude: longitude, units: units)
         let loadDataTask = session.dataTaskWithURL(weatherURL) { (data, response, error) -> Void in
             if let error = error {
-                handle(data: nil, error: error)
+                delegate.fetchWeatherFail(error)
             } else if let response = response as? NSHTTPURLResponse {
                 if response.statusCode != 200 {
                     let statusError = NSError(
                         domain: "com.vjosullivan",
                         code: response.statusCode,
                         userInfo: [NSLocalizedDescriptionKey : "HTTP status code has unexpected value."])
-                    handle(data: nil, error: statusError)
+                    delegate.fetchWeatherFail(statusError)
                 } else {
-                    handle(data: data, error: nil)
+                    delegate.fetchWeatherSuccess(ForecastIOBuilder().buildForecast(data!)!)
                 }
             }
         }
         loadDataTask.resume()
     }
-    
+
     private func forecastURL(latitude latitude: Double, longitude: Double, units: String) -> NSURL {
         return NSURL(string: "https://api.forecast.io/forecast/\(forecastApiKey)/\(latitude),\(longitude)?units=\(units)")!
     }
+}
+
+protocol ForecastIOManagerDelegate {
+
+    func fetchWeatherSuccess(forecast: Forecast)
+
+    func fetchWeatherFail(error: NSError)
 }
