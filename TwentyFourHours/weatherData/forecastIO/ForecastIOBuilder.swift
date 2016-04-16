@@ -29,13 +29,12 @@ class ForecastIOBuilder {
         var todaysForecast: OneDayForecast? = nil
         var earliestDate = NSDate.distantFuture()
         for day in (sevenDayForecast?.oneDayForecasts)! {
-            if day.time < earliestDate {
+            if day.time! < earliestDate {
                 earliestDate = day.time!
                 todaysForecast = day
             }
         }
         let oneHourForecasts = parseOneHourForecasts(json)
-        let sixtyMinuteForecast = parseSixtyMinuteForecast(json)
         let flags    = parseFlags(json)
         let timezone = json["timezone"] as? String
         let offset   = json["offset"] as? Double
@@ -46,7 +45,6 @@ class ForecastIOBuilder {
             oneDayForecast: todaysForecast,
             sevenDayForecast: sevenDayForecast,
             oneHourForecasts: oneHourForecasts,
-            sixtyMinuteForecast: sixtyMinuteForecast,
             flags: flags,
             timezone:  timezone,
             offset: offset,
@@ -101,18 +99,8 @@ class ForecastIOBuilder {
     private func parseFlags(json: [String: AnyObject]) -> Flags? {
         var allFlags: Flags?
         if let flags = json["flags"] as? [String: AnyObject] {
-            let isdStations = flags["isd-stations"] as? [String]
-            let sources = flags["sources"] as? [String]
-            let madisStations = flags["madis-stations"] as? [String]
             let units = flags["units"] as? String
-            let darkskyStations = flags["darksky-stations"] as? [String]
-            let datapointStations = flags["datapoint-stations"] as? [String]
-            allFlags = Flags(units: units,
-                sources: sources,
-                isdStations: isdStations,
-                madisStations: madisStations,
-                darkskyStations: darkskyStations,
-                datapointStations: datapointStations)
+            allFlags = Flags(units: units)
         }
         return allFlags ?? nil
     }
@@ -205,36 +193,6 @@ class ForecastIOBuilder {
             }
         }
         return oneDayForecasts.count > 0 ? oneDayForecasts : nil
-    }
-    
-    private func parseSixtyMinuteForecast(json: [String: AnyObject]) -> SixtyMinuteForecast? {
-        var sixtyMinuteForecast: SixtyMinuteForecast?
-        if let minutely = json["minutely"] as? [String: AnyObject] {
-            let oneMinuteForecasts = parseOneMinuteForecasts(minutely)
-            let icon     = minutely["icon"] as? String
-            let summary  = minutely["summary"] as? String
-            sixtyMinuteForecast = SixtyMinuteForecast(icon: icon, summary: summary, sixtyMinuteForecasts: oneMinuteForecasts)
-        }
-        return sixtyMinuteForecast ?? nil
-    }
-
-    private func parseOneMinuteForecasts(json: [String: AnyObject]) -> [OneMinuteForecast]? {
-        var oneMinuteForecasts = [OneMinuteForecast]()
-        if let minutes = json["data"] as? [[String: AnyObject]] {
-            for minute in minutes {
-                let time                 = minute["time"] as? Int
-                let precipType           = minute["precipType"] as? String
-                let precipIntensity      = minute["precipIntensity"] as? Double
-                let precipProbability    = minute["precipProbability"] as? Double
-                let precipIntensityError = minute["precipIntensityError"] as? Double
-                oneMinuteForecasts.append(OneMinuteForecast(time: time,
-                    precipType: precipType,
-                    precipIntensity: precipIntensity,
-                    precipProbability: precipProbability,
-                    precipIntensityError: precipIntensityError))
-            }
-        }
-        return oneMinuteForecasts.count > 0 ? oneMinuteForecasts : nil
     }
 
     private func parseOneHourForecasts(json: [String: AnyObject]) -> [OneHourForecast]? {

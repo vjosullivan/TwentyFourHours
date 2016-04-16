@@ -15,7 +15,6 @@ struct Forecast {
     let oneDayForecast: OneDayForecast?
     let sevenDayForecast: SevenDayForecast?
     let oneHourForecasts: [OneHourForecast]?
-    let sixtyMinuteForecast: SixtyMinuteForecast?
 
     let flags: Flags?
     let timezone: String?

@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TwentyFourHours/weatherData/forecastIO/ForecastIOBuilder.swift"
-            timestampString = "482358074.509564"
+            timestampString = "482485183.790354"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "246"
-            endingLineNumber = "246"
+            startingLineNumber = "204"
+            endingLineNumber = "204"
             landmarkName = "parseOneHourForecasts(_:)"
             landmarkType = "5">
          </BreakpointContent>

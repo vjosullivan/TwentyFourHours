@@ -124,7 +124,7 @@ extension ViewController: CLLocationManagerDelegate {
             let info = location
             let _ = NSTimer.scheduledTimerWithTimeInterval(900,
                                                            target:self,
-                                                           selector: "fetchMoreWeather:",
+                                                           selector: #selector(ViewController.fetchMoreWeather(_:)),
                                                            userInfo: info,
                                                            repeats: true)
             updateLocationLabel(location)
