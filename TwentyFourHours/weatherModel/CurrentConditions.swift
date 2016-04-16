@@ -11,7 +11,7 @@
 
 import Foundation
 
-struct Weather {
+struct CurrentConditions {
 
     let time: Int?
     let icon: String?
