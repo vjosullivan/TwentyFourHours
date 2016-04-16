@@ -7,29 +7,27 @@
 //
 
 import XCTest
+@testable import TwentyFourHours
 
 class CurrentConditionsTests: XCTestCase {
-    
-    override func setUp() {
-        super.setUp()
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+
+    func testCreatable() {
+        let testTime = 1460723696 // 2016-04-15 12:34:56
+        let testIcon = "icon"
+        let testSumy = "OK"
+        let testTemp = 20.0
+        let current  = CurrentConditions(time: testTime, icon: testIcon, summary: testSumy, temperature: testTemp)
+        XCTAssertNotNil(current)
+        XCTAssertEqual(testTime, current.time)
+        XCTAssertEqual(testIcon, current.icon)
+        XCTAssertEqual(testSumy, current.summary)
+        XCTAssertEqual(testTemp, current.temperature)
     }
-    
-    override func tearDown() {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
-        super.tearDown()
+
+    func testDate() {
+        let testTime = 1460723696 // 2016-04-15 12:34:56
+        let testDate = NSDate(timeIntervalSince1970: 1460723696) // 2016-04-15 12:34:56
+        let current  = CurrentConditions(time: testTime, icon: nil, summary: nil, temperature: nil)
+        XCTAssertEqual(testDate, current.date)
     }
-    
-    func testExample() {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-    }
-    
-    func testPerformanceExample() {
-        // This is an example of a performance test case.
-        self.measureBlock {
-            // Put the code you want to measure the time of here.
-        }
-    }
-    
 }

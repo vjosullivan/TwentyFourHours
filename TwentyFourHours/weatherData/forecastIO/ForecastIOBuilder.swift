@@ -24,7 +24,7 @@ class ForecastIOBuilder {
     private func parseJSONForecast(json: [String: AnyObject]) -> Forecast {
         let latitude         = json["latitude"] as? Double
         let longitude        = json["longitude"] as? Double
-        let weather          = parseWeather(json)
+        let currentConditions          = parseCurrentConditions(json)
         let oneDayForecasts = parseOneDayForecasts(json)
         let oneHourForecasts = parseOneHourForecasts(json)
         let flags    = parseFlags(json)
@@ -33,7 +33,7 @@ class ForecastIOBuilder {
         let forecast = Forecast(
             latitude: latitude,
             longitude: longitude,
-            weather: weather,
+            currentConditions: currentConditions,
             oneDayForecasts: oneDayForecasts,
             oneHourForecasts: oneHourForecasts,
             flags: flags,
@@ -43,48 +43,16 @@ class ForecastIOBuilder {
         return forecast
     }
     
-    private func parseWeather(json: [String: AnyObject]) -> Weather? {
-        var weather: Weather?
-        if let currently = json["currently"] as? [String: AnyObject] {
-            //print(currently)
-            let time = currently["time"] as? Int
-            let icon = currently["icon"] as? String
-            let summary = currently["summary"] as? String
-
-            let temperature = currently["temperature"] as? Double
-            let apparentTemperature = currently["apparentTemperature"] as? Double
-            let dewPoint = currently["dewPoint"] as? Double
-
-            let precipIntensity = currently["precipIntensity"] as? Double
-            let precipProbability = currently["precipProbability"] as? Double
-            let windSpeed = currently["windSpeed"] as? Double
-            let nearestStormBearing = currently["nearestStormBearing"] as? Double
-            let nearestStormDistance = currently["nearestStormDistance"] as? Double
-            let cloudCover = currently["cloudCover"] as? Double
-            let humidity = currently["humidity"] as? Double
-            let windBearing = currently["windBearing"] as? Double
-            let visibility = currently["visibility"] as? Double
-            let pressure = currently["pressure"] as? Double
-            let ozone = currently["ozone"] as? Double
-            weather = Weather(time: time,
-                icon: icon,
-                summary: summary,
-                temperature: temperature,
-                apparentTemperature: apparentTemperature,
-                dewPoint: dewPoint,
-                precipIntensity: precipIntensity,
-                precipProbability: precipProbability,
-                windSpeed: windSpeed,
-                nearestStormBearing: nearestStormBearing,
-                nearestStormDistance: nearestStormDistance,
-                cloudCover: cloudCover,
-                humidity: humidity,
-                windBearing: windBearing,
-                visibility: visibility,
-                pressure: pressure,
-                ozone: ozone)
+    private func parseCurrentConditions(json: [String: AnyObject]) -> CurrentConditions? {
+        var currentConditions: CurrentConditions?
+        if let current = json["currently"] as? [String: AnyObject] {
+            currentConditions = CurrentConditions(
+                time:        current["time"] as? Int,
+                icon:        current["icon"] as? String,
+                summary:     current["summary"] as? String,
+                temperature: current["temperature"] as? Double)
         }
-        return weather ?? nil
+        return currentConditions ?? nil
     }
     
     private func parseFlags(json: [String: AnyObject]) -> Flags? {
@@ -100,73 +68,13 @@ class ForecastIOBuilder {
         var oneDayForecasts = [OneDayForecast]()
         if let allDays = data["data"] as? [[String: AnyObject]] {
             for day in allDays {
-                //print("Day JSON: \(day)")
-                let apparentTemperatureMax = day["apparentTemperatureMax"] as? Double
-                let apparentTemperatureMaxTime: NSDate?
-                if let time = day["apparentTemperatureMaxTime"] as? Double {
-                    apparentTemperatureMaxTime = NSDate(timeIntervalSince1970: time)
-                } else {
-                    apparentTemperatureMaxTime = nil
-                }
-                let apparentTemperatureMin = day["apparentTemperatureMin"] as? Double
-                let apparentTemperatureMinTime = NSDate(timeIntervalSince1970: day["apparentTemperatureMinTime"] as! Double)
-                
-                let cloudCover = day["cloudCover"] as? Double
-                let dewPoint = day["dewPoint"] as? Double
-                let humidity = day["humidity"] as? Double
-                let icon = day["icon"] as? Double
-                let moonPhase = day["moonPhase"] as? Double
-                let ozone = day["ozone"] as? Double
-                
-                let precipIntensity = day["precipIntensity"] as? Double
-                let precipIntensityMax = day["precipIntensityMax"] as? Double
-                let precipIntensityMaxTime = NSDate(timeIntervalSince1970: day["precipIntensityMaxTime"] as? Double ?? 0.0)
-                let precipProbability = day["precipProbability"] as? Double
-                let precipType = day["precipType"] as? String
-                
-                let pressure = day["pressure"] as? Double
-                print("Pressure: \(pressure) \(day["pressure"])")
-                let summary = day["summary"] as? String
                 let sunriseTime = NSDate(timeIntervalSince1970: day["sunriseTime"] as! Double)
                 let sunsetTime = NSDate(timeIntervalSince1970: day["sunsetTime"] as! Double)
-                
-                let temperatureMax = day["temperatureMax"] as? Double
-                let temperatureMaxTime = NSDate(timeIntervalSince1970: day["temperatureMaxTime"] as! Double)
-                let temperatureMin = day["temperatureMin"] as? Double
-                let temperatureMinTime = NSDate(timeIntervalSince1970: day["temperatureMinTime"] as! Double)
-                
                 let time = NSDate(timeIntervalSince1970: day["time"] as! Double)
-                let visibility = day["visibility"] as? Double
-                
-                let windBearing = day["windBearing"] as? Double
-                let windSpeed = day["windSpeed"] as? Double
-                let oneDayForecast = OneDayForecast(apparentTemperatureMax: apparentTemperatureMax,
-                    apparentTemperatureMaxTime: apparentTemperatureMaxTime,
-                    apparentTemperatureMin: apparentTemperatureMin,
-                    apparentTemperatureMinTime: apparentTemperatureMinTime,
-                    cloudCover:  cloudCover,
-                    dewPoint: dewPoint,
-                    humidity: humidity,
-                    icon: icon,
-                    moonPhase: moonPhase,
-                    ozone: ozone,
-                    precipIntensity: precipIntensity,
-                    precipIntensityMax: precipIntensityMax,
-                    precipIntensityMaxTime: precipIntensityMaxTime,
-                    precipProbability:  precipProbability,
-                    precipType: precipType,
-                    pressure:  pressure,
-                    summary:  summary,
+                let oneDayForecast = OneDayForecast(
                     sunriseTime: sunriseTime,
                     sunsetTime: sunsetTime,
-                    temperatureMax: temperatureMax,
-                    temperatureMaxTime: temperatureMaxTime,
-                    temperatureMin: temperatureMin,
-                    temperatureMinTime:  temperatureMinTime,
-                    time: time,
-                    visibility: visibility,
-                    windBearing:  windBearing,
-                    windSpeed: windSpeed)
+                    time: time)
                 oneDayForecasts.append(oneDayForecast)
                 print("ODF \(oneDayForecast)")
             }

@@ -7,6 +7,7 @@
 //
 
 import XCTest
+@testable import TwentyFourHours
 
 class FlagsTests: XCTestCase {
     

@@ -118,8 +118,7 @@ extension ViewController: CLLocationManagerDelegate {
 
     func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         print("Wahey! \(manager.description)")
-        if let coords = manager.location?.coordinate,
-            let location = manager.location {
+        if let location = manager.location {
             fetchWeather(location)
             let info = location
             let _ = NSTimer.scheduledTimerWithTimeInterval(900,
@@ -163,14 +162,7 @@ extension ViewController: CLLocationManagerDelegate {
     }
 
     private func updateLocationLabel(location: CLLocation) {
-//        let latitude  = round(location.coordinate.latitude * 10.0) / 10.0
-//        let longitude = round(location.coordinate.longitude * 10.0) / 10.0
-//        let altitude  = round(location.altitude * 10.0) / 10.0
-//        let latitudeSuffix  = latitude >= 0.0 ? "°N" : "°S"
-//        let longitudeSuffix = longitude >= 0.0 ? "°E" : "°W"
         print(location.description)
-        //locationLine1.text = "\(abs(latitude))\(latitudeSuffix)  \(abs(longitude))\(longitudeSuffix)"
-        //locationLine2.text = "altitude: \(altitude)m"
     }
 
     func locationManager(manager: CLLocationManager, didFailWithError error: NSError) {
@@ -191,16 +183,14 @@ extension ViewController: CLLocationManagerDelegate {
 
         let temp = forecast?.oneHourForecasts?[indexPath.row].temperature ?? 0.0
         cell.tempLabel!.text = "\(Int(round(temp)))"
+        cell.CFLabel.text = Units(units: forecast?.flags?.units ?? "si").temperature
 
         cell.dayLabel!.text  =  dayStringFromUnixTime(Double(forecast?.oneHourForecasts?[indexPath.row].time ?? 0.0))
         cell.timeLabel!.text = timeStringFromUnixTime(Double(forecast?.oneHourForecasts?[indexPath.row].time ?? 0.0))
 
-        let precip    = Int(round((forecast?.oneHourForecasts?[indexPath.row].precipProbability ?? 0.0) * 100))
-        let intensity = round((forecast?.oneHourForecasts?[indexPath.row].precipIntensity ?? 0.0))
-        let rainType  = forecast?.oneHourForecasts?[indexPath.row].precipType ?? ""
         let summary  = forecast?.oneHourForecasts?[indexPath.row].summary ?? ""
         let icon  = forecast?.oneHourForecasts?[indexPath.row].icon ?? ""
-        //cell.rainLabel!.text = "\(precip)% \(intensity) \(rainType) (\(icon)) \(summary)"
+
         cell.rainLabel!.text = "\(summary)"
         cell.weatherIcon.image = weatherImage(icon)
 
