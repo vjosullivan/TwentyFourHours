@@ -11,122 +11,38 @@ import CoreLocation
 
 class ViewController: UIViewController, UITableViewDelegate {
 
-    // MARK: Properties
-
-    private var forecast: Forecast?
-    private var weatherData: WeatherDataSource?
-
     @IBOutlet weak var weatherTable: UITableView!
-
-    // MARK: Location
-
-    let locationManager = CLLocationManager()
-
-    // MARK: Functions
+    
+    private var weatherData: WeatherDataSource?
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         weatherTable.delegate = self
-        weatherTable.dataSource = weatherData
 
-        configureLocationManager()
-        start()
+        let forecastManager = ForecastIOManager(delegate: self)
+        forecastManager.updateForecast()
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-
-    private func start() {
-        locationManager.requestLocation()
-    }
-
-    private func updateView(forecast: Forecast) {
+    func updateView(forecast forecast: Forecast) {
         weatherData = WeatherDataSource(forecast: forecast)
         weatherTable.dataSource = weatherData
         weatherTable.reloadData()
     }
 }
 
-extension ViewController: CLLocationManagerDelegate {
+extension ViewController: ForecastManagerDelegate {
 
-    private func configureLocationManager() {
-        // Ask for Authorisation from the User.
-        locationManager.requestAlwaysAuthorization()
-
-        // For use in foreground
-        locationManager.requestWhenInUseAuthorization()
-
-        if CLLocationManager.locationServicesEnabled() {
-            locationManager.delegate = self
-            locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
-            locationManager.requestLocation()
-        }
-    }
-
-    func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        if let location = manager.location {
-            fetchWeather(location)
-            let info = location
-            let _ = NSTimer.scheduledTimerWithTimeInterval(900,
-                                                           target:self,
-                                                           selector: #selector(ViewController.fetchMoreWeather(_:)),
-                                                           userInfo: info,
-                                                           repeats: true)
-            updateLocationLabel(location)
-        } else {
-            print("Unable to determine location.")
-        }
-    }
-
-    func fetchMoreWeather(timer: NSTimer) {
-        if let location = timer.userInfo as? CLLocation {
-            fetchWeather(location)
-        }
-    }
-
-    func fetchWeather(location: CLLocation) {
-        let coords = location.coordinate
-        let units = NSUserDefaults.read(key: WeatherKeys.units, defaultValue: "si")
-        ForecastIOManager().fetchWeather(latitude: coords.latitude, longitude: coords.longitude, units: units, delegate: self)
-    }
-
-    private func updateLocationLabel(location: CLLocation) {
-        print(location.description)
-    }
-
-    func locationManager(manager: CLLocationManager, didFailWithError error: NSError) {
-        print("CLONK! \(error.description)")
-    }
-}
-
-extension ViewController: ForecastIOManagerDelegate {
-
-    func fetchWeatherSuccess(forecast: Forecast) {
-        print("Got more weather!")
+    func forecastManager(manager: ForecastIOManager, didUpdateForecast forecast: Forecast) {
         dispatch_async(dispatch_get_main_queue()) {
-            self.updateView(forecast)
+            self.updateView(forecast: forecast)
         }
     }
 
-    func fetchWeatherFail(error: NSError) {
+    func forecastManager(manager: ForecastIOManager, didFailWithError error: NSError) {
         let alertController = UIAlertController(title: "Current Weather", message: "No weather forecast available at the moment.", preferredStyle: .Alert)
         let okAction = UIAlertAction(title: "OK", style: .Default, handler: nil)
         alertController.addAction(okAction)
         self.presentViewController(alertController, animated: true, completion: nil)
     }
-}
-
-struct WeatherKeys {
-    static let units    = "weather.units"
-    static let windType = "weather.windtype"
-}
-
-enum CellStyle {
-    case Day
-    case Night
-    case Evening
-    case Dusk
 }

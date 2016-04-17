@@ -16,7 +16,7 @@ class ForecastIOBuilder {
             let newForecast = parseJSONForecast(json)
             return newForecast
         } catch {
-            print(error)
+            print("Build forecast failed with error: \(error)")
         }
         return nil
     }

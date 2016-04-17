@@ -128,3 +128,11 @@ extension WeatherTableViewCell {
         return dateFormatter.stringFromDate(date)
     }
 }
+
+enum CellStyle {
+    case Day
+    case Night
+    case Evening
+    case Dusk
+}
+
