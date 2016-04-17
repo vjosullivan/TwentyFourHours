@@ -23,14 +23,15 @@ public class ForecastIOManager {
 
     init(delegate: ForecastManagerDelegate) {
 
-        self.forecastDelegate = delegate
+        forecastDelegate = delegate
     }
 
     func updateForecast() {
         locationManager = LocationManager(delegate: self)
+        locationManager?.requestLocation()
     }
     
-    ///  Fetches the weather data and passes the results to the ForecastManager delegate.
+    ///  Fetches the weather data and passes it to the supplied handler.
     ///
     private func fetchWeather(location location: (latitude: Double, longitude: Double), delegate: ForecastManagerDelegate) {
 
@@ -67,7 +68,7 @@ extension ForecastIOManager: LocationManagerDelegate {
     }
 
     func locationManager(manager: LocationManager, didFailWithError error: NSError) {
-        print("Forecast IO Manager failed with error: \(error)")
+        print("Location manager failed with error: \(error)")
     }
 }
 

@@ -9,7 +9,7 @@
 import UIKit
 import CoreLocation
 
-class LocationManager: CLLocationManager, CLLocationManagerDelegate {
+class LocationManager: CLLocationManager {
 
     let locationDelegate: LocationManagerDelegate
 
@@ -19,19 +19,25 @@ class LocationManager: CLLocationManager, CLLocationManagerDelegate {
         configure()
     }
 
+    override func requestLocation() {
+
+        if CLLocationManager.locationServicesEnabled() {
+            delegate = self
+            desiredAccuracy = kCLLocationAccuracyNearestTenMeters
+            super.requestLocation()
+        }
+    }
+
     private func configure() {
         // Ask for Authorisation from the User.
         requestAlwaysAuthorization()
 
         // For use in foreground
         requestWhenInUseAuthorization()
-
-        if CLLocationManager.locationServicesEnabled() {
-            delegate = self
-            desiredAccuracy = kCLLocationAccuracyNearestTenMeters
-            requestLocation()
-        }
     }
+}
+
+extension LocationManager: CLLocationManagerDelegate {
 
     func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         let coords = locations[0].coordinate

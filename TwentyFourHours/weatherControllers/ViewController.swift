@@ -20,11 +20,11 @@ class ViewController: UIViewController, UITableViewDelegate {
 
         weatherTable.delegate = self
 
-        let forecastManager = ForecastIOManager(delegate: self)
-        forecastManager.updateForecast()
+        ForecastIOManager(delegate: self).updateForecast()
     }
 
     func updateView(forecast forecast: Forecast) {
+        print("Updating view...")
         weatherData = WeatherDataSource(forecast: forecast)
         weatherTable.dataSource = weatherData
         weatherTable.reloadData()
@@ -40,7 +40,7 @@ extension ViewController: ForecastManagerDelegate {
     }
 
     func forecastManager(manager: ForecastIOManager, didFailWithError error: NSError) {
-        let alertController = UIAlertController(title: "Current Weather", message: "No weather forecast available at the moment.", preferredStyle: .Alert)
+        let alertController = UIAlertController(title: "Current Weather", message: "No weather forecast available at the moment.\n\n\(error)", preferredStyle: .Alert)
         let okAction = UIAlertAction(title: "OK", style: .Default, handler: nil)
         alertController.addAction(okAction)
         self.presentViewController(alertController, animated: true, completion: nil)
