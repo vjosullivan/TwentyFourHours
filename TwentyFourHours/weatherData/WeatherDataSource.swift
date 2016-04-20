@@ -8,14 +8,17 @@
 
 import UIKit
 
-class WeatherDataSource:  NSObject, UITableViewDataSource {
+class WeatherDataSource:  NSObject {
 
     private let forecast: Forecast
 
     init(forecast: Forecast) {
         self.forecast = forecast
     }
-    
+}
+
+extension WeatherDataSource: UITableViewDataSource {
+
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 1
     }
@@ -25,7 +28,7 @@ class WeatherDataSource:  NSObject, UITableViewDataSource {
     }
 
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("HourCell")! as! WeatherTableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier("HourCell") as! WeatherTableViewCell
 
         cell.configure(rowIndex: indexPath.row, forecast: forecast)
         return cell

@@ -11,34 +11,44 @@ import CoreLocation
 @testable import TwentyFourHours
 
 class LocationManagerTests: XCTestCase {
+
+    var mockDelegate: MockLocationManagerDelegate?
+    var locationManager: LocationManager?
+
+    override func setUp() {
+        super.setUp()
+        mockDelegate = MockLocationManagerDelegate()
+        locationManager = LocationManager(delegate: mockDelegate!)
+    }
     
+    override func tearDown() {
+        locationManager = nil
+        mockDelegate = nil
+        super.tearDown()
+    }
+
     func testCanCreate() {
-        let mockDelegate = MockLocationManagerDelegate()
-        let lm = LocationManager(delegate: mockDelegate)
-        XCTAssertNotNil(lm)
+        XCTAssertNotNil(locationManager!)
     }
 
     func testSucessCallsDelegate() {
-        let mockDelegate = MockLocationManagerDelegate()
-        let lm = LocationManager(delegate: mockDelegate)
 
+        // Set up test.
         var locations = [CLLocation]()
         let location = CLLocation(latitude: 51.3, longitude: -1.0)
         locations.append(location)
-        lm.locationManager(lm, didUpdateLocations: locations)
+        locationManager!.locationManager(locationManager!, didUpdateLocations: locations)
 
-        XCTAssertEqual(location.coordinate.latitude, mockDelegate.location?.latitude)
-        XCTAssertEqual(location.coordinate.longitude, mockDelegate.location?.longitude)
+        // Check results.
+        XCTAssertEqual(location.coordinate.latitude, mockDelegate!.location?.latitude)
+        XCTAssertEqual(location.coordinate.longitude, mockDelegate!.location?.longitude)
     }
 
     func testFailureCallsDelegate() {
-        let mockDelegate = MockLocationManagerDelegate()
-        let lm = LocationManager(delegate: mockDelegate)
-
         let error = NSError(domain: "vos", code: 99, userInfo: nil)
-        lm.locationManager(lm, didFailWithError: error)
+        locationManager!.locationManager(locationManager!, didFailWithError: error)
 
-        XCTAssertEqual(error.code, mockDelegate.error!.code)
+        XCTAssertEqual(error.code, mockDelegate!.error!.code)
     }
 }
 
