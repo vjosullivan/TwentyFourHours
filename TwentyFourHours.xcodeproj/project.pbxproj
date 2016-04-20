@@ -77,7 +77,7 @@
 		F17CF9B01CC2415B00F5C4A9 /* CurrentConditionsTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrentConditionsTests.swift; sourceTree = "<group>"; };
 		F17CF9B41CC24B7C00F5C4A9 /* NSDateExtensionTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSDateExtensionTests.swift; sourceTree = "<group>"; };
 		F1C4AC601CC81DED007B276D /* mockWeatherTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = mockWeatherTableViewCell.swift; sourceTree = "<group>"; };
-		F1E09CF71CC0353000D9B55B /* WeatherTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeatherTableViewCell.swift; sourceTree = "<group>"; };
+		F1E09CF71CC0353000D9B55B /* WeatherTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WeatherTableViewCell.swift; path = ../WeatherTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,6 +101,7 @@
 		3424C40A1CC0CAD400ABE283 /* weatherControllers */ = {
 			isa = PBXGroup;
 			children = (
+				F1E09CF71CC0353000D9B55B /* WeatherTableViewCell.swift */,
 				3424C40C1CC0CB2F00ABE283 /* ViewController.swift */,
 			);
 			path = weatherControllers;
@@ -136,7 +137,6 @@
 				34EBD4AE1CBFDF180033B651 /* weatherModel */,
 				34EBD4A11CBFDCCD0033B651 /* weatherData */,
 				34EBD4BB1CBFDF620033B651 /* extensions */,
-				F1E09CF71CC0353000D9B55B /* WeatherTableViewCell.swift */,
 				34EBD4741CBFDB5F0033B651 /* Assets.xcassets */,
 			);
 			path = TwentyFourHours;

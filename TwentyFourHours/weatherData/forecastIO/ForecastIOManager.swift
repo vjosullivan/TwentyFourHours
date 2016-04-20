@@ -8,6 +8,7 @@
 
 import Foundation
 
+typealias Location = (latitude: Double, longitude: Double)
 
 ///  Handles communication with the weather API.
 public class ForecastIOManager {
@@ -33,38 +34,38 @@ public class ForecastIOManager {
     
     ///  Fetches the weather data and passes it to the supplied handler.
     ///
-    private func fetchWeather(location location: (latitude: Double, longitude: Double), delegate: ForecastManagerDelegate) {
+    private func fetchWeather(location location: Location) {
 
         let units = NSUserDefaults.read(key: WeatherKeys.units, defaultValue: "si")
         let session = NSURLSession.sharedSession()
-        let weatherURL = forecastURL(latitude: location.latitude, longitude: location.longitude, units: units)
+        let weatherURL = forecastURL(location, units: units)
         let loadDataTask = session.dataTaskWithURL(weatherURL) { (data, response, error) -> Void in
             if let error = error {
-                delegate.forecastManager(self, didFailWithError: error)
+                self.forecastDelegate.forecastManager(self, didFailWithError: error)
             } else if let response = response as? NSHTTPURLResponse {
                 if response.statusCode != 200 {
                     let statusError = NSError(
                         domain: "com.vjosullivan",
                         code: response.statusCode,
                         userInfo: [NSLocalizedDescriptionKey : "HTTP status code has unexpected value."])
-                    delegate.forecastManager(self, didFailWithError: statusError)
+                    self.forecastDelegate.forecastManager(self, didFailWithError: statusError)
                 } else {
-                    delegate.forecastManager(self, didUpdateForecast: ForecastIOBuilder().buildForecast(data!)!)
+                    self.forecastDelegate.forecastManager(self, didUpdateForecast: ForecastIOBuilder().buildForecast(data!)!)
                 }
             }
         }
         loadDataTask.resume()
     }
 
-    private func forecastURL(latitude latitude: Double, longitude: Double, units: String) -> NSURL {
-        return NSURL(string: "https://api.forecast.io/forecast/\(forecastApiKey)/\(latitude),\(longitude)?units=\(units)")!
+    private func forecastURL(location: Location, units: String) -> NSURL {
+        return NSURL(string: "https://api.forecast.io/forecast/\(forecastApiKey)/\(location.latitude),\(location.longitude)?units=\(units)")!
     }
 }
 
 extension ForecastIOManager: LocationManagerDelegate {
 
-    func locationManager(manager: LocationManager, didUpdateLocation location: (latitude: Double, longitude: Double)) {
-        fetchWeather(location: location, delegate: forecastDelegate)
+    func locationManager(manager: LocationManager, didUpdateLocation location: Location) {
+        fetchWeather(location: location)
     }
 
     func locationManager(manager: LocationManager, didFailWithError error: NSError) {

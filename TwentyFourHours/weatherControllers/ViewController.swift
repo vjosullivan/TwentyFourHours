@@ -9,7 +9,7 @@
 import UIKit
 import CoreLocation
 
-class ViewController: UIViewController, UITableViewDelegate {
+class ViewController: UIViewController {
 
     @IBOutlet weak var weatherTable: UITableView!
     
@@ -18,13 +18,10 @@ class ViewController: UIViewController, UITableViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        weatherTable.delegate = self
-
         ForecastIOManager(delegate: self).updateForecast()
     }
 
-    func updateView(forecast forecast: Forecast) {
-        print("Updating view...")
+    private func updateView(forecast forecast: Forecast) {
         weatherData = WeatherDataSource(forecast: forecast)
         weatherTable.dataSource = weatherData
         weatherTable.reloadData()

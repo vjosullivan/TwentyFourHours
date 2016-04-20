@@ -62,16 +62,18 @@ class ForecastIOBuilder {
         return allFlags ?? nil
     }
     
-    private func parseOneDayForecasts(data: [String: AnyObject]) -> [OneDayForecast]? {
+    private func parseOneDayForecasts(json: [String: AnyObject]) -> [OneDayForecast]? {
         var oneDayForecasts = [OneDayForecast]()
-        if let allDays = data["data"] as? [[String: AnyObject]] {
-            for day in allDays {
+        if let daily = json["daily"] as? [String: AnyObject],
+            let dailyData = daily["data"] as? [[String: AnyObject]] {
+            for day in dailyData {
                 let oneDayForecast = OneDayForecast(
                     sunriseTime: NSDate(timeIntervalSince1970: day["sunriseTime"] as! Double),
                     sunsetTime:  NSDate(timeIntervalSince1970: day["sunsetTime"] as! Double),
                     time:        NSDate(timeIntervalSince1970: day["time"] as! Double))
                 oneDayForecasts.append(oneDayForecast)
             }
+
         }
         return oneDayForecasts.count > 0 ? oneDayForecasts : nil
     }
