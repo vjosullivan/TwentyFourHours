@@ -26,6 +26,7 @@
 		F15676A61CC37F69006B5076 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F15676A51CC37F69006B5076 /* LocationManager.swift */; };
 		F15676AA1CC3B642006B5076 /* LocationManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F15676A91CC3B642006B5076 /* LocationManagerTests.swift */; };
 		F15676AD1CC3BBEA006B5076 /* WeatherDataSourceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F15676AC1CC3BBEA006B5076 /* WeatherDataSourceTests.swift */; };
+		F16B19E81CC8C0A4008B39EC /* DayLineTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F16B19E71CC8C0A4008B39EC /* DayLineTests.swift */; };
 		F17CF9A81CC2204500F5C4A9 /* FlagsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F17CF9A71CC2204500F5C4A9 /* FlagsTests.swift */; };
 		F17CF9AA1CC226C100F5C4A9 /* UnitsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F17CF9A91CC226C100F5C4A9 /* UnitsTests.swift */; };
 		F17CF9AD1CC22FA100F5C4A9 /* OneDayForecastTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F17CF9AC1CC22FA100F5C4A9 /* OneDayForecastTests.swift */; };
@@ -33,6 +34,10 @@
 		F17CF9B11CC2415B00F5C4A9 /* CurrentConditionsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F17CF9B01CC2415B00F5C4A9 /* CurrentConditionsTests.swift */; };
 		F17CF9B51CC24B7C00F5C4A9 /* NSDateExtensionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F17CF9B41CC24B7C00F5C4A9 /* NSDateExtensionTests.swift */; };
 		F1C4AC611CC81DED007B276D /* mockWeatherTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1C4AC601CC81DED007B276D /* mockWeatherTableViewCell.swift */; };
+		F1C4AC631CC8365E007B276D /* WeatherLine.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1C4AC621CC8365E007B276D /* WeatherLine.swift */; };
+		F1C4AC651CC838F6007B276D /* DayLine.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1C4AC641CC838F6007B276D /* DayLine.swift */; };
+		F1C4AC671CC839D1007B276D /* LightLine.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1C4AC661CC839D1007B276D /* LightLine.swift */; };
+		F1C4AC691CC83CE3007B276D /* HourLine.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1C4AC681CC83CE3007B276D /* HourLine.swift */; };
 		F1E09CF81CC0353000D9B55B /* WeatherTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1E09CF71CC0353000D9B55B /* WeatherTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
@@ -70,6 +75,7 @@
 		F15676A51CC37F69006B5076 /* LocationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		F15676A91CC3B642006B5076 /* LocationManagerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationManagerTests.swift; sourceTree = "<group>"; };
 		F15676AC1CC3BBEA006B5076 /* WeatherDataSourceTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeatherDataSourceTests.swift; sourceTree = "<group>"; };
+		F16B19E71CC8C0A4008B39EC /* DayLineTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DayLineTests.swift; sourceTree = "<group>"; };
 		F17CF9A71CC2204500F5C4A9 /* FlagsTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlagsTests.swift; sourceTree = "<group>"; };
 		F17CF9A91CC226C100F5C4A9 /* UnitsTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UnitsTests.swift; sourceTree = "<group>"; };
 		F17CF9AC1CC22FA100F5C4A9 /* OneDayForecastTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OneDayForecastTests.swift; sourceTree = "<group>"; };
@@ -77,6 +83,10 @@
 		F17CF9B01CC2415B00F5C4A9 /* CurrentConditionsTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrentConditionsTests.swift; sourceTree = "<group>"; };
 		F17CF9B41CC24B7C00F5C4A9 /* NSDateExtensionTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSDateExtensionTests.swift; sourceTree = "<group>"; };
 		F1C4AC601CC81DED007B276D /* mockWeatherTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = mockWeatherTableViewCell.swift; sourceTree = "<group>"; };
+		F1C4AC621CC8365E007B276D /* WeatherLine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeatherLine.swift; sourceTree = "<group>"; };
+		F1C4AC641CC838F6007B276D /* DayLine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DayLine.swift; sourceTree = "<group>"; };
+		F1C4AC661CC839D1007B276D /* LightLine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LightLine.swift; sourceTree = "<group>"; };
+		F1C4AC681CC83CE3007B276D /* HourLine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HourLine.swift; sourceTree = "<group>"; };
 		F1E09CF71CC0353000D9B55B /* WeatherTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WeatherTableViewCell.swift; path = ../WeatherTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -181,6 +191,10 @@
 				34EBD4DB1CBFDFF20033B651 /* Flags.swift */,
 				34EBD4E11CBFDFF80033B651 /* Units.swift */,
 				34EBD4C31CBFDFCE0033B651 /* CurrentConditions.swift */,
+				F1C4AC621CC8365E007B276D /* WeatherLine.swift */,
+				F1C4AC641CC838F6007B276D /* DayLine.swift */,
+				F1C4AC661CC839D1007B276D /* LightLine.swift */,
+				F1C4AC681CC83CE3007B276D /* HourLine.swift */,
 			);
 			path = weatherModel;
 			sourceTree = "<group>";
@@ -227,6 +241,7 @@
 				F17CF9A91CC226C100F5C4A9 /* UnitsTests.swift */,
 				F17CF9AC1CC22FA100F5C4A9 /* OneDayForecastTests.swift */,
 				F17CF9B01CC2415B00F5C4A9 /* CurrentConditionsTests.swift */,
+				F16B19E71CC8C0A4008B39EC /* DayLineTests.swift */,
 			);
 			name = weatherModel;
 			path = TwentyFourHoursTests/weatherModelTests;
@@ -345,14 +360,18 @@
 			files = (
 				34EBD4C41CBFDFCE0033B651 /* CurrentConditions.swift in Sources */,
 				34EBD4E21CBFDFF80033B651 /* Units.swift in Sources */,
+				F1C4AC691CC83CE3007B276D /* HourLine.swift in Sources */,
 				F15676A61CC37F69006B5076 /* LocationManager.swift in Sources */,
 				34EBD4E81CBFE0170033B651 /* NSDateExtension.swift in Sources */,
+				F1C4AC631CC8365E007B276D /* WeatherLine.swift in Sources */,
 				F15676A41CC2ED59006B5076 /* WeatherDataSource.swift in Sources */,
+				F1C4AC671CC839D1007B276D /* LightLine.swift in Sources */,
 				34EBD4B61CBFDF480033B651 /* OneDayForecast.swift in Sources */,
 				34EBD4A81CBFDD3E0033B651 /* ForecastIOManager.swift in Sources */,
 				34EBD4DC1CBFDFF20033B651 /* Flags.swift in Sources */,
 				F1E09CF81CC0353000D9B55B /* WeatherTableViewCell.swift in Sources */,
 				3424C40D1CC0CB2F00ABE283 /* ViewController.swift in Sources */,
+				F1C4AC651CC838F6007B276D /* DayLine.swift in Sources */,
 				34EBD4A61CBFDD3E0033B651 /* ForecastIOBuilder.swift in Sources */,
 				34EBD46E1CBFDB5F0033B651 /* AppDelegate.swift in Sources */,
 				34EBD4D01CBFDFE10033B651 /* OneHourForecast.swift in Sources */,
@@ -369,6 +388,7 @@
 				F1C4AC611CC81DED007B276D /* mockWeatherTableViewCell.swift in Sources */,
 				F17CF9AD1CC22FA100F5C4A9 /* OneDayForecastTests.swift in Sources */,
 				F17CF9AA1CC226C100F5C4A9 /* UnitsTests.swift in Sources */,
+				F16B19E81CC8C0A4008B39EC /* DayLineTests.swift in Sources */,
 				F17CF9AF1CC2332B00F5C4A9 /* UserDefaultsExtensionTests.swift in Sources */,
 				F15676AA1CC3B642006B5076 /* LocationManagerTests.swift in Sources */,
 				F15676AD1CC3BBEA006B5076 /* WeatherDataSourceTests.swift in Sources */,
@@ -496,7 +516,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = TwentyFourHours/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.britishairwaysent.TwentyFourHours;
+				PRODUCT_BUNDLE_IDENTIFIER = com.vjosullivan.TwentyFourHours;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -507,7 +527,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = TwentyFourHours/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.britishairwaysent.TwentyFourHours;
+				PRODUCT_BUNDLE_IDENTIFIER = com.vjosullivan.TwentyFourHours;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;

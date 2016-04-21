@@ -13,3 +13,9 @@ struct OneHourForecast {
     let temperature: Double?
     let time: Int?
 }
+
+extension OneHourForecast: Comparable {}
+
+func == (x: OneHourForecast, y: OneHourForecast) -> Bool { return x.time == y.time }
+func <  (x: OneHourForecast, y: OneHourForecast) -> Bool { return x.time <  y.time }
+

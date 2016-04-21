@@ -30,6 +30,8 @@ class ForecastIOBuilder {
         let flags    = parseFlags(json)
         let timezone = json["timezone"] as? String
         let offset   = json["offset"] as? Double
+        let weatherLines = parseForecasts(oneHourForecasts!, oneDayForecasts: oneDayForecasts!)
+        //BUILD WEATHER LINES
         let forecast = Forecast(
             latitude: latitude,
             longitude: longitude,
@@ -38,7 +40,8 @@ class ForecastIOBuilder {
             oneHourForecasts: oneHourForecasts,
             timezone:  timezone,
             offset: offset,
-            units: Units(units: flags?.units ?? "si"))
+            units: Units(units: flags?.units ?? "si"),
+            lines: weatherLines)
         return forecast
     }
     
@@ -61,6 +64,19 @@ class ForecastIOBuilder {
         }
         return allFlags ?? nil
     }
+
+    private func parseForecasts(oneHourForecasts: [OneHourForecast], oneDayForecasts: [OneDayForecast]) -> [WeatherLine]? { //(dayLines: [WeatherLine], hourLines: [WeatherLine])? {
+        guard oneHourForecasts.count > 0 else {
+            return nil
+        }
+//        let latestHourForecast = oneHourForecasts.reduce(oneHourForecasts[0], combine: { max($0, $1) })
+//        for dayForecast in oneDayForecasts {
+//            if dayForecast.time <= latestHourForecast.time {
+//
+//            }
+//        }
+        return nil // lines
+    }
     
     private func parseOneDayForecasts(json: [String: AnyObject]) -> [OneDayForecast]? {
         var oneDayForecasts = [OneDayForecast]()
@@ -75,7 +91,7 @@ class ForecastIOBuilder {
             }
 
         }
-        return oneDayForecasts.count > 0 ? oneDayForecasts : nil
+        return oneDayForecasts
     }
 
     private func parseOneHourForecasts(json: [String: AnyObject]) -> [OneHourForecast]? {

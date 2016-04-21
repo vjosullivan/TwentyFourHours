@@ -19,4 +19,6 @@ struct Forecast {
     let offset: Double?
 
     let units: Units
+
+    let lines: [WeatherLine]?
 }
