@@ -15,19 +15,19 @@ struct LightLine: WeatherLine {
     let type = WeatherLineType.LightLine
 
     func text() -> String {
-        return "Sunrise"
+        return twilightType.rawValue
     }
 }
 
-enum TwilightType {
-    case AstronomicalTwilightDawn
-    case NavalTwilightDawn
-    case CivilTwilightDawn
-    case Dawn
-    case GoldenHourEnds
-    case GoldenHourBegins
-    case Dusk
-    case CivilTwilightDusk
-    case NavalTwilightDusk
-    case AstronomicalTwilightDusk
+enum TwilightType: String {
+    case AstronomicalTwilightDawn = "Astronomical twilight begins"
+    case NavalTwilightDawn        = "Naval twilight begins"
+    case CivilTwilightDawn        = "Civil twilight begins"
+    case Sunrise                  = "Sunrise"
+    case GoldenHourEnds           = "Golden hour ends"
+    case GoldenHourBegins         = "Golden hour begins"
+    case Sunset                   = "Sunset"
+    case CivilTwilightDusk        = "Civil twilight ends"
+    case NavalTwilightDusk        = "Naval twilight ends"
+    case AstronomicalTwilightDusk = "Astronomical twilight ends"
 }

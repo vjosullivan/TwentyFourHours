@@ -29,6 +29,7 @@
 		F16B19E81CC8C0A4008B39EC /* DayLineTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F16B19E71CC8C0A4008B39EC /* DayLineTests.swift */; };
 		F16B19EA1CC8C871008B39EC /* OneHourForecastTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F16B19E91CC8C871008B39EC /* OneHourForecastTests.swift */; };
 		F16B19EC1CC8D2A3008B39EC /* HourLineTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F16B19EB1CC8D2A3008B39EC /* HourLineTests.swift */; };
+		F16B19EE1CC8D4D6008B39EC /* LightLineTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F16B19ED1CC8D4D6008B39EC /* LightLineTests.swift */; };
 		F17CF9A81CC2204500F5C4A9 /* FlagsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F17CF9A71CC2204500F5C4A9 /* FlagsTests.swift */; };
 		F17CF9AA1CC226C100F5C4A9 /* UnitsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F17CF9A91CC226C100F5C4A9 /* UnitsTests.swift */; };
 		F17CF9AF1CC2332B00F5C4A9 /* UserDefaultsExtensionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F17CF9AE1CC2332B00F5C4A9 /* UserDefaultsExtensionTests.swift */; };
@@ -79,6 +80,7 @@
 		F16B19E71CC8C0A4008B39EC /* DayLineTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DayLineTests.swift; sourceTree = "<group>"; };
 		F16B19E91CC8C871008B39EC /* OneHourForecastTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OneHourForecastTests.swift; sourceTree = "<group>"; };
 		F16B19EB1CC8D2A3008B39EC /* HourLineTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HourLineTests.swift; sourceTree = "<group>"; };
+		F16B19ED1CC8D4D6008B39EC /* LightLineTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LightLineTests.swift; sourceTree = "<group>"; };
 		F17CF9A71CC2204500F5C4A9 /* FlagsTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlagsTests.swift; sourceTree = "<group>"; };
 		F17CF9A91CC226C100F5C4A9 /* UnitsTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UnitsTests.swift; sourceTree = "<group>"; };
 		F17CF9AE1CC2332B00F5C4A9 /* UserDefaultsExtensionTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDefaultsExtensionTests.swift; sourceTree = "<group>"; };
@@ -245,6 +247,7 @@
 				F16B19E71CC8C0A4008B39EC /* DayLineTests.swift */,
 				F16B19E91CC8C871008B39EC /* OneHourForecastTests.swift */,
 				F16B19EB1CC8D2A3008B39EC /* HourLineTests.swift */,
+				F16B19ED1CC8D4D6008B39EC /* LightLineTests.swift */,
 			);
 			name = weatherModel;
 			path = TwentyFourHoursTests/weatherModelTests;
@@ -389,6 +392,7 @@
 			files = (
 				F17CF9B51CC24B7C00F5C4A9 /* NSDateExtensionTests.swift in Sources */,
 				F16B19EC1CC8D2A3008B39EC /* HourLineTests.swift in Sources */,
+				F16B19EE1CC8D4D6008B39EC /* LightLineTests.swift in Sources */,
 				F1C4AC611CC81DED007B276D /* mockWeatherTableViewCell.swift in Sources */,
 				F16B19EA1CC8C871008B39EC /* OneHourForecastTests.swift in Sources */,
 				F17CF9AA1CC226C100F5C4A9 /* UnitsTests.swift in Sources */,
