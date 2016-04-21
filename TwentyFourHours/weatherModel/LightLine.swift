@@ -10,14 +10,9 @@ import Foundation
 
 struct LightLine: WeatherLine {
 
-    let type = WeatherLineType.LightLine
     let time: NSDate
     let twilightType: TwilightType
-
-    init(time: NSDate, twilightType: TwilightType) {
-        self.time         = time
-        self.twilightType = twilightType
-    }
+    let type = WeatherLineType.LightLine
 
     func text() -> String {
         return "Sunrise"

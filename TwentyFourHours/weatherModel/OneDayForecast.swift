@@ -5,19 +5,10 @@
 //  Created by Vincent O'Sullivan on 01/03/2016.
 //  Copyright © 2016 Vincent O'Sullivan. All rights reserved.
 //
-import Foundation
 
 struct OneDayForecast {
 
-    let sunriseTime: NSDate?
-    let sunsetTime: NSDate?
-    let time: NSDate
-}
-
-extension OneDayForecast: CustomStringConvertible {
-
-    var description: String {
-        let sun  = "Date=\(time.asYYYYMMDD()), time=\(time.asHHMM()), rise=\(sunriseTime?.asHHMM() ?? "No sunrise"), set=\(sunsetTime?.asHHMM() ?? "No sunset")"
-        return "OneDay: \(sun)\n"
-    }
+    let time: Int
+    let sunriseTime: Int?
+    let sunsetTime: Int?
 }

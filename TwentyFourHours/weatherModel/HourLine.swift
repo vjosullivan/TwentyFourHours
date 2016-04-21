@@ -17,14 +17,6 @@ struct HourLine {
     let summary: String
     let icon: String
 
-    init(time: NSDate, temperature: Double, units: String, summary: String, icon: String) {
-        self.time        = time
-        self.temperature = temperature
-        self.units       = units
-        self.summary     = summary
-        self.icon        = icon
-    }
-
     func text() -> String {
         return summary
     }

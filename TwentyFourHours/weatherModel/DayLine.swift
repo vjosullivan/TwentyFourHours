@@ -10,12 +10,8 @@ import Foundation
 
 struct DayLine: WeatherLine {
 
-    let type = WeatherLineType.DayLine
     let time: NSDate
-
-    init(time: NSDate) {
-        self.time         = time
-    }
+    let type = WeatherLineType.DayLine
 
     func text() -> String {
         let formatter = NSDateFormatter()

@@ -84,9 +84,9 @@ class ForecastIOBuilder {
             let dailyData = daily["data"] as? [[String: AnyObject]] {
             for day in dailyData {
                 let oneDayForecast = OneDayForecast(
-                    sunriseTime: NSDate(timeIntervalSince1970: day["sunriseTime"] as! Double),
-                    sunsetTime:  NSDate(timeIntervalSince1970: day["sunsetTime"] as! Double),
-                    time:        NSDate(timeIntervalSince1970: day["time"] as! Double))
+                    time:        day["time"] as! Int,
+                    sunriseTime: day["sunriseTime"] as? Int,
+                    sunsetTime:  day["sunsetTime"]  as? Int)
                 oneDayForecasts.append(oneDayForecast)
             }
 
