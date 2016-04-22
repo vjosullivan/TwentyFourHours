@@ -77,7 +77,6 @@ class WeatherTableViewCell: UITableViewCell {
     }
 
     private func weatherImage(iconName: String?) -> UIImage {
-        print("\n\n\(iconName)!\n\n")
         guard let foundImage = UIImage(named: iconName!) else {
             return UIImage(named: "sun")!
         }

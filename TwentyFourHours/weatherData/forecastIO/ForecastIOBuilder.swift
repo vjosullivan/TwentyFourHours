@@ -8,29 +8,44 @@
 
 import UIKit
 
+typealias JSONDictionary = [String: AnyObject]
+
 class ForecastIOBuilder {
     
     internal func buildForecast(data: NSData) -> Forecast? {
         do {
-            let json = try NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers) as! [String: AnyObject]
-            let newForecast = parseJSONForecast(json)
-            return newForecast
+            let json = try NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers) as? JSONDictionary
+            return try parseJSONForecast(json)
         } catch {
-            print("Build forecast failed with error: \(error)")
+            print("Error: Build forecast failed with error: \(error)")
         }
         return nil
     }
     
-    private func parseJSONForecast(json: [String: AnyObject]) -> Forecast {
-        let latitude         = json["latitude"] as? Double
-        let longitude        = json["longitude"] as? Double
-        let currentConditions          = parseCurrentConditions(json)
-        let oneDayForecasts = parseOneDayForecasts(json)
-        let oneHourForecasts = parseOneHourForecasts(json)
-        let flags    = parseFlags(json)
+    func parseJSONForecast(json: JSONDictionary?) throws -> Forecast? {
+        guard let json = json else {
+            print("Error: Nil dictionary.")
+            return nil
+        }
+        guard !json.isEmpty else {
+            print("Error: Empty dictionary.")
+            return nil
+        }
+        let latitude  = json["latitude"] as? Double
+        let longitude = json["longitude"] as? Double
+        let currentConditions = parseCurrentConditions(json)
+        let oneDayForecasts   = parseOneDayForecasts(json)
+        let oneHourForecasts  = parseOneHourForecasts(json)
+        let flags             = parseFlags(json)
         let timezone = json["timezone"] as? String
         let offset   = json["offset"] as? Double
-        let weatherLines = parseForecasts(oneHourForecasts!, oneDayForecasts: oneDayForecasts!)
+        let weatherLines: [WeatherLine]?
+        if let hourForecasts = oneHourForecasts,
+            let dayForecasts = oneDayForecasts {
+            weatherLines = parseForecasts(hourForecasts, oneDayForecasts: dayForecasts)
+        } else {
+            weatherLines = nil
+        }
         //BUILD WEATHER LINES
         let forecast = Forecast(
             latitude: latitude,
@@ -45,9 +60,9 @@ class ForecastIOBuilder {
         return forecast
     }
     
-    private func parseCurrentConditions(json: [String: AnyObject]) -> CurrentConditions? {
+    private func parseCurrentConditions(json: JSONDictionary) -> CurrentConditions? {
         var currentConditions: CurrentConditions?
-        if let current = json["currently"] as? [String: AnyObject] {
+        if let current = json["currently"] as? JSONDictionary {
             currentConditions = CurrentConditions(
                 time:        current["time"] as? Int,
                 icon:        appIconName(current["icon"] as? String),
@@ -97,9 +112,9 @@ class ForecastIOBuilder {
     }
 
 
-    private func parseFlags(json: [String: AnyObject]) -> Flags? {
+    private func parseFlags(json: JSONDictionary) -> Flags? {
         var allFlags: Flags?
-        if let flags = json["flags"] as? [String: AnyObject] {
+        if let flags = json["flags"] as? JSONDictionary {
             allFlags = Flags(units: flags["units"] as? String)
         }
         return allFlags ?? nil
@@ -118,10 +133,10 @@ class ForecastIOBuilder {
         return nil // lines
     }
     
-    private func parseOneDayForecasts(json: [String: AnyObject]) -> [OneDayForecast]? {
+    private func parseOneDayForecasts(json: JSONDictionary) -> [OneDayForecast]? {
         var oneDayForecasts = [OneDayForecast]()
-        if let daily = json["daily"] as? [String: AnyObject],
-            let dailyData = daily["data"] as? [[String: AnyObject]] {
+        if let daily = json["daily"] as? JSONDictionary,
+            let dailyData = daily["data"] as? [JSONDictionary] {
             for day in dailyData {
                 let oneDayForecast = OneDayForecast(
                     time:        day["time"] as! Int,
@@ -134,13 +149,13 @@ class ForecastIOBuilder {
         return oneDayForecasts
     }
 
-    private func parseOneHourForecasts(json: [String: AnyObject]) -> [OneHourForecast]? {
+    private func parseOneHourForecasts(json: JSONDictionary) -> [OneHourForecast]? {
         var oneHourForecasts = [OneHourForecast]()
-        if let hourly = json["hourly"] as? [String: AnyObject],
-            let hourlyData = hourly["data"] as? [[String: AnyObject]] {
+        if let hourly = json["hourly"] as? JSONDictionary,
+            let hourlyData = hourly["data"] as? [JSONDictionary] {
                 for hour in hourlyData {
                     oneHourForecasts.append(OneHourForecast(
-                        icon:        hour["icon"] as? String,
+                        icon:        appIconName(hour["icon"] as? String),
                         summary:     hour["summary"] as? String,
                         temperature: hour["temperature"] as? Double,
                         time:        hour["time"] as? Int)

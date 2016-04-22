@@ -37,6 +37,7 @@
 		F17CF9AF1CC2332B00F5C4A9 /* UserDefaultsExtensionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F17CF9AE1CC2332B00F5C4A9 /* UserDefaultsExtensionTests.swift */; };
 		F17CF9B11CC2415B00F5C4A9 /* CurrentConditionsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F17CF9B01CC2415B00F5C4A9 /* CurrentConditionsTests.swift */; };
 		F17CF9B51CC24B7C00F5C4A9 /* NSDateExtensionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F17CF9B41CC24B7C00F5C4A9 /* NSDateExtensionTests.swift */; };
+		F18C4FC31CCAB27F000CD94F /* ForecastIOBuilderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F18C4FC21CCAB27F000CD94F /* ForecastIOBuilderTests.swift */; };
 		F1C4AC611CC81DED007B276D /* mockWeatherTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1C4AC601CC81DED007B276D /* mockWeatherTableViewCell.swift */; };
 		F1C4AC631CC8365E007B276D /* WeatherLine.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1C4AC621CC8365E007B276D /* WeatherLine.swift */; };
 		F1C4AC651CC838F6007B276D /* DayLine.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1C4AC641CC838F6007B276D /* DayLine.swift */; };
@@ -89,6 +90,7 @@
 		F17CF9AE1CC2332B00F5C4A9 /* UserDefaultsExtensionTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDefaultsExtensionTests.swift; sourceTree = "<group>"; };
 		F17CF9B01CC2415B00F5C4A9 /* CurrentConditionsTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrentConditionsTests.swift; sourceTree = "<group>"; };
 		F17CF9B41CC24B7C00F5C4A9 /* NSDateExtensionTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSDateExtensionTests.swift; sourceTree = "<group>"; };
+		F18C4FC21CCAB27F000CD94F /* ForecastIOBuilderTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ForecastIOBuilderTests.swift; sourceTree = "<group>"; };
 		F1C4AC601CC81DED007B276D /* mockWeatherTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = mockWeatherTableViewCell.swift; sourceTree = "<group>"; };
 		F1C4AC621CC8365E007B276D /* WeatherLine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeatherLine.swift; sourceTree = "<group>"; };
 		F1C4AC641CC838F6007B276D /* DayLine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DayLine.swift; sourceTree = "<group>"; };
@@ -244,6 +246,7 @@
 		F15676AB1CC3BBAC006B5076 /* weatherDataTests */ = {
 			isa = PBXGroup;
 			children = (
+				F18C4FC11CCAB230000CD94F /* forecastIO */,
 				F15676AC1CC3BBEA006B5076 /* WeatherDataSourceTests.swift */,
 				F1C4AC601CC81DED007B276D /* mockWeatherTableViewCell.swift */,
 			);
@@ -274,6 +277,14 @@
 			name = extensionsTests;
 			path = TwentyFourHoursTests/extensionsTests;
 			sourceTree = SOURCE_ROOT;
+		};
+		F18C4FC11CCAB230000CD94F /* forecastIO */ = {
+			isa = PBXGroup;
+			children = (
+				F18C4FC21CCAB27F000CD94F /* ForecastIOBuilderTests.swift */,
+			);
+			path = forecastIO;
+			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
@@ -403,6 +414,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F18C4FC31CCAB27F000CD94F /* ForecastIOBuilderTests.swift in Sources */,
 				F17CF9B51CC24B7C00F5C4A9 /* NSDateExtensionTests.swift in Sources */,
 				34E1BFE61CCA4E6600FF1F2A /* WeatherTableViewCellTests.swift in Sources */,
 				F16B19EC1CC8D2A3008B39EC /* HourLineTests.swift in Sources */,
@@ -538,7 +550,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = TwentyFourHours/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.britishairwaysent.TwentyFourHours;
+				PRODUCT_BUNDLE_IDENTIFIER = com.vjosullivan.TwentyFourHours;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -549,7 +561,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = TwentyFourHours/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.britishairwaysent.TwentyFourHours;
+				PRODUCT_BUNDLE_IDENTIFIER = com.vjosullivan.TwentyFourHours;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;

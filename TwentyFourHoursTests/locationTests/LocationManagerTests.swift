@@ -58,12 +58,10 @@ class MockLocationManagerDelegate: LocationManagerDelegate {
     var error: NSError?
 
     func locationManager(manager: LocationManager, didUpdateLocation location: (latitude: Double, longitude: Double)) {
-        print("MLMD Success")
         self.location = location
     }
 
     func locationManager(manager: LocationManager, didFailWithError error: NSError) {
-        print("MLMD Fail.")
         self.error = error
     }
 }
