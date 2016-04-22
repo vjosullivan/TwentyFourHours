@@ -13,7 +13,7 @@ class CurrentConditionsTests: XCTestCase {
 
     func testCreatable() {
         let testTime = 1460723696 // 2016-04-15 12:34:56
-        let testIcon = "icon"
+        let testIcon = "sun"
         let testSumy = "OK"
         let testTemp = 20.0
         let current  = CurrentConditions(time: testTime, icon: testIcon, summary: testSumy, temperature: testTemp)

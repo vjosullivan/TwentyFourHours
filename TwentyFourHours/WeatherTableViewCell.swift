@@ -22,15 +22,22 @@ class WeatherTableViewCell: UITableViewCell {
         if let forecast = forecast,
             let hourly = forecast.oneHourForecasts?[rowIndex] {
 
-            tempLabel!.text = "\(Int(round(hourly.temperature ?? 0.0)))"
+            tempLabel!.text = hourly.temperature != nil ? "\(Int(round(hourly.temperature!)))" : "?"
+
             CFLabel.text = forecast.units.temperature
 
-            dayLabel!.text  =  dayStringFromUnixTime(Double(hourly.time ?? 0.0))
-            timeLabel!.text = timeStringFromUnixTime(Double(hourly.time ?? 0.0))
-
+            if let dateTime = hourly.time {
+                dayLabel!.text  =  dayStringFromUnixTime(Double(dateTime))
+                timeLabel!.text = timeStringFromUnixTime(Double(dateTime))
+            } else {
+                dayLabel!.text  = "??"
+                timeLabel!.text = "??"
+            }
             rainLabel!.text = hourly.summary ?? ""
-            weatherIcon.image = weatherImage(hourly.icon)
-
+            // Unit test work around (because UIImageView is always nil in my unit tests).
+            if weatherIcon != nil {
+                weatherIcon.image = weatherImage(hourly.icon)
+            }
             let style = rowIndex < 11
                 ? CellStyle.Day
                 : rowIndex < 12
@@ -69,44 +76,12 @@ class WeatherTableViewCell: UITableViewCell {
         rainLabel.textColor = cellForegroundColor
     }
 
-
     private func weatherImage(iconName: String?) -> UIImage {
-        let image: UIImage
-        if let iconName = iconName {
-            switch iconName {
-            case "clear-day":
-                image = UIImage(named: "sun")!
-            case "clear-night":
-                image = UIImage(named: "moon")!
-            case "rain":
-                image = UIImage(named: "rain")!
-            case "snow":
-                image = UIImage(named: "snow")!
-            case "sleet":
-                image = UIImage(named: "sleet")!
-            case "wind":
-                image = UIImage(named: "wind")!
-            case "fog":
-                image = UIImage(named: "fog")!
-            case "cloudy":
-                image = UIImage(named: "cloudy")!
-            case "partly-cloudy-day":
-                image = UIImage(named: "partly cloudy day")!
-            case "partly-cloudy-night":
-                image = UIImage(named: "partly cloudy night")!
-            case "hail":
-                image = UIImage(named: "hail")!
-            case "thunderstorm":
-                image = UIImage(named: "thunderstorm")!
-            case "tornado":
-                image = UIImage(named: "tornado")!
-            default:
-                image = UIImage(named: "sun.png")!
-            }
-        } else {
-            image = UIImage(named: "sun.png")!
+        print("\n\n\(iconName)!\n\n")
+        guard let foundImage = UIImage(named: iconName!) else {
+            return UIImage(named: "sun")!
         }
-        return image
+        return foundImage
     }
 }
 

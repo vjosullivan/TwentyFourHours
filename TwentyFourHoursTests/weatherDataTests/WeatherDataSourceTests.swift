@@ -26,7 +26,7 @@ class WeatherDataSourceTests: XCTestCase {
 
         // Create a weather forecast containg one one-hour forecast.
         var forecasts = [OneHourForecast]()
-        let oneForecast = OneHourForecast(icon: "icon", summary: "rain", temperature: expectedTemperature, time: 1)
+        let oneForecast = OneHourForecast(icon: "sun", summary: "rain", temperature: expectedTemperature, time: 1)
         forecasts.append(oneForecast)
         mockForecast = Forecast(
             latitude: 51.3,

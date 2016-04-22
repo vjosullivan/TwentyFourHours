@@ -50,13 +50,53 @@ class ForecastIOBuilder {
         if let current = json["currently"] as? [String: AnyObject] {
             currentConditions = CurrentConditions(
                 time:        current["time"] as? Int,
-                icon:        current["icon"] as? String,
+                icon:        appIconName(current["icon"] as? String),
                 summary:     current["summary"] as? String,
                 temperature: current["temperature"] as? Double)
         }
         return currentConditions ?? nil
     }
-    
+
+    private func appIconName(iconName: String?) -> String {
+        let result: String
+        if let iconName = iconName {
+            switch iconName {
+            case "clear-day":
+                result = "sun"
+            case "clear-night":
+                result = "moon"
+            case "rain":
+                result = "rain"
+            case "snow":
+                result = "snow"
+            case "sleet":
+                result = "sleet"
+            case "wind":
+                result = "wind"
+            case "fog":
+                result = "fog"
+            case "cloudy":
+                result = "cloudy"
+            case "partly-cloudy-day":
+                result = "partly cloudy day"
+            case "partly-cloudy-night":
+                result = "partly cloudy night"
+            case "hail":
+                result = "hail"
+            case "thunderstorm":
+                result = "thunderstorm"
+            case "tornado":
+                result = "tornado"
+            default:
+                result = "sun"
+            }
+        } else {
+            result = "sun"
+        }
+        return result
+    }
+
+
     private func parseFlags(json: [String: AnyObject]) -> Flags? {
         var allFlags: Flags?
         if let flags = json["flags"] as? [String: AnyObject] {
