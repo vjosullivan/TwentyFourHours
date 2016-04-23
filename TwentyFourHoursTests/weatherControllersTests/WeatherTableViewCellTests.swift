@@ -23,8 +23,6 @@ class WeatherTableViewCellTests: XCTestCase {
             currentConditions: nil,
             oneDayForecasts: nil,
             oneHourForecasts: nil,
-            timezone: nil,
-            offset: nil,
             units: Units(units: "si") ,
             lines: nil)
         let cell = WeatherTableViewCell(frame: CGRectZero)
@@ -42,8 +40,6 @@ class WeatherTableViewCellTests: XCTestCase {
             currentConditions: nil,
             oneDayForecasts: nil,
             oneHourForecasts: [OneHourForecast(icon: "unknown", summary: nil, temperature: nil, time: nil)],
-            timezone: nil,
-            offset: nil,
             units: Units(units: "si") ,
             lines: nil)
         let cell = WeatherTableViewCell(frame: CGRectZero)

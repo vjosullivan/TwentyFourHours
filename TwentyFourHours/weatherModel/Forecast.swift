@@ -15,9 +15,6 @@ struct Forecast {
     let oneDayForecasts: [OneDayForecast]?
     let oneHourForecasts: [OneHourForecast]?
 
-    let timezone: String?
-    let offset: Double?
-
     let units: Units
 
     let lines: [WeatherLine]?
