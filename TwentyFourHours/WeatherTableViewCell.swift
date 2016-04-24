@@ -26,7 +26,7 @@ class WeatherTableViewCell: UITableViewCell {
 
             CFLabel.text = forecast.units.temperature
 
-            if let dateTime = hourly.time {
+            if let dateTime = hourly.unixTime {
                 dayLabel!.text  =  dayStringFromUnixTime(Double(dateTime))
                 timeLabel!.text = timeStringFromUnixTime(Double(dateTime))
             } else {

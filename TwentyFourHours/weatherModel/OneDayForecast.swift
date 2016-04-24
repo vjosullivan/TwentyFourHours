@@ -8,7 +8,7 @@
 
 struct OneDayForecast {
 
-    let time: Int
+    let unixTime: Int
     let sunriseTime: Int?
     let sunsetTime: Int?
 }

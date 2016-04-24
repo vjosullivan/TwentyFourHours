@@ -38,8 +38,8 @@ class ForecastIOBuilder {
         return nil
     }
     
-    func parseJSONForecast(json: JSONDictionary?) throws -> Forecast? {
-        guard let json = json else {
+    func parseJSONForecast(data: JSONDictionary?) throws -> Forecast? {
+        guard let json = data else {
             print("Error: Nil dictionary.")
             return nil
         }
@@ -50,8 +50,8 @@ class ForecastIOBuilder {
         let latitude  = json["latitude"] as? Double
         let longitude = json["longitude"] as? Double
         let currentConditions = parseCurrentConditions(currentData: json["currently"] as? JSONDictionary)
-        let oneDayForecasts   = parseOneDayForecasts(dailyData: json["daily"] as? JSONDictionary)
-        let oneHourForecasts  = parseOneHourForecasts(hourlyData: json["hourly"] as? JSONDictionary)
+        let oneDayForecasts   = parseOneDayForecasts(dailyData: json["daily"] as? [AnyObject])
+        let oneHourForecasts  = parseOneHourForecasts(hourlyData: json["hourly"] as? [AnyObject])
         let flags             = parseFlags(flagData: json["flags"] as? JSONDictionary)
         let weatherLines: [WeatherLine]?
         if let hourForecasts = oneHourForecasts,
@@ -64,10 +64,10 @@ class ForecastIOBuilder {
         let forecast = Forecast(
             latitude: latitude,
             longitude: longitude,
+            units: Units(units: flags?.units ?? "si"),
             currentConditions: currentConditions,
             oneDayForecasts: oneDayForecasts,
             oneHourForecasts: oneHourForecasts,
-            units: Units(units: flags?.units ?? "si"),
             lines: weatherLines)
         return forecast
     }
@@ -78,23 +78,10 @@ class ForecastIOBuilder {
         }
 
         return CurrentConditions(
-                time:        current["time"] as? Int,
+                unixTime:    current["time"] as? Int,
                 icon:        appIcon(forecastIOIcon: current["icon"] as? String),
                 summary:     current["summary"] as? String,
                 temperature: current["temperature"] as? Double)
-    }
-
-    ///  Converts a forecast IO icon name into an app icon name.
-    ///
-    ///  - parameter icon: A forecast IO icon name
-    ///
-    ///  - returns: An app icon name
-    ///
-    private func appIcon(forecastIOIcon icon: String?) -> String {
-        guard let icon = icon else {
-            return "sun"
-        }
-        return forecastIOIcons[icon] ?? "sun"
     }
 
     private func parseFlags(flagData data: JSONDictionary?) -> Flags? {
@@ -102,41 +89,38 @@ class ForecastIOBuilder {
             return nil
         }
 
-        var allFlags: Flags?
-        allFlags = Flags(units: flags["units"] as? String)
-        return allFlags ?? nil
+        return Flags(units: flags["units"] as? String)
     }
 
-    private func parseOneDayForecasts(dailyData data: JSONDictionary?) -> [OneDayForecast]? {
-        guard let days = data?["data"] as? [JSONDictionary] else {
+    private func parseOneDayForecasts(dailyData data: [AnyObject]?) -> [OneDayForecast]? {
+        guard let days = data as? [JSONDictionary] else {
             return nil
         }
 
         var oneDayForecasts = [OneDayForecast]()
         for day in days {
             let oneDayForecast = OneDayForecast(
-                time:        day["time"] as! Int,
-                sunriseTime: day["sunriseTime"] as? Int,
-                sunsetTime:  day["sunsetTime"]  as? Int)
+                unixTime:    day["time"] as! Int,
+                sunriseTime: day["sunrise"] as? Int,
+                sunsetTime:  day["sunset"]  as? Int)
             oneDayForecasts.append(oneDayForecast)
         }
 
-        return oneDayForecasts
+        return oneDayForecasts.count > 0 ? oneDayForecasts : nil
     }
 
-    private func parseOneHourForecasts(hourlyData data: JSONDictionary?) -> [OneHourForecast]? {
-        guard let hours = data?["data"] as? [JSONDictionary] else {
+    private func parseOneHourForecasts(hourlyData data: [AnyObject]?) -> [OneHourForecast]? {
+        guard let hours = data as? [JSONDictionary] else {
             return nil
         }
-
         var oneHourForecasts = [OneHourForecast]()
         for hour in hours {
             oneHourForecasts.append(OneHourForecast(
+                unixTime:    hour["time"] as? Int,
                 icon:        appIcon(forecastIOIcon: hour["icon"] as? String),
                 summary:     hour["summary"] as? String,
-                temperature: hour["temperature"] as? Double,
-                time:        hour["time"] as? Int)
-            )
+                temperature: hour["temperature"] as? Double
+            ))
         }
         return oneHourForecasts.count > 0 ? oneHourForecasts : nil
     }
@@ -152,5 +136,19 @@ class ForecastIOBuilder {
         //            }
         //        }
         return nil // lines
+    }
+    
+    ///  Converts a forecast IO icon name into an app icon name.
+    ///
+    ///  - parameter icon: A forecast IO icon name
+    ///
+    ///  - returns: An app icon name
+    ///
+    private func appIcon(forecastIOIcon icon: String?) -> String {
+        guard let icon = icon else {
+            return "sun"
+        }
+        print("Icons", icon, forecastIOIcons[icon])
+        return forecastIOIcons[icon] ?? "sun"
     }
 }

@@ -16,9 +16,9 @@ class CurrentConditionsTests: XCTestCase {
         let testIcon = "sun"
         let testSumy = "OK"
         let testTemp = 20.0
-        let current  = CurrentConditions(time: testTime, icon: testIcon, summary: testSumy, temperature: testTemp)
+        let current  = CurrentConditions(unixTime: testTime, icon: testIcon, summary: testSumy, temperature: testTemp)
         XCTAssertNotNil(current)
-        XCTAssertEqual(testTime, current.time)
+        XCTAssertEqual(testTime, current.unixTime)
         XCTAssertEqual(testIcon, current.icon)
         XCTAssertEqual(testSumy, current.summary)
         XCTAssertEqual(testTemp, current.temperature)
@@ -27,7 +27,7 @@ class CurrentConditionsTests: XCTestCase {
     func testDate() {
         let testTime = 1460723696 // 2016-04-15 12:34:56
         let testDate = NSDate(timeIntervalSince1970: 1460723696) // 2016-04-15 12:34:56
-        let current  = CurrentConditions(time: testTime, icon: nil, summary: nil, temperature: nil)
+        let current  = CurrentConditions(unixTime: testTime, icon: nil, summary: nil, temperature: nil)
         XCTAssertEqual(testDate, current.date)
     }
 }

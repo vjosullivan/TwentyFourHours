@@ -8,14 +8,14 @@
 
 struct OneHourForecast {
     
+    let unixTime: Int?
     let icon: String?
     let summary: String?
     let temperature: Double?
-    let time: Int?
 }
 
 extension OneHourForecast: Comparable {}
 
-func == (x: OneHourForecast, y: OneHourForecast) -> Bool { return x.time == y.time }
-func <  (x: OneHourForecast, y: OneHourForecast) -> Bool { return x.time <  y.time }
+func == (x: OneHourForecast, y: OneHourForecast) -> Bool { return x.unixTime == y.unixTime }
+func <  (x: OneHourForecast, y: OneHourForecast) -> Bool { return x.unixTime <  y.unixTime }
 

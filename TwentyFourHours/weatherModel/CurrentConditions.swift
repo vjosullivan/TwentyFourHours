@@ -13,14 +13,14 @@ import Foundation
 
 struct CurrentConditions {
 
-    let time: Int?
+    let unixTime: Int?
     let icon: String?
     let summary: String?
 
     let temperature: Double?
 
     var date: NSDate {
-        let d = NSDate(timeIntervalSince1970: NSTimeInterval(time!))
+        let d = NSDate(timeIntervalSince1970: NSTimeInterval(unixTime!))
         return d
     }
 }

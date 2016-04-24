@@ -20,10 +20,10 @@ class WeatherTableViewCellTests: XCTestCase {
         let forecast = Forecast(
             latitude: nil,
             longitude: nil,
+            units: Units(units: "si") ,
             currentConditions: nil,
             oneDayForecasts: nil,
             oneHourForecasts: nil,
-            units: Units(units: "si") ,
             lines: nil)
         let cell = WeatherTableViewCell(frame: CGRectZero)
         cell.tempLabel = UILabel(frame: CGRectZero)
@@ -37,10 +37,10 @@ class WeatherTableViewCellTests: XCTestCase {
         let forecast = Forecast(
             latitude: nil,
             longitude: nil,
+            units: Units(units: "si"),
             currentConditions: nil,
             oneDayForecasts: nil,
-            oneHourForecasts: [OneHourForecast(icon: "unknown", summary: nil, temperature: nil, time: nil)],
-            units: Units(units: "si") ,
+            oneHourForecasts: [OneHourForecast(unixTime: nil, icon: "unknown", summary: nil, temperature: nil)],
             lines: nil)
         let cell = WeatherTableViewCell(frame: CGRectZero)
         cell.tempLabel = UILabel(frame: CGRectZero)

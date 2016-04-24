@@ -13,7 +13,7 @@ class OneHourForecastTests: XCTestCase {
 
     func testCreatable() {
         // Set up test.
-        let forecast = OneHourForecast(icon: "", summary: "", temperature: 0.0, time: 1)
+        let forecast = OneHourForecast(unixTime: 1, icon: "", summary: "", temperature: 0.0)
 
         // Run test.
         XCTAssertNotNil(forecast)
@@ -21,8 +21,8 @@ class OneHourForecastTests: XCTestCase {
 
     func testEquality() {
         // Set up test.
-        let forecast1 = OneHourForecast(icon: "", summary: "Sunny", temperature: 25.0, time: 99)
-        let forecast2 = OneHourForecast(icon: "", summary: "Cloudy", temperature: 25.0, time: 99)
+        let forecast1 = OneHourForecast(unixTime: 1, icon: "", summary: "Sunny", temperature: 25.0)
+        let forecast2 = OneHourForecast(unixTime: 1, icon: "", summary: "Cloudy", temperature: 25.0)
 
         // Perform test.
         XCTAssertEqual(forecast1, forecast2)
@@ -30,8 +30,8 @@ class OneHourForecastTests: XCTestCase {
 
     func testLaterDate() {
         // Set up test.
-        let forecast1 = OneHourForecast(icon: "", summary: "Sunny", temperature: 25.0, time: 100)
-        let forecast2 = OneHourForecast(icon: "", summary: "Cloudy", temperature: 25.0, time: 99)
+        let forecast1 = OneHourForecast(unixTime: 1_400_000_001, icon: "", summary: "Sunny", temperature: 25.0)
+        let forecast2 = OneHourForecast(unixTime: 1_400_000_000, icon: "", summary: "Cloudy", temperature: 25.0)
 
         // Perform test.
         XCTAssertTrue(forecast1 > forecast2)
