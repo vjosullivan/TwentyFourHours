@@ -50,13 +50,25 @@ public class ForecastIOManager {
                         userInfo: [NSLocalizedDescriptionKey : "HTTP status code has unexpected value."])
                     self.forecastDelegate.forecastManager(self, didFailWithError: statusError)
                 } else {
-                    self.forecastDelegate.forecastManager(self, didUpdateForecast: ForecastIOBuilder().buildForecast(data!)!)
+                    self.forecastDelegate.forecastManager(self, didUpdateForecast: self.buildForecast(data!)!)
                 }
             }
         }
         loadDataTask.resume()
     }
 
+    internal func buildForecast(data: NSData) -> Forecast? {
+        do {
+            let json = try NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers) as? JSONDictionary
+            if let forecast = try ForecastIOBuilder().parseJSONForecast(json) {
+                return forecast
+            }
+            return nil
+        } catch {
+            print("Error: Build forecast failed with error: \(error)")
+        }
+        return nil
+    }
     private func forecastURL(location: Location, units: String) -> NSURL {
         return NSURL(string: "https://api.forecast.io/forecast/\(forecastApiKey)/\(location.latitude),\(location.longitude)?units=\(units)")!
     }
@@ -64,10 +76,22 @@ public class ForecastIOManager {
 
 extension ForecastIOManager: LocationManagerDelegate {
 
+    ///  Delegate method, called when the location manager is successful at establishing the location.
+    ///
+    ///  - parameters:
+    ///    - manager:  The location manager providing the update.
+    ///    - location: The device's current location.
+    ///
     func locationManager(manager: LocationManager, didUpdateLocation location: Location) {
         fetchWeather(location: location)
     }
 
+    ///  Delegate method, called when the location manager failed to establish the location.
+    ///
+    ///  - parameters:
+    ///    - manager:  The location manager providing the error.
+    ///    - error:    The error description.
+    ///
     func locationManager(manager: LocationManager, didFailWithError error: NSError) {
         print("Location manager failed with error: \(error)")
     }

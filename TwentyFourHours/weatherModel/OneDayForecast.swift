@@ -8,7 +8,11 @@
 
 struct OneDayForecast {
 
-    let unixTime: Int
+    let unixTime: Int?
     let sunriseTime: Int?
     let sunsetTime: Int?
+
+    var containsData: Bool {
+        return unixTime != nil && sunriseTime != nil && sunsetTime != nil
+    }
 }

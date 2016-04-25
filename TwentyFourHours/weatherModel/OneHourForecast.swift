@@ -12,6 +12,10 @@ struct OneHourForecast {
     let icon: String?
     let summary: String?
     let temperature: Double?
+
+    var containsData: Bool {
+        return unixTime != nil && icon != nil && summary != nil && temperature != nil
+    }
 }
 
 extension OneHourForecast: Comparable {}

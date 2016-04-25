@@ -24,8 +24,10 @@ class ForecastIOBuilderTests: XCTestCase {
     static let noCurrentJSON: JSONDictionary = ["latitude": testLatitude, "currently": []]
     static let hoursJSON: JSONDictionary     = ["latitude": testLatitude, "hourly": ["data": [["time": 1_400_000_000, "icon": "rain", "summary": "rain", "temperature": 15.4]]]]
     static let noHoursJSON: JSONDictionary   = ["latitude": testLatitude, "hourly": []]
+    static let badHoursJSON: JSONDictionary   = ["latitude": testLatitude, "hourly": ["data": [["fruit": "banana"]]]]
     static let daysJSON: JSONDictionary      = ["latitude": testLatitude, "daily": ["data": [["time": 1_401_000_000, "sunrise": 1_401_007_200, "sunset": 1_401_014_400]]]]
     static let noDaysJSON: JSONDictionary    = ["latitude": testLatitude, "daily": []]
+    static let badDaysJSON: JSONDictionary    = ["latitude": testLatitude, "daily": ["data": [["fruit": "banana"]]]]
     static let flagsJSON: JSONDictionary     = ["latitude": testLatitude, "flags": ["units": "us"]]
     static let noFlagsJSON: JSONDictionary   = ["latitude": testLatitude, "flags": []]
     static let zzFlagsJSON: JSONDictionary   = ["latitude": testLatitude, "flags": ["units": "zz"]]
@@ -127,7 +129,7 @@ class ForecastIOBuilderTests: XCTestCase {
         do {
             forecast = try builder?.parseJSONForecast(ForecastIOBuilderTests.missingIconJSON)
             XCTAssertNotNil(forecast?.currentConditions)
-            XCTAssertEqual("sun", forecast?.currentConditions?.icon)
+            XCTAssertNil(forecast?.currentConditions?.icon)
         } catch {
             XCTAssert(false, "currentJSON test should not throw an error.")
         }
@@ -159,6 +161,17 @@ class ForecastIOBuilderTests: XCTestCase {
         }
     }
 
+    ///  Test forecast contains hourly forecasts but nothing in them.
+    func testBadHourlyForecastsJSON() {
+        var forecast: Forecast?
+        do {
+            forecast = try builder?.parseJSONForecast(ForecastIOBuilderTests.badHoursJSON)
+            XCTAssertNil(forecast?.oneHourForecasts)
+        } catch {
+            XCTAssert(false, "badHoursJSON test should not throw an error.")
+        }
+    }
+
     ///  Test forecast contains daily forecasts.
     func testDailyForecastsJSON() {
         var forecast: Forecast?
@@ -178,6 +191,17 @@ class ForecastIOBuilderTests: XCTestCase {
         var forecast: Forecast?
         do {
             forecast = try builder?.parseJSONForecast(ForecastIOBuilderTests.noDaysJSON)
+            XCTAssertNil(forecast?.oneDayForecasts)
+        } catch {
+            XCTAssert(false, "noDailyJSON test should not throw an error.")
+        }
+    }
+
+    ///  Test forecast contains daily forecasts but no readable data in them.
+    func testBadDailyForecastsJSON() {
+        var forecast: Forecast?
+        do {
+            forecast = try builder?.parseJSONForecast(ForecastIOBuilderTests.badDaysJSON)
             XCTAssertNil(forecast?.oneDayForecasts)
         } catch {
             XCTAssert(false, "noDailyJSON test should not throw an error.")
