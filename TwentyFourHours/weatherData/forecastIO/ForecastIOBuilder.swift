@@ -30,8 +30,11 @@ class ForecastIOBuilder {
 
     internal func buildForecast(data: NSData) -> Forecast? {
         do {
+            print("A")
             let json = try NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers) as? JSONDictionary
-            return try parseJSONForecast(json)
+            let forecast = try parseJSONForecast(json)
+            print("B", forecast)
+            return forecast
         } catch {
             print("Error: Build forecast failed with error: \(error)")
         }
@@ -50,8 +53,9 @@ class ForecastIOBuilder {
         let latitude  = json["latitude"] as? Double
         let longitude = json["longitude"] as? Double
         let currentConditions = parseCurrentConditions(currentData: json["currently"] as? JSONDictionary)
-        let oneDayForecasts   = parseOneDayForecasts(dailyData: json["daily"] as? [AnyObject])
-        let oneHourForecasts  = parseOneHourForecasts(hourlyData: json["hourly"] as? [AnyObject])
+        let oneDayForecasts   = parseOneDayForecasts(dailyData: json["daily"]?["data"] as? [AnyObject])
+        print("\n\njson \(json)\n\n")
+        let oneHourForecasts  = parseOneHourForecasts(hourlyData: json["hourly"]?["data"] as? [AnyObject])
         let flags             = parseFlags(flagData: json["flags"] as? JSONDictionary)
         let weatherLines: [WeatherLine]?
         if let hourForecasts = oneHourForecasts,
@@ -110,9 +114,11 @@ class ForecastIOBuilder {
     }
 
     private func parseOneHourForecasts(hourlyData data: [AnyObject]?) -> [OneHourForecast]? {
+        print("C", data)
         guard let hours = data as? [JSONDictionary] else {
             return nil
         }
+        print("D")
         var oneHourForecasts = [OneHourForecast]()
         for hour in hours {
             oneHourForecasts.append(OneHourForecast(
@@ -122,6 +128,7 @@ class ForecastIOBuilder {
                 temperature: hour["temperature"] as? Double
             ))
         }
+        print("E")
         return oneHourForecasts.count > 0 ? oneHourForecasts : nil
     }
 
