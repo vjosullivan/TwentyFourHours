@@ -22,9 +22,9 @@ public class ForecastIOManager {
 
     // MARK: - Methods
 
-    init(delegate: ForecastManagerDelegate) {
+    init(forecastDelegate: ForecastManagerDelegate) {
 
-        forecastDelegate = delegate
+        self.forecastDelegate = forecastDelegate
     }
 
     func updateForecast() {
@@ -57,7 +57,7 @@ public class ForecastIOManager {
         loadDataTask.resume()
     }
 
-    internal func buildForecast(data: NSData) -> Forecast? {
+    private func buildForecast(data: NSData) -> Forecast? {
         do {
             let json = try NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers) as? JSONDictionary
             if let forecast = try ForecastIOBuilder().parseJSONForecast(json) {

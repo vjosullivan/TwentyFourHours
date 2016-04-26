@@ -18,7 +18,7 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        ForecastIOManager(delegate: self).updateForecast()
+        ForecastIOManager(forecastDelegate: self).updateForecast()
     }
 
     private func updateView(forecast forecast: Forecast) {

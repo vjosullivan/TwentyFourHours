@@ -30,12 +30,10 @@ class ForecastIOBuilder {
 
     func parseJSONForecast(data: JSONDictionary?) throws -> Forecast? {
         guard let json = data else {
-            print("Error: Nil dictionary.")
-            return nil
+            throw ForecastParsingError.NilForecastSupplied
         }
         guard !json.isEmpty else {
-            print("Error: Empty dictionary.")
-            return nil
+            throw ForecastParsingError.EmptyForecastSupplied
         }
         let latitude  = json["latitude"] as? Double
         let longitude = json["longitude"] as? Double
@@ -103,11 +101,9 @@ class ForecastIOBuilder {
     }
 
     private func parseOneHourForecasts(hourlyData data: [AnyObject]?) -> [OneHourForecast]? {
-        print("C", data)
         guard let hours = data as? [JSONDictionary] else {
             return nil
         }
-        print("D")
         var oneHourForecasts = [OneHourForecast]()
         for hour in hours {
             let forecast = OneHourForecast(
@@ -120,7 +116,6 @@ class ForecastIOBuilder {
                 oneHourForecasts.append(forecast)
             }
         }
-        print("E")
         return oneHourForecasts.count > 0 ? oneHourForecasts : nil
     }
 
@@ -147,7 +142,11 @@ class ForecastIOBuilder {
         guard let icon = icon else {
             return nil
         }
-        print("Icons", icon, forecastIOIcons[icon])
         return forecastIOIcons[icon] ?? "sun"
     }
+}
+
+enum ForecastParsingError: ErrorType {
+    case NilForecastSupplied
+    case EmptyForecastSupplied
 }

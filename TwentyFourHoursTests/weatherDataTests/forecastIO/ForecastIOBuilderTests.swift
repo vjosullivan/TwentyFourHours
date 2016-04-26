@@ -49,8 +49,11 @@ class ForecastIOBuilderTests: XCTestCase {
         do {
             forecast = try builder?.parseJSONForecast(nilJSON)
             XCTAssertNil(forecast)
+            XCTAssert(false, "nilJSON test should throw an error.")
+        } catch ForecastParsingError.NilForecastSupplied {
+            XCTAssert(true)
         } catch {
-            XCTAssert(false, "nilJSON test should not throw an error.")
+            XCTAssert(false, "nilJSON should throw a specific error.")
         }
     }
 
@@ -60,8 +63,11 @@ class ForecastIOBuilderTests: XCTestCase {
         do {
             forecast = try builder?.parseJSONForecast(ForecastIOBuilderTests.emptyJSON)
             XCTAssertNil(forecast)
+            XCTAssert(false, "emptyJSON test should throw an error.")
+        } catch ForecastParsingError.EmptyForecastSupplied {
+            XCTAssert(true)
         } catch {
-            XCTAssert(false, "emptyJSON test should not throw an error.")
+            XCTAssert(false, "emptyJSON should throw a specific error.")
         }
     }
 
