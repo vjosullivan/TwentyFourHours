@@ -42,22 +42,14 @@ class ForecastIOBuilder {
         print("\n\njson \(json)\n\n")
         let oneHourForecasts  = parseOneHourForecasts(hourlyData: json["hourly"]?["data"] as? [AnyObject])
         let flags             = parseFlags(flagData: json["flags"] as? JSONDictionary)
-        let weatherLines: [WeatherLine]?
-//        if let hourForecasts = oneHourForecasts,
-//            let dayForecasts = oneDayForecasts {
-//            weatherLines = parseForecasts(hourForecasts, oneDayForecasts: dayForecasts)
-//        } else {
-            weatherLines = nil
-//        }
-        //BUILD WEATHER LINES
+
         let forecast = Forecast(
             latitude: latitude,
             longitude: longitude,
             units: Units(units: flags?.units ?? "si"),
             currentConditions: currentConditions,
             oneDayForecasts: oneDayForecasts,
-            oneHourForecasts: oneHourForecasts,
-            lines: weatherLines)
+            oneHourForecasts: oneHourForecasts)
         return forecast
     }
     

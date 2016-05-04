@@ -37,6 +37,9 @@ extension ViewController: ForecastManagerDelegate {
     }
 
     func forecastManager(manager: ForecastIOManager, didFailWithError error: NSError) {
+        dispatch_async(dispatch_get_main_queue()) {
+            self.updateView(forecast: nilForecast)
+        }
         let alertController = UIAlertController(title: "Current Weather", message: "No weather forecast available at the moment.\n\n\(error)", preferredStyle: .Alert)
         let okAction = UIAlertAction(title: "OK", style: .Default, handler: nil)
         alertController.addAction(okAction)

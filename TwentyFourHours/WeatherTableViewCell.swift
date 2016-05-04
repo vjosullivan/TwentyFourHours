@@ -16,7 +16,7 @@ class WeatherTableViewCell: UITableViewCell {
     @IBOutlet var tempLabel: UILabel!
     @IBOutlet var CFLabel: UILabel!
     @IBOutlet var rainLabel: UILabel!
-    @IBOutlet weak var weatherIcon: UIImageView!
+    @IBOutlet var weatherIcon: UIImageView!
 
     func configure(rowIndex rowIndex: Int, forecast: Forecast?) {
         if let forecast = forecast,
@@ -38,36 +38,16 @@ class WeatherTableViewCell: UITableViewCell {
             if weatherIcon != nil {
                 weatherIcon.image = weatherImage(hourly.icon)
             }
-            let style = rowIndex < 11
-                ? CellStyle.Day
-                : rowIndex < 12
-                ? CellStyle.Evening
-                : rowIndex < 13
-                ? CellStyle.Dusk
-                : CellStyle.Night
-            cellColours(style: style)
+            cellColours()
         }
     }
 
-    func cellColours(style style: CellStyle) {
-        let cellBackgroundColor: UIColor
-        let cellForegroundColor: UIColor
-        switch style {
-        case .Day:
-            cellBackgroundColor = UIColor.whiteColor()
-            cellForegroundColor = UIColor.blackColor()
-        case .Evening:
-            cellBackgroundColor = UIColor(red: 1.0, green: 0.8, blue: 0.6, alpha: 1.0)
-            cellForegroundColor = UIColor.blackColor()
-        case .Dusk:
-            cellBackgroundColor = UIColor(red: 0.1, green: 0.1, blue: 0.3, alpha: 1.0)
-            cellForegroundColor = UIColor.whiteColor()
-        case .Night:
-            cellBackgroundColor = UIColor.blackColor()
-            cellForegroundColor = UIColor.whiteColor()
-        }
-        backgroundColor     = cellBackgroundColor
+    func cellColours() {
+        let cellBackgroundColor = UIColor.blackColor()
+        let cellForegroundColor = UIColor.whiteColor()
 
+        backgroundColor     = cellBackgroundColor
+        
         dayLabel.textColor  = cellForegroundColor
         minsLabel.textColor = cellForegroundColor
         timeLabel.textColor = cellForegroundColor
@@ -76,7 +56,7 @@ class WeatherTableViewCell: UITableViewCell {
         rainLabel.textColor = cellForegroundColor
     }
 
-    private func weatherImage(iconName: String?) -> UIImage {
+    func weatherImage(iconName: String?) -> UIImage {
         guard let foundImage = UIImage(named: iconName!) else {
             return UIImage(named: "sun")!
         }
@@ -102,11 +82,3 @@ extension WeatherTableViewCell {
         return dateFormatter.stringFromDate(date)
     }
 }
-
-enum CellStyle {
-    case Day
-    case Night
-    case Evening
-    case Dusk
-}
-

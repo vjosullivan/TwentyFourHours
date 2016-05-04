@@ -16,21 +16,24 @@ class LocationManager: CLLocationManager {
     init(delegate: LocationManagerDelegate) {
         self.locationDelegate = delegate
         super.init()
-        configure()
+        requestAuthorization()
     }
 
     override func requestLocation() {
 
         if CLLocationManager.locationServicesEnabled() {
             delegate = self
-            desiredAccuracy = kCLLocationAccuracyNearestTenMeters
+            desiredAccuracy = kCLLocationAccuracyKilometer
             super.requestLocation()
         }
     }
 
-    private func configure() {
+    ///  Prompts the user to grant authozation for this application to
+    ///  access the geographic location of the current device.
+    ///
+    private func requestAuthorization() {
         // Ask for Authorisation from the User.
-        requestAlwaysAuthorization()
+        //requestAlwaysAuthorization()
 
         // For use in foreground
         requestWhenInUseAuthorization()

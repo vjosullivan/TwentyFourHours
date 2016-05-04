@@ -41,7 +41,7 @@ class mockWeatherTableViewCell: WeatherTableViewCell {
         get { return UILabel() }
         set { }
     }
-    override weak var weatherIcon: UIImageView! {
+    override var weatherIcon: UIImageView! {
         get { return UIImageView() }
         set { }
     }

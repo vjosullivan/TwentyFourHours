@@ -17,7 +17,7 @@ class WeatherDataSourceTests: XCTestCase {
     let mockEmptyForecast = Forecast(latitude: 0.0, longitude: 0.0, units: Units(units: "si"),
                                      currentConditions: nil,
                                      oneDayForecasts: nil,
-                                     oneHourForecasts: nil, lines: nil)
+                                     oneHourForecasts: nil)
 
     var mockForecast: Forecast?
     var weatherDS: WeatherDataSource?
@@ -36,8 +36,7 @@ class WeatherDataSourceTests: XCTestCase {
             units: Units(units: "si"),
             currentConditions: nil,
             oneDayForecasts: nil,
-            oneHourForecasts: forecasts,
-            lines: nil)
+            oneHourForecasts: forecasts)
 
         // Add the forecast to the data source and make that the table's data source.
         weatherDS = WeatherDataSource(forecast: mockForecast!)
