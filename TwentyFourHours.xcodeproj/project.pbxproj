@@ -126,6 +126,13 @@
 			path = weatherControllers;
 			sourceTree = "<group>";
 		};
+		345BBB681CDB316E0060A143 /* weatherDisplay */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = weatherDisplay;
+			sourceTree = "<group>";
+		};
 		34E1BFE41CCA4E1700FF1F2A /* weatherControllersTests */ = {
 			isa = PBXGroup;
 			children = (
@@ -162,6 +169,7 @@
 				3424C40A1CC0CAD400ABE283 /* weatherControllers */,
 				F15676A71CC3ACE6006B5076 /* location */,
 				34EBD4AE1CBFDF180033B651 /* weatherModel */,
+				345BBB681CDB316E0060A143 /* weatherDisplay */,
 				34EBD4A11CBFDCCD0033B651 /* weatherData */,
 				34EBD4BB1CBFDF620033B651 /* extensions */,
 				34EBD4741CBFDB5F0033B651 /* Assets.xcassets */,
