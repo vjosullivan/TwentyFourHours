@@ -111,19 +111,6 @@ class ForecastIOBuilder {
         return oneHourForecasts.count > 0 ? oneHourForecasts : nil
     }
 
-//    private func parseForecasts(oneHourForecasts: [OneHourForecast], oneDayForecasts: [OneDayForecast]) -> [WeatherLine]? { //(dayLines: [WeatherLine], hourLines: [WeatherLine])? {
-//        guard oneHourForecasts.count > 0 else {
-//            return nil
-//        }
-//        //        let latestHourForecast = oneHourForecasts.reduce(oneHourForecasts[0], combine: { max($0, $1) })
-//        //        for dayForecast in oneDayForecasts {
-//        //            if dayForecast.time <= latestHourForecast.time {
-//        //
-//        //            }
-//        //        }
-//        return nil // lines
-//    }
-
     ///  Converts a forecast IO icon name into an app icon name.
     ///
     ///  - parameter icon: A forecast IO icon name

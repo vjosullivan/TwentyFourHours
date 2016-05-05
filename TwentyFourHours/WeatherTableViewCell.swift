@@ -18,6 +18,12 @@ class WeatherTableViewCell: UITableViewCell {
     @IBOutlet var rainLabel: UILabel!
     @IBOutlet var weatherIcon: UIImageView!
 
+    ///  Customises the appearance of the cell in accordance with the supplied data.
+    ///
+    ///  - parameters:
+    ///    - rowIndex: The index of the cell to be updated
+    ///    - forecast: The data source.
+    ///
     func configure(rowIndex rowIndex: Int, forecast: Forecast?) {
         if let forecast = forecast,
             let hourly = forecast.oneHourForecasts?[rowIndex] {
