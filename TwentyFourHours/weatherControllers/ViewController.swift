@@ -25,7 +25,6 @@ class ViewController: UIViewController {
     }
 
     private func updateView(forecast forecast: Forecast) {
-        print("/n/nUpdatng view.../n/n")
         weatherData = WeatherDataSource(forecast: forecast)
         weatherTable.dataSource = weatherData
         weatherTable.reloadData()
