@@ -30,7 +30,7 @@ class WeatherTableViewCell: UITableViewCell {
 
             tempLabel!.text = hourly.temperature != nil ? "\(Int(round(hourly.temperature!)))" : "?"
 
-            CFLabel.text = forecast.units.temperature
+            CFLabel.text = forecast.units?.temperature ?? ""
 
             if let dateTime = hourly.unixTime {
                 dayLabel!.text  =  dayStringFromUnixTime(Double(dateTime))

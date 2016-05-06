@@ -20,7 +20,7 @@ class WeatherTableViewCellTests: XCTestCase {
         let forecast = Forecast(
             latitude: nil,
             longitude: nil,
-            units: Units(units: "si") ,
+            units: nil,
             currentConditions: nil,
             oneDayForecasts: nil,
             oneHourForecasts: nil)
@@ -36,7 +36,7 @@ class WeatherTableViewCellTests: XCTestCase {
         let forecast = Forecast(
             latitude: nil,
             longitude: nil,
-            units: Units(units: "si"),
+            units: nil,
             currentConditions: nil,
             oneDayForecasts: nil,
             oneHourForecasts: [OneHourForecast(unixTime: nil, icon: "unknown", summary: nil, temperature: nil)])
@@ -57,7 +57,7 @@ class WeatherTableViewCellTests: XCTestCase {
         let forecast = Forecast(
             latitude: nil,
             longitude: nil,
-            units: Units(units: "si"),
+            units: nil,
             currentConditions: nil,
             oneDayForecasts: nil,
             oneHourForecasts: [OneHourForecast(unixTime: nil, icon: "rain", summary: nil, temperature: nil)])
@@ -79,7 +79,7 @@ class WeatherTableViewCellTests: XCTestCase {
         let forecast = Forecast(
             latitude: nil,
             longitude: nil,
-            units: Units(units: "si"),
+            units: nil,
             currentConditions: nil,
             oneDayForecasts: nil,
             oneHourForecasts: [OneHourForecast(unixTime: nil, icon: "banana", summary: nil, temperature: nil)])

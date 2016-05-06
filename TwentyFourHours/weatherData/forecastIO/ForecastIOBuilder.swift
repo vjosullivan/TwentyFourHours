@@ -43,10 +43,11 @@ class ForecastIOBuilder {
         let oneHourForecasts  = parseOneHourForecasts(hourlyData: json["hourly"]?["data"] as? [AnyObject])
         let flags             = parseFlags(flagData: json["flags"] as? JSONDictionary)
 
+        let units: Units? = Units(units: flags?.units ?? "")
         let forecast = Forecast(
             latitude: latitude,
             longitude: longitude,
-            units: Units(units: flags?.units ?? "si"),
+            units: units,
             currentConditions: currentConditions,
             oneDayForecasts: oneDayForecasts,
             oneHourForecasts: oneHourForecasts)

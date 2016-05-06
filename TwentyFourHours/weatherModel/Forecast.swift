@@ -10,7 +10,7 @@ struct Forecast {
 
     let latitude: Double?
     let longitude: Double?
-    let units: Units
+    let units: Units?
 
     let currentConditions: CurrentConditions?
     let oneDayForecasts: [OneDayForecast]?
@@ -19,7 +19,7 @@ struct Forecast {
 
 let nilForecast = Forecast(latitude: nil,
                            longitude: nil,
-                           units: Units(units: "si"),
+                           units: nil,
                            currentConditions: nil,
                            oneDayForecasts: nil,
                            oneHourForecasts: nil)

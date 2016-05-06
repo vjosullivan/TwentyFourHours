@@ -20,7 +20,7 @@ class UnitsTests: XCTestCase {
     }
 
     func testCreatable() {
-        let testUnits = "test"
+        let testUnits = "si"
         let units = Units(units: testUnits)
         XCTAssertNotNil(units)
     }
@@ -28,24 +28,24 @@ class UnitsTests: XCTestCase {
     func testTemperatureSI() {
         let testUnits = "si"
         let units = Units(units: testUnits)
-        XCTAssertEqual("°C", units.temperature)
+        XCTAssertEqual("°C", units?.temperature)
     }
 
     func testTemperatureUS() {
         let testUnits = "us"
         let units = Units(units: testUnits)
-        XCTAssertEqual("°F", units.temperature)
+        XCTAssertEqual("°F", units?.temperature)
     }
 
-    func testTemperatureUnknown() {
+    func testUnknownUnits() {
         let testUnits = "xx"
         let units = Units(units: testUnits)
-        XCTAssertEqual("°C", units.temperature)
+        XCTAssertNil(units)
     }
 
     func testWindSpeedSI() {
         let testUnits = "si"
         let units = Units(units: testUnits)
-        XCTAssertEqual("m/s", units.windSpeed)
+        XCTAssertEqual("m/s", units?.windSpeed)
     }
 }

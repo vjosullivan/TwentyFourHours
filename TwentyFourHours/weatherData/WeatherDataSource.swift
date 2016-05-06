@@ -24,6 +24,7 @@ extension WeatherDataSource: UITableViewDataSource {
     }
 
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        print("\n\nRows: \(forecast.oneHourForecasts?.count ?? 0)\n\n")
         return forecast.oneHourForecasts?.count ?? 0
     }
 

@@ -12,7 +12,7 @@ import XCTest
 class WeatherDisplayTests: XCTestCase {
 
     func testCreatable() {
-        let forecast = Forecast(latitude: nil, longitude: nil, units: Units(units: "si"), currentConditions: nil, oneDayForecasts: nil, oneHourForecasts: nil)
+        let forecast = Forecast(latitude: nil, longitude: nil, units: nil, currentConditions: nil, oneDayForecasts: nil, oneHourForecasts: nil)
         let weatherDisplay = WeatherDisplay(forecast: forecast)
         XCTAssertNotNil(weatherDisplay)
     }

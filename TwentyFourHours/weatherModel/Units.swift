@@ -21,11 +21,11 @@ struct Units {
         return windSpeeds[unitSystem]
     }
 
-    init(units: String) {
+    init?(units: String) {
         if let index = systems.indexOf(units) {
             unitSystem = index
         } else {
-            unitSystem = 0
+            return nil
         }
     }
 }

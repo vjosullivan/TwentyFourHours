@@ -13,21 +13,22 @@ class ForecastIOBuilderTests: XCTestCase {
 
     private static let testLatitude  = 51.3
     private static let testLongitude = -1.0
-    private static let testUnits     = "uk"
+    private static let testUnits     = "uk2"
+    private static let testFlags     = ["units": testUnits]
     private static let testUnitsTemperature = "°C"
 
     static let emptyJSON: JSONDictionary     = JSONDictionary()
-    static let basicJSON: JSONDictionary     = ["latitude": testLatitude, "longitude": testLongitude, "units": testUnits]
+    static let basicJSON: JSONDictionary     = ["latitude": testLatitude, "longitude": testLongitude, "flags": testFlags]
     static let currentJSON: JSONDictionary   = ["currently": ["time": 1_400_000_000, "icon": "rain", "summary": "rain", "temperature": 15.4]]
     static let invalidIconJSON: JSONDictionary   = ["currently": ["time": 1_400_000_000, "icon": "xx", "summary": "rain", "temperature": 15.4]]
     static let missingIconJSON: JSONDictionary   = ["currently": ["time": 1_400_000_000, "summary": "rain", "temperature": 15.4]]
     static let noCurrentJSON: JSONDictionary = ["latitude": testLatitude, "currently": []]
     static let hoursJSON: JSONDictionary     = ["latitude": testLatitude, "hourly": ["data": [["time": 1_400_000_000, "icon": "rain", "summary": "rain", "temperature": 15.4]]]]
     static let noHoursJSON: JSONDictionary   = ["latitude": testLatitude, "hourly": []]
-    static let badHoursJSON: JSONDictionary   = ["latitude": testLatitude, "hourly": ["data": [["fruit": "banana"]]]]
+    static let badHoursJSON: JSONDictionary  = ["latitude": testLatitude, "hourly": ["data": [["fruit": "banana"]]]]
     static let daysJSON: JSONDictionary      = ["latitude": testLatitude, "daily": ["data": [["time": 1_401_000_000, "sunrise": 1_401_007_200, "sunset": 1_401_014_400]]]]
     static let noDaysJSON: JSONDictionary    = ["latitude": testLatitude, "daily": []]
-    static let badDaysJSON: JSONDictionary    = ["latitude": testLatitude, "daily": ["data": [["fruit": "banana"]]]]
+    static let badDaysJSON: JSONDictionary   = ["latitude": testLatitude, "daily": ["data": [["fruit": "banana"]]]]
     static let flagsJSON: JSONDictionary     = ["latitude": testLatitude, "flags": ["units": "us"]]
     static let noFlagsJSON: JSONDictionary   = ["latitude": testLatitude, "flags": []]
     static let zzFlagsJSON: JSONDictionary   = ["latitude": testLatitude, "flags": ["units": "zz"]]
@@ -78,7 +79,7 @@ class ForecastIOBuilderTests: XCTestCase {
             forecast = try builder?.parseJSONForecast(ForecastIOBuilderTests.basicJSON)
             XCTAssertEqual(ForecastIOBuilderTests.testLatitude,  forecast?.latitude)
             XCTAssertEqual(ForecastIOBuilderTests.testLongitude, forecast?.longitude)
-            XCTAssertEqual(ForecastIOBuilderTests.testUnitsTemperature, forecast?.units.temperature)
+            XCTAssertEqual(ForecastIOBuilderTests.testUnitsTemperature, forecast?.units?.temperature)
             XCTAssertNil(forecast?.currentConditions)
             XCTAssertNil(forecast?.oneHourForecasts)
             XCTAssertNil(forecast?.oneDayForecasts)
@@ -220,22 +221,20 @@ class ForecastIOBuilderTests: XCTestCase {
         do {
             forecast = try builder?.parseJSONForecast(ForecastIOBuilderTests.flagsJSON)
             XCTAssertNotNil(forecast?.units)
-            XCTAssertEqual("°F", forecast?.units.temperature)
-            XCTAssertEqual("mph", forecast?.units.windSpeed)
+            XCTAssertEqual("°F", forecast?.units?.temperature)
+            XCTAssertEqual("mph", forecast?.units?.windSpeed)
         } catch {
             XCTAssert(false, "flagsJSON test should not throw an error.")
         }
     }
     
 
-    ///  Test forecast that contains unknown flags.  (Defaults to metric.)
+    ///  Test forecast that contains unknown flags.
     func testZZFlagsJSON() {
         var forecast: Forecast?
         do {
             forecast = try builder?.parseJSONForecast(ForecastIOBuilderTests.zzFlagsJSON)
-            XCTAssertNotNil(forecast?.units)
-            XCTAssertEqual("°C", forecast?.units.temperature)
-            XCTAssertEqual("m/s", forecast?.units.windSpeed)
+            XCTAssertNil(forecast?.units)
         } catch {
             XCTAssert(false, "zzFlagsJSON test should not throw an error.")
         }
@@ -246,9 +245,7 @@ class ForecastIOBuilderTests: XCTestCase {
         var forecast: Forecast?
         do {
             forecast = try builder?.parseJSONForecast(ForecastIOBuilderTests.noFlagsJSON)
-            XCTAssertNotNil(forecast?.units)
-            XCTAssertEqual("°C", forecast?.units.temperature)
-            XCTAssertEqual("m/s", forecast?.units.windSpeed)
+            XCTAssertNil(forecast?.units)
         } catch {
             XCTAssert(false, "noFlagsJSON test should not throw an error.")
         }

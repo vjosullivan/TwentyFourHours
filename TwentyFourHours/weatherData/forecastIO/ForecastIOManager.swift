@@ -93,7 +93,7 @@ extension ForecastIOManager: LocationManagerDelegate {
     ///    - error:    The error description.
     ///
     func locationManager(manager: LocationManager, didFailWithError error: NSError) {
-        print("Location manager failed with error: \(error)")
+        print("--->  Location manager failed with error: \(error)")
     }
 }
 

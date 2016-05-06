@@ -12,16 +12,20 @@ import CoreLocation
 class ViewController: UIViewController {
 
     @IBOutlet weak var weatherTable: UITableView!
+
+    var forecastIOManager: ForecastIOManager?
     
     private var weatherData: WeatherDataSource?
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        ForecastIOManager(forecastDelegate: self).updateForecast()
+        forecastIOManager = ForecastIOManager(forecastDelegate: self)
+        forecastIOManager!.updateForecast()
     }
 
     private func updateView(forecast forecast: Forecast) {
+        print("/n/nUpdatng view.../n/n")
         weatherData = WeatherDataSource(forecast: forecast)
         weatherTable.dataSource = weatherData
         weatherTable.reloadData()

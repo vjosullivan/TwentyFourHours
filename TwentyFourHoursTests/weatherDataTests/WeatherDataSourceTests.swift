@@ -14,7 +14,7 @@ class WeatherDataSourceTests: XCTestCase {
 
     let expectedTemperature = 12.0
     /// This forecast contains no one-hour forecasts
-    let mockEmptyForecast = Forecast(latitude: 0.0, longitude: 0.0, units: Units(units: "si"),
+    let mockEmptyForecast = Forecast(latitude: 0.0, longitude: 0.0, units: nil,
                                      currentConditions: nil,
                                      oneDayForecasts: nil,
                                      oneHourForecasts: nil)
