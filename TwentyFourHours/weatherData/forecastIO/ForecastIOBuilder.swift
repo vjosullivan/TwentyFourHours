@@ -39,7 +39,6 @@ class ForecastIOBuilder {
         let longitude = json["longitude"] as? Double
         let currentConditions = parseCurrentConditions(currentData: json["currently"] as? JSONDictionary)
         let oneDayForecasts   = parseOneDayForecasts(dailyData: json["daily"]?["data"] as? [AnyObject])
-        print("\n\njson \(json)\n\n")
         let oneHourForecasts  = parseOneHourForecasts(hourlyData: json["hourly"]?["data"] as? [AnyObject])
         let flags             = parseFlags(flagData: json["flags"] as? JSONDictionary)
 

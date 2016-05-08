@@ -23,6 +23,6 @@ class DayLineTests: XCTestCase {
         formatter.dateFormat = "EEEE, MMMM d"
         let expectedText = formatter.stringFromDate(now)
 
-        XCTAssertEqual(expectedText, dayLine.text())
+        XCTAssertEqual(expectedText, dayLine.text)
     }
 }

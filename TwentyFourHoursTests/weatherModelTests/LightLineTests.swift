@@ -19,7 +19,7 @@ class LightLineTests: XCTestCase {
     func testDisplayedText() {
         let line1 = LightLine(time: NSDate(), twilightType: .Sunrise)
         let line2 = LightLine(time: NSDate(), twilightType: .Sunset)
-        XCTAssertEqual(TwilightType.Sunrise.rawValue, line1.text())
-        XCTAssertEqual(TwilightType.Sunset.rawValue, line2.text())
+        XCTAssertEqual(TwilightType.Sunrise.rawValue, line1.text)
+        XCTAssertEqual(TwilightType.Sunset.rawValue, line2.text)
     }
 }

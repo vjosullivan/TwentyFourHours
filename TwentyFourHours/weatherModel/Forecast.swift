@@ -15,11 +15,14 @@ struct Forecast {
     let currentConditions: CurrentConditions?
     let oneDayForecasts: [OneDayForecast]?
     let oneHourForecasts: [OneHourForecast]?
-}
 
-let nilForecast = Forecast(latitude: nil,
+    /// Returns a forecast that contains nothing.
+    internal static var emptyForecast: Forecast {
+        return Forecast(latitude: nil,
                            longitude: nil,
                            units: nil,
                            currentConditions: nil,
                            oneDayForecasts: nil,
                            oneHourForecasts: nil)
+    }
+}

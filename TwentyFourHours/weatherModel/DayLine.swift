@@ -10,10 +10,11 @@ import Foundation
 
 struct DayLine: WeatherLine {
 
-    let time: NSDate
     let type = WeatherLineType.DayLine
 
-    func text() -> String {
+    let time: NSDate
+
+    var text: String {
         let formatter = NSDateFormatter()
         formatter.dateFormat = "EEEE, MMMM d"
 

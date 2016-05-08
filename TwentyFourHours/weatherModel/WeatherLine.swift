@@ -10,6 +10,9 @@ import Foundation
 
 protocol WeatherLine {
 
+    var type: WeatherLineType { get }
+    var time: NSDate { get }
+    var text: String { get }
 }
 
 enum WeatherLineType {

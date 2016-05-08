@@ -30,22 +30,45 @@ class ForecastIODisplayBuilder {
         guard let days = days else {
             return [DayLine]()
         }
+        var lines = [DayLine]()
         for day in days {
-            print(day)
+            print("\n\nDay: \(day)\n\n")
+            if let time = day.unixTime {
+                let line = DayLine(time: NSDate(timeIntervalSince1970: Double(time)))
+                lines.append(line)
+            }
         }
-        return [DayLine]()
+        return lines
     }
 
     private func parseHours(days days: [OneDayForecast]?, hours: [OneHourForecast]?) -> [WeatherLine] {
         guard let days = days, hours = hours else {
             return [WeatherLine]()
         }
+        var lines = [WeatherLine]()
         for day in days {
-            print(day)
+            print("\n\nDay: \(day)\n\n")
+            if let time = day.sunriseTime {
+                let line = LightLine(time: NSDate(timeIntervalSince1970: Double(time)), twilightType: .Sunrise)
+                lines.append(line)
+            }
+            if let time = day.sunsetTime {
+                let line = LightLine(time: NSDate(timeIntervalSince1970: Double(time)), twilightType: .Sunset)
+                lines.append(line)
+            }
         }
         for hour in hours {
-            print(hour)
+            print("\n\nDay: \(hour)\n\n")
+            if let time = hour.unixTime {
+                let line = HourLine(
+                    time: NSDate(timeIntervalSince1970: Double(time)),
+                    temperature: nil,
+                    units: nil,
+                    summary: nil,
+                    icon: nil)
+                lines.append(line)
+            }
         }
-        return [WeatherLine]()
+        return lines.sort { $0.time.timeIntervalSince1970 < $1.time.timeIntervalSince1970 }
     }
 }

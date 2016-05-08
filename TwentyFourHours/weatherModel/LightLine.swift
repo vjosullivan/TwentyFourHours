@@ -10,11 +10,12 @@ import Foundation
 
 struct LightLine: WeatherLine {
 
-    let time: NSDate
-    let twilightType: TwilightType
     let type = WeatherLineType.LightLine
 
-    func text() -> String {
+    let time: NSDate
+    let twilightType: TwilightType
+
+    var text: String {
         return twilightType.rawValue
     }
 }

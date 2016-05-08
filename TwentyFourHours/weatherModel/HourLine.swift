@@ -8,16 +8,17 @@
 
 import Foundation
 
-struct HourLine {
+struct HourLine: WeatherLine {
 
     let type = WeatherLineType.HourLine
-    let time: NSDate
-    let temperature: Double
-    let units: String
-    let summary: String
-    let icon: String
 
-    func text() -> String {
-        return summary
+    let time: NSDate
+    let temperature: Double?
+    let units: String?
+    let summary: String?
+    let icon: String?
+
+    var text: String {
+        return summary ?? ""
     }
 }
