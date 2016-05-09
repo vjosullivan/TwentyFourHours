@@ -48,6 +48,40 @@ class WeatherTableViewCell: UITableViewCell {
         }
     }
 
+    ///  Customises the appearance of the cell in accordance with the supplied data.
+    ///
+    ///  - parameters:
+    ///    - rowIndex: The index of the cell to be updated
+    ///    - forecast: The data source.
+    ///
+    func configure(rowIndex rowIndex: Int, displayLine: WeatherLine?) {
+        if let line = displayLine {
+
+            switch line.type {
+            case WeatherLineType.HourLine:
+                if let hourLine = line as? HourLine {
+                    tempLabel!.text = hourLine.temperature != nil ? "\(Int(round(hourLine.temperature!)))" : "?"
+
+                    CFLabel.text = hourLine.units ?? "X"
+
+                    timeLabel!.text = hourLine.time.asHpm()
+
+                    rainLabel!.text = hourLine.summary ?? ""
+                    // Unit test work around (because UIImageView is always nil in my unit tests).
+                    if weatherIcon != nil {
+                        weatherIcon.image = weatherImage(hourLine.icon)
+                    }
+                }
+            case WeatherLineType.LightLine:
+                break
+            case WeatherLineType.DayLine:
+                break
+            }
+            
+            cellColours()
+        }
+    }
+    
     func cellColours() {
         let cellBackgroundColor = UIColor.blackColor()
         let cellForegroundColor = UIColor.whiteColor()

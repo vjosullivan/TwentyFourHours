@@ -10,27 +10,33 @@ import UIKit
 
 class WeatherDataSource:  NSObject {
 
-    private let forecast: Forecast
+    private let days:  [DayLine]
+    private let hours: [[WeatherLine]]
 
-    init(forecast: Forecast) {
-        self.forecast = forecast
+    init(display: ForecastIOHourlyDisplay) {
+        self.days  = display.dailyLines
+        self.hours = display.hourlyLines
     }
 }
 
 extension WeatherDataSource: UITableViewDataSource {
 
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return 1
+        return days.count
+    }
+
+    func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return days[section].text
     }
 
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return forecast.oneHourForecasts?.count ?? 0
+        return hours[section].count
     }
 
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("HourCell") as! WeatherTableViewCell
 
-        cell.configure(rowIndex: indexPath.row, forecast: forecast)
+        cell.configure(rowIndex: indexPath.row, displayLine: hours[indexPath.section][indexPath.row])
         return cell
     }
 }

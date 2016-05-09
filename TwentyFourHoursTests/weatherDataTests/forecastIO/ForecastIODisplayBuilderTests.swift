@@ -36,11 +36,11 @@ class ForecastIODisplayBuilderTests: XCTestCase {
     let d2h2 = OneHourForecast(unixTime: 1_462_778_000, icon: nil, summary: nil, temperature: nil)
     let d3h1 = OneHourForecast(unixTime: 1_462_834_800, icon: nil, summary: nil, temperature: nil)
 
-    var emptyBuilder: ForecastIODisplayBuilder?
+    var emptyBuilder: ForecastIOHourlyDisplay?
 
     ///   Runs before *each* test.
     override func setUp() {
-        emptyBuilder = ForecastIODisplayBuilder(forecast: Forecast.emptyForecast)
+        emptyBuilder = ForecastIOHourlyDisplay(forecast: Forecast.emptyForecast)
         threeDays = [d1, d2, d3]
         threeDaysSunny = [d1ss, d2ss, d3ss]
         fourHours = [h1, h2, h3, h4]
@@ -73,7 +73,7 @@ class ForecastIODisplayBuilderTests: XCTestCase {
         let threeDayForecast = Forecast(latitude: 51.3, longitude: -1.0, units: nil, currentConditions: nil, oneDayForecasts: threeDays, oneHourForecasts: nil)
 
         // Perform action.
-        let dayLines = ForecastIODisplayBuilder(forecast: threeDayForecast).dailyLines
+        let dayLines = ForecastIOHourlyDisplay(forecast: threeDayForecast).dailyLines
 
         // Check result.
         XCTAssertEqual(3, dayLines.count)
@@ -84,7 +84,7 @@ class ForecastIODisplayBuilderTests: XCTestCase {
         let fourHourForecast = Forecast(latitude: 51.3, longitude: -1.0, units: nil, currentConditions: nil, oneDayForecasts: nil, oneHourForecasts: fourHours)
 
         // Perform action.
-        let hourLines = ForecastIODisplayBuilder(forecast: fourHourForecast).hourlyLines
+        let hourLines = ForecastIOHourlyDisplay(forecast: fourHourForecast).hourlyLines
 
         // Check result.
         XCTAssertEqual(0, hourLines.count)
@@ -95,7 +95,7 @@ class ForecastIODisplayBuilderTests: XCTestCase {
         let fourHourForecast = Forecast(latitude: 51.3, longitude: -1.0, units: nil, currentConditions: nil, oneDayForecasts: threeDays, oneHourForecasts: fourHours)
 
         // Perform action.
-        let hourLines = ForecastIODisplayBuilder(forecast: fourHourForecast).hourlyLines
+        let hourLines = ForecastIOHourlyDisplay(forecast: fourHourForecast).hourlyLines
 
         // Check result.
         XCTAssertEqual(3, hourLines.count)
@@ -106,7 +106,7 @@ class ForecastIODisplayBuilderTests: XCTestCase {
         let forecast = Forecast(latitude: 51.3, longitude: -1.0, units: nil, currentConditions: nil, oneDayForecasts: threeDaysSunny, oneHourForecasts: sixHours)
 
         // Perform action.
-        let hourLines = ForecastIODisplayBuilder(forecast: forecast).hourlyLines
+        let hourLines = ForecastIOHourlyDisplay(forecast: forecast).hourlyLines
 
         // Check result.
         XCTAssertEqual(3, hourLines.count)

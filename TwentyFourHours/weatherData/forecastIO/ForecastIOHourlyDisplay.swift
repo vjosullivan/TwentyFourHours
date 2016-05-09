@@ -8,7 +8,7 @@
 
 import Foundation
 
-class ForecastIODisplayBuilder {
+class ForecastIOHourlyDisplay {
 
     let forecast: Forecast
     var dailyLines: [DayLine] {

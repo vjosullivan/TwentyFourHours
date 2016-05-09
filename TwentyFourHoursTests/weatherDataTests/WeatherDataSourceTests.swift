@@ -39,7 +39,7 @@ class WeatherDataSourceTests: XCTestCase {
             oneHourForecasts: forecasts)
 
         // Add the forecast to the data source and make that the table's data source.
-        weatherDS = WeatherDataSource(forecast: mockForecast!)
+        weatherDS = WeatherDataSource(display: ForecastIOHourlyDisplay(forecast: mockForecast!))
         mockTableView = UITableView(frame: CGRectZero)
         mockTableView.dataSource = weatherDS
         mockTableView.registerClass(mockWeatherTableViewCell.self, forCellReuseIdentifier: "HourCell")
@@ -64,7 +64,7 @@ class WeatherDataSourceTests: XCTestCase {
     }
 
     func testRowCountWithoutForecast() {
-        weatherDS = WeatherDataSource(forecast: mockEmptyForecast)
+        weatherDS = WeatherDataSource(display: ForecastIOHourlyDisplay(forecast: mockEmptyForecast))
         mockTableView = UITableView(frame: CGRectZero)
         mockTableView.dataSource = weatherDS
         mockTableView.registerClass(mockWeatherTableViewCell.self, forCellReuseIdentifier: "HourCell")
