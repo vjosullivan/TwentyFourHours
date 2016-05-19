@@ -21,6 +21,8 @@ class ViewController: UIViewController {
         ForecastIOManager(forecastDelegate: self).updateForecast()
     }
 
+    ///  Update the view with the current weather forecast.
+    ///
     private func updateView(forecast forecast: Forecast) {
         weatherData = WeatherDataSource(forecast: forecast)
         weatherTable.dataSource = weatherData
