@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct OneHourForecast {
+struct WeatherSnapShot {
     
     let unixTime: Int?
     let icon: String?
@@ -25,7 +25,7 @@ struct OneHourForecast {
     }
 }
 
-extension OneHourForecast: Comparable {}
+extension WeatherSnapShot: Comparable {}
 
-func == (x: OneHourForecast, y: OneHourForecast) -> Bool { return x.unixTime == y.unixTime }
-func <  (x: OneHourForecast, y: OneHourForecast) -> Bool { return x.unixTime <  y.unixTime }
+func == (x: WeatherSnapShot, y: WeatherSnapShot) -> Bool { return x.unixTime == y.unixTime }
+func <  (x: WeatherSnapShot, y: WeatherSnapShot) -> Bool { return x.unixTime <  y.unixTime }

@@ -10,7 +10,7 @@ import Foundation
 
 class DisplayableForecast {
 
-    private let forecasts: [[OneHourForecast]]
+    private let forecasts: [[WeatherSnapShot]]
 
     /// The number of separate (local) calendar days included in the forecast.
     var dayCount: Int {
@@ -34,29 +34,29 @@ class DisplayableForecast {
     ///
     ///  - returns: A line of (displayable) weather data.
     ///
-    func forecast(day day: Int, line: Int) -> OneHourForecast {
+    func forecast(day day: Int, line: Int) -> WeatherSnapShot {
         return forecasts[day][line]
     }
 
     init(forecast: Forecast) {
-        var forecasts = [[OneHourForecast]]()
+        var forecasts = [[WeatherSnapShot]]()
         var dateIndex = forecast.currentConditions?.date
-        var hourlyForecasts = [OneHourForecast]()
-        // TODO: hoursData.append(forecast.currentConditions)
+        var hourlyForecasts = [WeatherSnapShot]()
+        hourlyForecasts.append(forecast.currentConditions!)
         if let hours = forecast.oneHourForecasts?.sort() {
             for hour in hours {
                 if !NSCalendar.currentCalendar().isDate(hour.date, inSameDayAsDate: dateIndex!) {
                     if hourlyForecasts.count > 0 {
-                        forecasts.append(hourlyForecasts)
-                        hourlyForecasts = [OneHourForecast]()
+                        forecasts.append(hourlyForecasts.sort())
+                        hourlyForecasts = [WeatherSnapShot]()
                     }
                     dateIndex = hour.date
                 }
                 hourlyForecasts.append(hour)
             }
             if hourlyForecasts.count > 0 {
-                forecasts.append(hourlyForecasts)
-                hourlyForecasts = [OneHourForecast]()
+                forecasts.append(hourlyForecasts.sort())
+                hourlyForecasts = [WeatherSnapShot]()
             }
         }
         self.forecasts = forecasts

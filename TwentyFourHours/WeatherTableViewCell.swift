@@ -26,9 +26,11 @@ class WeatherTableViewCell: UITableViewCell {
             CFLabel.text = forecast.units.temperature
 
             if let dateTime = hourly.unixTime {
-                timeLabel!.text = timeStringFromUnixTime(Double(dateTime))
+                timeLabel!.text = hour(Double(dateTime))
+                minsLabel!.text = minute(Double(dateTime))
             } else {
                 timeLabel!.text = "??"
+                minsLabel!.text = "??"
             }
             rainLabel!.text = hourly.summary ?? ""
             // Unit test work around (because UIImageView is always nil in my unit tests).
@@ -39,15 +41,17 @@ class WeatherTableViewCell: UITableViewCell {
         }
     }
 
-    func configure(forecast: OneHourForecast) {
+    func configure(forecast: WeatherSnapShot) {
             tempLabel!.text = forecast.temperature != nil ? "\(Int(round(forecast.temperature!)))" : "?"
 
             CFLabel.text = forecast.units?.temperature ?? "X"
 
             if let dateTime = forecast.unixTime {
-                timeLabel!.text = timeStringFromUnixTime(Double(dateTime))
+                timeLabel!.text = hour(Double(dateTime))
+                minsLabel!.text = minute(Double(dateTime))
             } else {
                 timeLabel!.text = "??"
+                minsLabel!.text = "??"
             }
             rainLabel!.text = forecast.summary ?? ""
             // Unit test work around (because UIImageView is always nil in my unit tests).
@@ -59,7 +63,7 @@ class WeatherTableViewCell: UITableViewCell {
     
     func cellColours() {
         let cellBackgroundColor = UIColor.blackColor()
-        let cellForegroundColor = UIColor.whiteColor()
+        let cellForegroundColor = minsLabel.text == ":00" ? UIColor.whiteColor() : UIColor.orangeColor()
 
         backgroundColor     = cellBackgroundColor
         
@@ -88,11 +92,31 @@ extension WeatherTableViewCell {
         return dateFormatter.stringFromDate(date)
     }
 
-    func timeStringFromUnixTime(unixTime: Double) -> String {
+    ///  Returns the hour value in the current calendar.
+    ///
+    ///  - parameter unixTime: The time stamp to be decoded.
+    ///
+    ///  - returns: A hour value in the range 0 to 23.
+    ///
+    func hour(unixTime: Double) -> String {
         let date = NSDate(timeIntervalSince1970: unixTime)
 
         let dateFormatter = NSDateFormatter()
         dateFormatter.dateFormat = "HH"
+        return dateFormatter.stringFromDate(date)
+    }
+
+    ///  Returns the minute value in the current calendar.
+    ///
+    ///  - parameter unixTime: The time stamp to be decoded.
+    ///
+    ///  - returns: A minute value in the range 0 to 59.
+    ///
+    func minute(unixTime: Double) -> String {
+        let date = NSDate(timeIntervalSince1970: unixTime)
+
+        let dateFormatter = NSDateFormatter()
+        dateFormatter.dateFormat = ":mm"
         return dateFormatter.stringFromDate(date)
     }
 }
