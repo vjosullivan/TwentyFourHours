@@ -26,6 +26,7 @@ class ViewController: UIViewController {
     private func updateView(forecast forecast: Forecast) {
         weatherData = WeatherDataSource(forecast: forecast)
         weatherTable.dataSource = weatherData
+        weatherTable.delegate   = weatherData
         weatherTable.reloadData()
     }
 }

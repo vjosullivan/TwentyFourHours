@@ -16,11 +16,9 @@ struct CurrentConditions {
     let unixTime: Int?
     let icon: String?
     let summary: String?
-
     let temperature: Double?
 
     var date: NSDate {
-        let d = NSDate(timeIntervalSince1970: NSTimeInterval(unixTime!))
-        return d
+        return NSDate(timeIntervalSince1970: NSTimeInterval(unixTime!))
     }
 }

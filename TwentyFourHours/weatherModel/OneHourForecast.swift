@@ -6,15 +6,22 @@
 //  Copyright © 2016 Vincent O'Sullivan. All rights reserved.
 //
 
+import Foundation
+
 struct OneHourForecast {
     
     let unixTime: Int?
     let icon: String?
     let summary: String?
     let temperature: Double?
+    let units: Units?
 
     var containsData: Bool {
         return unixTime != nil && icon != nil && summary != nil && temperature != nil
+    }
+
+    var date: NSDate {
+        return NSDate(timeIntervalSince1970: NSTimeInterval(unixTime!))
     }
 }
 
@@ -22,4 +29,3 @@ extension OneHourForecast: Comparable {}
 
 func == (x: OneHourForecast, y: OneHourForecast) -> Bool { return x.unixTime == y.unixTime }
 func <  (x: OneHourForecast, y: OneHourForecast) -> Bool { return x.unixTime <  y.unixTime }
-

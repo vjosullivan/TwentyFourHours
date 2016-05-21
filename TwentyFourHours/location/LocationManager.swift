@@ -55,7 +55,17 @@ extension LocationManager: CLLocationManagerDelegate {
 
 protocol LocationManagerDelegate {
 
+    ///  Tells the delegate that new location information is available.
+    ///
+    ///  - parameter manager:  The location manager that updated the location information.
+    ///  - parameter location: The new location data.
+    ///
     func locationManager(manager: LocationManager, didUpdateLocation location: (latitude: Double, longitude: Double))
 
+    ///  Tells the delegate that the location manager failed to obtain a location.
+    ///
+    ///  - parameter manager: The location manager that failed.
+    ///  - parameter error:   The nature of the error encountered.
+    ///
     func locationManager(manager: LocationManager, didFailWithError error: NSError)
 }

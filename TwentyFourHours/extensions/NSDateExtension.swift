@@ -36,4 +36,13 @@ extension NSDate {
         let components = cal.components([.Day , .Month, .Year ], fromDate: NSDate())
         return cal.dateFromComponents(components)!
     }
+
+
+    func isSameDay(date1:NSDate) -> Bool {
+        let calendar = NSCalendar.currentCalendar()
+        let comps1 = calendar.components([NSCalendarUnit.Month , NSCalendarUnit.Year , NSCalendarUnit.Day], fromDate: date1)
+        let comps2 = calendar.components([NSCalendarUnit.Month , NSCalendarUnit.Year , NSCalendarUnit.Day], fromDate: self)
+
+        return (comps1.day == comps2.day) && (comps1.month == comps2.month) && (comps1.year == comps2.year)
+    }
 }

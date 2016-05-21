@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct LightLine: WeatherLine {
+struct LightLine: WeatherLineX {
 
     let time: NSDate
     let twilightType: TwilightType

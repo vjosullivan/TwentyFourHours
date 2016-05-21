@@ -10,7 +10,6 @@ import UIKit
 
 class WeatherTableViewCell: UITableViewCell {
 
-    @IBOutlet var dayLabel: UILabel!
     @IBOutlet var timeLabel: UILabel!
     @IBOutlet var minsLabel: UILabel!
     @IBOutlet var tempLabel: UILabel!
@@ -27,10 +26,8 @@ class WeatherTableViewCell: UITableViewCell {
             CFLabel.text = forecast.units.temperature
 
             if let dateTime = hourly.unixTime {
-                dayLabel!.text  =  dayStringFromUnixTime(Double(dateTime))
                 timeLabel!.text = timeStringFromUnixTime(Double(dateTime))
             } else {
-                dayLabel!.text  = "??"
                 timeLabel!.text = "??"
             }
             rainLabel!.text = hourly.summary ?? ""
@@ -42,13 +39,30 @@ class WeatherTableViewCell: UITableViewCell {
         }
     }
 
+    func configure(forecast: OneHourForecast) {
+            tempLabel!.text = forecast.temperature != nil ? "\(Int(round(forecast.temperature!)))" : "?"
+
+            CFLabel.text = forecast.units?.temperature ?? "X"
+
+            if let dateTime = forecast.unixTime {
+                timeLabel!.text = timeStringFromUnixTime(Double(dateTime))
+            } else {
+                timeLabel!.text = "??"
+            }
+            rainLabel!.text = forecast.summary ?? ""
+            // Unit test work around (because UIImageView is always nil in my unit tests).
+            if weatherIcon != nil {
+                weatherIcon.image = weatherImage(forecast.icon)
+            }
+            cellColours()
+    }
+    
     func cellColours() {
         let cellBackgroundColor = UIColor.blackColor()
         let cellForegroundColor = UIColor.whiteColor()
 
         backgroundColor     = cellBackgroundColor
         
-        dayLabel.textColor  = cellForegroundColor
         minsLabel.textColor = cellForegroundColor
         timeLabel.textColor = cellForegroundColor
         tempLabel.textColor = cellForegroundColor

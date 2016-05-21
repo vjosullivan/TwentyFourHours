@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct DayLine: WeatherLine {
+struct DayLine: WeatherLineX {
 
     let time: NSDate
     let type = WeatherLineType.DayLine

@@ -11,6 +11,8 @@ import UIKit
 typealias JSONDictionary = [String: AnyObject]
 
 class ForecastIOBuilder {
+
+    private var units: Units = Units(units: "si")
     
     let forecastIOIcons = [
         "clear-day":    "sun",
@@ -35,13 +37,14 @@ class ForecastIOBuilder {
         guard !json.isEmpty else {
             throw ForecastParsingError.EmptyForecastSupplied
         }
+        let flags     = parseFlags(flagData: json["flags"] as? JSONDictionary)
+        self.units = Units(units: flags?.units ?? "si")
         let latitude  = json["latitude"] as? Double
         let longitude = json["longitude"] as? Double
         let currentConditions = parseCurrentConditions(currentData: json["currently"] as? JSONDictionary)
         let oneDayForecasts   = parseOneDayForecasts(dailyData: json["daily"]?["data"] as? [AnyObject])
         print("\n\njson \(json)\n\n")
         let oneHourForecasts  = parseOneHourForecasts(hourlyData: json["hourly"]?["data"] as? [AnyObject])
-        let flags             = parseFlags(flagData: json["flags"] as? JSONDictionary)
 
         let forecast = Forecast(
             latitude: latitude,
@@ -102,7 +105,8 @@ class ForecastIOBuilder {
                 unixTime:    hour["time"] as? Int,
                 icon:        appIcon(forecastIOIcon: hour["icon"] as? String),
                 summary:     hour["summary"] as? String,
-                temperature: hour["temperature"] as? Double
+                temperature: hour["temperature"] as? Double,
+                units: self.units
             )
             if forecast.containsData {
                 oneHourForecasts.append(forecast)
@@ -110,19 +114,6 @@ class ForecastIOBuilder {
         }
         return oneHourForecasts.count > 0 ? oneHourForecasts : nil
     }
-
-//    private func parseForecasts(oneHourForecasts: [OneHourForecast], oneDayForecasts: [OneDayForecast]) -> [WeatherLine]? { //(dayLines: [WeatherLine], hourLines: [WeatherLine])? {
-//        guard oneHourForecasts.count > 0 else {
-//            return nil
-//        }
-//        //        let latestHourForecast = oneHourForecasts.reduce(oneHourForecasts[0], combine: { max($0, $1) })
-//        //        for dayForecast in oneDayForecasts {
-//        //            if dayForecast.time <= latestHourForecast.time {
-//        //
-//        //            }
-//        //        }
-//        return nil // lines
-//    }
 
     ///  Converts a forecast IO icon name into an app icon name.
     ///
