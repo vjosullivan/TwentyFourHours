@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct WeatherSnapShot {
+struct WeatherSnapshot {
     
     let unixTime: Int?
     let icon: String?
