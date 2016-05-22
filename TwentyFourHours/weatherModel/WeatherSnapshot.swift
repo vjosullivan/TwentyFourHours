@@ -25,7 +25,7 @@ struct WeatherSnapshot {
     }
 }
 
-extension WeatherSnapShot: Comparable {}
+extension WeatherSnapshot: Comparable {}
 
-func == (x: WeatherSnapShot, y: WeatherSnapShot) -> Bool { return x.unixTime == y.unixTime }
-func <  (x: WeatherSnapShot, y: WeatherSnapShot) -> Bool { return x.unixTime <  y.unixTime }
+func == (x: WeatherSnapshot, y: WeatherSnapshot) -> Bool { return x.unixTime == y.unixTime }
+func <  (x: WeatherSnapshot, y: WeatherSnapshot) -> Bool { return x.unixTime <  y.unixTime }

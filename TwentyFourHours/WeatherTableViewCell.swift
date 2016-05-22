@@ -21,7 +21,7 @@ class WeatherTableViewCell: UITableViewCell {
         if let forecast = forecast,
             let hourly = forecast.oneHourForecasts?[rowIndex] {
 
-            tempLabel!.text = hourly.temperature != nil ? "\(Int(round(hourly.temperature!)))" : "?"
+            tempLabel!.text = hourly.temperature != nil ? "\(Int(round(hourly.temperature!)))" : ""
 
             CFLabel.text = forecast.units.temperature
 
@@ -29,8 +29,8 @@ class WeatherTableViewCell: UITableViewCell {
                 timeLabel!.text = hour(Double(dateTime))
                 minsLabel!.text = minute(Double(dateTime))
             } else {
-                timeLabel!.text = "??"
-                minsLabel!.text = "??"
+                timeLabel!.text = ""
+                minsLabel!.text = ""
             }
             rainLabel!.text = hourly.summary ?? ""
             // Unit test work around (because UIImageView is always nil in my unit tests).
@@ -41,17 +41,17 @@ class WeatherTableViewCell: UITableViewCell {
         }
     }
 
-    func configure(forecast: WeatherSnapShot) {
-            tempLabel!.text = forecast.temperature != nil ? "\(Int(round(forecast.temperature!)))" : "?"
+    func configure(forecast: WeatherSnapshot) {
+            tempLabel!.text = forecast.temperature != nil ? "\(Int(round(forecast.temperature!)))" : ""
 
-            CFLabel.text = forecast.units?.temperature ?? "X"
+            CFLabel.text = forecast.units?.temperature ?? ""
 
             if let dateTime = forecast.unixTime {
                 timeLabel!.text = hour(Double(dateTime))
                 minsLabel!.text = minute(Double(dateTime))
             } else {
-                timeLabel!.text = "??"
-                minsLabel!.text = "??"
+                timeLabel!.text = ""
+                minsLabel!.text = ""
             }
             rainLabel!.text = forecast.summary ?? ""
             // Unit test work around (because UIImageView is always nil in my unit tests).

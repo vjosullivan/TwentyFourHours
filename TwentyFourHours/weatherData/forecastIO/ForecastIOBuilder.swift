@@ -56,12 +56,12 @@ class ForecastIOBuilder {
         return forecast
     }
     
-    private func parseCurrentConditions(currentData data: JSONDictionary?) -> WeatherSnapShot? {
+    private func parseCurrentConditions(currentData data: JSONDictionary?) -> WeatherSnapshot? {
         guard let current = data else {
             return nil
         }
 
-        return WeatherSnapShot(
+        return WeatherSnapshot(
                 unixTime:    current["time"] as? Int,
                 icon:        appIcon(forecastIOIcon: current["icon"] as? String),
                 summary:     current["summary"] as? String,
@@ -87,8 +87,8 @@ class ForecastIOBuilder {
         for day in days {
             let oneDayForecast = OneDayForecast(
                 unixTime:    day["time"] as? Int,
-                sunriseTime: day["sunrise"] as? Int,
-                sunsetTime:  day["sunset"]  as? Int)
+                sunriseTime: day["sunriseTime"] as? Int,
+                sunsetTime:  day["sunsetTime"]  as? Int)
             if oneDayForecast.containsData {
                 oneDayForecasts.append(oneDayForecast)
             }
@@ -97,13 +97,13 @@ class ForecastIOBuilder {
         return oneDayForecasts.count > 0 ? oneDayForecasts : nil
     }
 
-    private func parseOneHourForecasts(hourlyData data: [AnyObject]?) -> [WeatherSnapShot]? {
+    private func parseOneHourForecasts(hourlyData data: [AnyObject]?) -> [WeatherSnapshot]? {
         guard let hours = data as? [JSONDictionary] else {
             return nil
         }
-        var oneHourForecasts = [WeatherSnapShot]()
+        var oneHourForecasts = [WeatherSnapshot]()
         for hour in hours {
-            let forecast = WeatherSnapShot(
+            let forecast = WeatherSnapshot(
                 unixTime:    hour["time"] as? Int,
                 icon:        appIcon(forecastIOIcon: hour["icon"] as? String),
                 summary:     hour["summary"] as? String,
