@@ -63,7 +63,7 @@ class WeatherTableViewCell: UITableViewCell {
     
     func cellColours() {
         let cellBackgroundColor = UIColor.blackColor()
-        let cellForegroundColor = minsLabel.text == ":00" ? UIColor.whiteColor() : UIColor.orangeColor()
+        let cellForegroundColor = minsLabel.text == ":00" ? UIColor.whiteColor() : UIColor.greenColor()
 
         backgroundColor     = cellBackgroundColor
         
