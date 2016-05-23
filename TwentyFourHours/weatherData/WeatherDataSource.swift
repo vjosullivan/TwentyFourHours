@@ -33,7 +33,6 @@ extension WeatherDataSource: UITableViewDataSource {
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("HourCell") as! WeatherTableViewCell
 
-        //cell.configure(rowIndex: indexPath.row, forecast: forecast)
         cell.configure(displayableForecast.forecast(day: indexPath.section, line: indexPath.row))
         return cell
     }

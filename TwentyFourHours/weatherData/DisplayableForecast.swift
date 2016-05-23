@@ -67,22 +67,70 @@ class DisplayableForecast {
         return forecasts
     }
 
+    ///  Extracts and returns the sunrise and sunset data for a particular day,
+    ///  from the given set of one day forecasts.
+    ///
+    ///  - parameter dayForecasts: Source data array of one day forecasts.
+    ///  - parameter date:         The date for which the data is required.
+    ///
+    ///  - returns: Sunrise and/or sunset times for a given day.  If there is
+    ///             no sunrise or sunset on that day then no entry is returned.
+    ///             If neither occur then an empty array is returned.
+    ///
     private class func almanac(dayForecasts: [OneDayForecast], date: NSDate) -> [WeatherSnapshot] {
         var twilights = [WeatherSnapshot]()
-        for day in dayForecasts {
-            if let sunrise = day.sunriseTime {
-                let sunriseDate = NSDate(timeIntervalSince1970: NSTimeInterval(sunrise))
-                if NSCalendar.currentCalendar().isDate(sunriseDate, inSameDayAsDate: date) {
-                    twilights.append(WeatherSnapshot(unixTime: sunrise, icon: "unknown", summary: "Sunrise", temperature: nil, units: nil))
+        for forecast in dayForecasts {
+            if let sunrise = takeSnapshot(event: .sunrise, date: date, data: forecast) {
+                // Ignore past sunrises.
+                if sunrise.date > NSDate() {
+                    twilights.append(sunrise)
                 }
             }
-            if let sunset = day.sunsetTime {
-                let sunriseDate = NSDate(timeIntervalSince1970: NSTimeInterval(sunset))
-                if NSCalendar.currentCalendar().isDate(sunriseDate, inSameDayAsDate: date) {
-                    twilights.append(WeatherSnapshot(unixTime: sunset, icon: "unknown", summary: "Sunset", temperature: nil, units: nil))
+            if let sunset = takeSnapshot(event: .sunset, date: date, data: forecast) {
+                // Ignore too far distant sunrises.
+                if sunset.date <= nowPlus49Hours {
+                    twilights.append(sunset)
                 }
             }
         }
         return twilights
     }
+
+    ///  Looks for a event occurring on the given date in the supplied data.
+    ///
+    ///  - parameters:
+    ///    - event: The event (sunrise, etc.) being sought
+    ///    - date:  The event data.
+    ///    - data:  Data for the day (that may include the event).
+    ///
+    ///  - returns: If found, a snapshot of the event is returned.
+    ///
+    private class func takeSnapshot(event event: EventType, date: NSDate, data: OneDayForecast) -> WeatherSnapshot? {
+        var result: WeatherSnapshot?
+        let eventTime = event == .sunrise ? data.sunriseTime : data.sunsetTime
+        if let time = eventTime {
+            let sunriseDate = NSDate(timeIntervalSince1970: NSTimeInterval(time))
+            if NSCalendar.currentCalendar().isDate(sunriseDate, inSameDayAsDate: date) {
+                let text = event == .sunrise ? "Sunrise" : "Sunset"
+                result = WeatherSnapshot(unixTime: time, icon: "unknown", summary: text, temperature: nil, units: nil)
+            }
+        }
+        return result
+    }
+
+    /// The time 49 hours from now.
+    class var nowPlus49Hours: NSDate {
+        let now = NSDate()
+        let plus49 = NSCalendar.currentCalendar().dateByAddingUnit(
+            .Hour,
+            value: 49,
+            toDate: now,
+            options: NSCalendarOptions(rawValue: 0))
+        return plus49!
+    }
+}
+
+private enum EventType {
+    case sunrise
+    case sunset
 }

@@ -17,50 +17,30 @@ class WeatherTableViewCell: UITableViewCell {
     @IBOutlet var rainLabel: UILabel!
     @IBOutlet var weatherIcon: UIImageView!
 
-    func configure(rowIndex rowIndex: Int, forecast: Forecast?) {
-        if let forecast = forecast,
-            let hourly = forecast.oneHourForecasts?[rowIndex] {
-
-            tempLabel!.text = hourly.temperature != nil ? "\(Int(round(hourly.temperature!)))" : ""
-
-            CFLabel.text = forecast.units.temperature
-
-            if let dateTime = hourly.unixTime {
-                timeLabel!.text = hour(Double(dateTime))
-                minsLabel!.text = minute(Double(dateTime))
-            } else {
-                timeLabel!.text = ""
-                minsLabel!.text = ""
-            }
-            rainLabel!.text = hourly.summary ?? ""
-            // Unit test work around (because UIImageView is always nil in my unit tests).
-            if weatherIcon != nil {
-                weatherIcon.image = weatherImage(hourly.icon)
-            }
-            cellColours()
-        }
-    }
-
     func configure(forecast: WeatherSnapshot) {
-            tempLabel!.text = forecast.temperature != nil ? "\(Int(round(forecast.temperature!)))" : ""
+        tempLabel!.text = forecast.temperature != nil ? "\(Int(round(forecast.temperature!)))" : ""
 
-            CFLabel.text = forecast.units?.temperature ?? ""
+        CFLabel.text = forecast.units?.temperature ?? ""
 
-            if let dateTime = forecast.unixTime {
-                timeLabel!.text = hour(Double(dateTime))
-                minsLabel!.text = minute(Double(dateTime))
-            } else {
-                timeLabel!.text = ""
-                minsLabel!.text = ""
-            }
-            rainLabel!.text = forecast.summary ?? ""
-            // Unit test work around (because UIImageView is always nil in my unit tests).
-            if weatherIcon != nil {
-                weatherIcon.image = weatherImage(forecast.icon)
-            }
-            cellColours()
+        if let dateTime = forecast.unixTime {
+            timeLabel!.text = hour(Double(dateTime))
+            minsLabel!.text = minute(Double(dateTime))
+        } else {
+            timeLabel!.text = ""
+            minsLabel!.text = ""
+        }
+        rainLabel!.text = forecast.summary ?? ""
+        // Unit test work around (because UIImageView is always nil in my unit tests).
+        if weatherIcon != nil {
+            weatherIcon.image = weatherImage(forecast.icon)
+        }
+        cellColours()
+
+        preservesSuperviewLayoutMargins = false
+        separatorInset = UIEdgeInsetsZero
+        layoutMargins  = UIEdgeInsetsZero
     }
-    
+
     func cellColours() {
         let cellBackgroundColor = UIColor.blackColor()
         let cellForegroundColor = minsLabel.text == ":00" ? UIColor.whiteColor() : UIColor.greenColor()
