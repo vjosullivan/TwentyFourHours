@@ -82,7 +82,7 @@ extension WeatherTableViewCell {
         let date = NSDate(timeIntervalSince1970: unixTime)
 
         let dateFormatter = NSDateFormatter()
-        dateFormatter.dateFormat = "HH"
+        dateFormatter.dateFormat = "H"
         return dateFormatter.stringFromDate(date)
     }
 

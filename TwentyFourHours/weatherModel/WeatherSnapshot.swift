@@ -14,8 +14,17 @@ struct WeatherSnapshot {
     let icon: String?
     let summary: String?
     let temperature: Double?
-    let units: Units?
 
+    let units: Units?
+    var brightness: LightType? = nil
+
+    init(unixTime: Int?, icon: String?, summary: String?, temperature: Double?, units: Units?) {
+        self.unixTime    = unixTime
+        self.icon        = icon
+        self.summary     = summary
+        self.temperature = temperature
+        self.units       = units
+    }
     var containsData: Bool {
         return unixTime != nil && icon != nil && summary != nil && temperature != nil
     }
@@ -29,3 +38,8 @@ extension WeatherSnapshot: Comparable {}
 
 func == (x: WeatherSnapshot, y: WeatherSnapshot) -> Bool { return x.unixTime == y.unixTime }
 func <  (x: WeatherSnapshot, y: WeatherSnapshot) -> Bool { return x.unixTime <  y.unixTime }
+
+enum LightType {
+    case day
+    case night
+}

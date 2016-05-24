@@ -64,7 +64,34 @@ class DisplayableForecast {
             }
             forecasts.append(hourlyForecasts.sort())
         }
+        illuminateForecasts(forecasts: forecasts)
         return forecasts
+    }
+
+    private class func illuminateForecasts(forecasts forecasts: [[WeatherSnapshot]]) {
+        var snapshots = forecasts
+        for dayIndex in 0..<snapshots.count {
+            let timeOf = sunTimes(forecasts: snapshots[dayIndex])
+            for lineIndex in 0..<snapshots[dayIndex].count {
+                if let sunrise = timeOf.sunrise {
+                    if snapshots[dayIndex][lineIndex].unixTime < sunrise {
+                        snapshots[dayIndex][lineIndex].brightness = LightType.night
+                        continue
+                    }
+                }
+                if let sunset = timeOf.sunset {
+                    if snapshots[dayIndex][lineIndex].unixTime > sunset {
+                        snapshots[dayIndex][lineIndex].brightness = LightType.night
+                        continue
+                    }
+                }
+                snapshots[dayIndex][lineIndex].brightness = LightType.day
+            }
+        }
+    }
+
+    private class func sunTimes(forecasts forecasts: [WeatherSnapshot]) -> (sunrise: Int?, sunset: Int?) {
+        return (sunrise: 1, sunset: 1)
     }
 
     ///  Extracts and returns the sunrise and sunset data for a particular day,
@@ -82,7 +109,7 @@ class DisplayableForecast {
         for forecast in dayForecasts {
             if let sunrise = takeSnapshot(event: .sunrise, date: date, data: forecast) {
                 // Ignore past sunrises.
-                if sunrise.date > NSDate() {
+                if sunrise.date > nowMinus1Hour {
                     twilights.append(sunrise)
                 }
             }
@@ -116,6 +143,17 @@ class DisplayableForecast {
             }
         }
         return result
+    }
+
+    /// The time 1 hour ago.
+    class var nowMinus1Hour: NSDate {
+        let now = NSDate()
+        let plus49 = NSCalendar.currentCalendar().dateByAddingUnit(
+            .Hour,
+            value: -1,
+            toDate: now,
+            options: NSCalendarOptions(rawValue: 0))
+        return plus49!
     }
 
     /// The time 49 hours from now.
