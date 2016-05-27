@@ -9,14 +9,15 @@
 import XCTest
 @testable import TwentyFourHours
 
-class CurrentConditionsTests: XCTestCase {
+class WeatherSnapshotTests: XCTestCase {
 
     func testCreatable() {
         let testTime = 1460723696 // 2016-04-15 12:34:56
         let testIcon = "sun"
         let testSumy = "OK"
         let testTemp = 20.0
-        let current  = CurrentConditions(unixTime: testTime, icon: testIcon, summary: testSumy, temperature: testTemp)
+        let testUnits = Units(units: "si")
+        let current  = WeatherSnapshot(unixTime: testTime, icon: testIcon, summary: testSumy, temperature: testTemp, units: testUnits)
         XCTAssertNotNil(current)
         XCTAssertEqual(testTime, current.unixTime)
         XCTAssertEqual(testIcon, current.icon)
@@ -27,7 +28,7 @@ class CurrentConditionsTests: XCTestCase {
     func testDate() {
         let testTime = 1460723696 // 2016-04-15 12:34:56
         let testDate = NSDate(timeIntervalSince1970: 1460723696) // 2016-04-15 12:34:56
-        let current  = CurrentConditions(unixTime: testTime, icon: nil, summary: nil, temperature: nil)
+        let current  = WeatherSnapshot(unixTime: testTime, icon: nil, summary: nil, temperature: nil, units: nil)
         XCTAssertEqual(testDate, current.date)
     }
 }

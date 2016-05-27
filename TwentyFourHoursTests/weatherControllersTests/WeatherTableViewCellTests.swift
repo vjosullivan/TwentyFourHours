@@ -11,89 +11,55 @@ import XCTest
 
 class WeatherTableViewCellTests: XCTestCase {
 
+    let snapshotNil = WeatherSnapshot(unixTime: nil, icon: nil, summary: nil, temperature: nil, units: nil)
+
+    var cell: WeatherTableViewCell?
+
+    override func setUp() {
+        cell = WeatherTableViewCell(frame: CGRectZero)
+        cell!.tempLabel = UILabel(frame: CGRectZero)
+        cell!.rainLabel = UILabel(frame: CGRectZero)
+        cell!.CFLabel = UILabel(frame: CGRectZero)
+        cell!.minsLabel = UILabel(frame: CGRectZero)
+        cell!.timeLabel = UILabel(frame: CGRectZero)
+        cell!.weatherIcon = UIImageView(image: UIImage(named: "unknown"))
+    }
+
+    override func tearDown() {
+        cell     = nil
+    }
+
     func testCreatable() {
-        let cell = WeatherTableViewCell(frame: CGRectZero)
         XCTAssertNotNil(cell)
     }
 
-    func testConfigureWithNoForecast() {
-        let forecast = Forecast(
-            latitude: nil,
-            longitude: nil,
-            units: Units(units: "si") ,
-            currentConditions: nil,
-            oneDayForecasts: nil,
-            oneHourForecasts: nil)
-        let cell = WeatherTableViewCell(frame: CGRectZero)
-        cell.tempLabel = UILabel(frame: CGRectZero)
-        cell.configure(rowIndex: 0, forecast: forecast)
+    func testConfigureWithNoSnapshot() {
+        cell!.tempLabel = UILabel(frame: CGRectZero)
+        cell!.configure(snapshotNil)
 
         // Check result: No forecast, no text.
-        XCTAssertNil(cell.tempLabel.text)
+        XCTAssertEqual("", cell!.tempLabel.text)
     }
 
     func testConfigureWithEmptyHourForecast() {
-        let forecast = Forecast(
-            latitude: nil,
-            longitude: nil,
-            units: Units(units: "si"),
-            currentConditions: nil,
-            oneDayForecasts: nil,
-            oneHourForecasts: [OneHourForecast(unixTime: nil, icon: "unknown", summary: nil, temperature: nil)])
-        let cell = WeatherTableViewCell(frame: CGRectZero)
-        cell.tempLabel = UILabel(frame: CGRectZero)
-        cell.rainLabel = UILabel(frame: CGRectZero)
-        cell.CFLabel = UILabel(frame: CGRectZero)
-        cell.minsLabel = UILabel(frame: CGRectZero)
-        cell.dayLabel = UILabel(frame: CGRectZero)
-        cell.timeLabel = UILabel(frame: CGRectZero)
-        cell.weatherIcon = UIImageView(image: UIImage(named: "sun"))
-        cell.configure(rowIndex: 0, forecast: forecast)
+        cell!.configure(snapshotNil)
 
-        XCTAssertEqual("?", cell.tempLabel.text)
+        XCTAssertEqual("", cell!.tempLabel.text)
     }
 
     func testWeatherImageGood() {
-        let forecast = Forecast(
-            latitude: nil,
-            longitude: nil,
-            units: Units(units: "si"),
-            currentConditions: nil,
-            oneDayForecasts: nil,
-            oneHourForecasts: [OneHourForecast(unixTime: nil, icon: "rain", summary: nil, temperature: nil)])
-        let cell = WeatherTableViewCell(frame: CGRectZero)
-        cell.tempLabel = UILabel(frame: CGRectZero)
-        cell.rainLabel = UILabel(frame: CGRectZero)
-        cell.CFLabel = UILabel(frame: CGRectZero)
-        cell.minsLabel = UILabel(frame: CGRectZero)
-        cell.dayLabel = UILabel(frame: CGRectZero)
-        cell.timeLabel = UILabel(frame: CGRectZero)
-        cell.weatherIcon = UIImageView(image: UIImage(named: "snow"))
-        cell.configure(rowIndex: 0, forecast: forecast)
+        let snapshotGoodIcon = WeatherSnapshot(unixTime: nil, icon: "snow", summary: nil, temperature: nil, units: nil)
+        cell!.configure(snapshotGoodIcon)
 
-        let expectedIcon = UIImage(named: "rain")
-        XCTAssertEqual(expectedIcon, cell.weatherIcon.image)
+        let expectedIcon = UIImage(named: "snow")
+        XCTAssertEqual(expectedIcon, cell!.weatherIcon.image)
     }
 
     func testWeatherImageBad() {
-        let forecast = Forecast(
-            latitude: nil,
-            longitude: nil,
-            units: Units(units: "si"),
-            currentConditions: nil,
-            oneDayForecasts: nil,
-            oneHourForecasts: [OneHourForecast(unixTime: nil, icon: "banana", summary: nil, temperature: nil)])
-        let cell = WeatherTableViewCell(frame: CGRectZero)
-        cell.tempLabel = UILabel(frame: CGRectZero)
-        cell.rainLabel = UILabel(frame: CGRectZero)
-        cell.CFLabel = UILabel(frame: CGRectZero)
-        cell.minsLabel = UILabel(frame: CGRectZero)
-        cell.dayLabel = UILabel(frame: CGRectZero)
-        cell.timeLabel = UILabel(frame: CGRectZero)
-        cell.weatherIcon = UIImageView(image: UIImage(named: "snow"))
-        cell.configure(rowIndex: 0, forecast: forecast)
+        let snapshotBadIcon = WeatherSnapshot(unixTime: nil, icon: "BANANA", summary: nil, temperature: nil, units: nil)
+        cell!.configure(snapshotBadIcon)
 
-        let expectedIcon = UIImage(named: "sun")
-        XCTAssertEqual(expectedIcon, cell.weatherIcon.image)
+        let expectedIcon = UIImage(named: "unknown")
+        XCTAssertEqual(expectedIcon, cell!.weatherIcon.image)
     }
 }

@@ -25,7 +25,7 @@ class ForecastIOBuilderTests: XCTestCase {
     static let hoursJSON: JSONDictionary     = ["latitude": testLatitude, "hourly": ["data": [["time": 1_400_000_000, "icon": "rain", "summary": "rain", "temperature": 15.4]]]]
     static let noHoursJSON: JSONDictionary   = ["latitude": testLatitude, "hourly": []]
     static let badHoursJSON: JSONDictionary   = ["latitude": testLatitude, "hourly": ["data": [["fruit": "banana"]]]]
-    static let daysJSON: JSONDictionary      = ["latitude": testLatitude, "daily": ["data": [["time": 1_401_000_000, "sunrise": 1_401_007_200, "sunset": 1_401_014_400]]]]
+    static let daysJSON: JSONDictionary      = ["latitude": testLatitude, "daily": ["data": [["time": 1_401_000_000, "sunriseTime": 1_401_007_200, "sunsetTime": 1_401_014_400]]]]
     static let noDaysJSON: JSONDictionary    = ["latitude": testLatitude, "daily": []]
     static let badDaysJSON: JSONDictionary    = ["latitude": testLatitude, "daily": ["data": [["fruit": "banana"]]]]
     static let flagsJSON: JSONDictionary     = ["latitude": testLatitude, "flags": ["units": "us"]]

@@ -13,6 +13,14 @@ class mockWeatherTableViewCell: WeatherTableViewCell {
 
     var localTempLabel = UILabel()
 
+    override var timeLabel: UILabel! {
+        get { return UILabel() }
+        set { }
+    }
+    override var minsLabel: UILabel! {
+        get { return UILabel() }
+        set { }
+    }
     override var tempLabel: UILabel! {
         get {
             return localTempLabel
@@ -25,19 +33,7 @@ class mockWeatherTableViewCell: WeatherTableViewCell {
         get { return UILabel() }
         set { }
     }
-    override var dayLabel: UILabel! {
-        get { return UILabel() }
-        set { }
-    }
-    override var timeLabel: UILabel! {
-        get { return UILabel() }
-        set { }
-    }
     override var rainLabel: UILabel! {
-        get { return UILabel() }
-        set { }
-    }
-    override var minsLabel: UILabel! {
         get { return UILabel() }
         set { }
     }

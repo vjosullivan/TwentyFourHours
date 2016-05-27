@@ -13,6 +13,6 @@ struct OneDayForecast {
     let sunsetTime: Int?
 
     var containsData: Bool {
-        return unixTime != nil && sunriseTime != nil && sunsetTime != nil
+        return unixTime != nil 
     }
 }

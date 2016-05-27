@@ -42,32 +42,49 @@ class DisplayableForecast {
         self.forecasts = DisplayableForecast.configureForecasts(forecast)
     }
 
+    ///  Converts a 1D array of hourly weather forecasts into a 2D array of
+    ///  displayable weather snapshots (grouped by day).
+    ///
+    ///  - parameter forecast: The source weather forcast.
+    ///
+    ///  - returns: The resulting weather snapshots.  An empty array is returned
+    ///             if the source data contains no data.
+    ///
     private class func configureForecasts(forecast: Forecast) -> [[WeatherSnapshot]] {
-        var forecasts = [[WeatherSnapshot]]()
-        var dateIndex = forecast.currentConditions?.date
-        var hourlyForecasts = [WeatherSnapshot]()
-        hourlyForecasts.append(forecast.currentConditions!)
+        var dateIndex = NSDate() //forecast.currentConditions?.date
+        var allSnapshots    = [[WeatherSnapshot]]()  // (An array of snaphot arrays.)
+        var hourlySnapshots = [WeatherSnapshot]() // (a snapshot array.)
+        if let current = forecast.currentConditions {
+            hourlySnapshots.append(current)
+        }
         if let hours = forecast.oneHourForecasts?.sort() {
             for hour in hours {
-                if !NSCalendar.currentCalendar().isDate(hour.date, inSameDayAsDate: dateIndex!) {
+                // Start a new day, if needed.
+                if !NSCalendar.currentCalendar().isDate(hour.date, inSameDayAsDate: dateIndex) {
                     if let dailyForecasts = forecast.oneDayForecasts {
-                        hourlyForecasts.appendContentsOf(almanac(dailyForecasts, date: dateIndex!))
+                        hourlySnapshots.appendContentsOf(almanac(dailyForecasts, date: dateIndex))
                     }
-                    forecasts.append(hourlyForecasts.sort())
-                    hourlyForecasts = [WeatherSnapshot]()
+                    if hourlySnapshots.count > 0 {
+                        allSnapshots.append(hourlySnapshots.sort())
+                    }
+                    hourlySnapshots = [WeatherSnapshot]()
                     dateIndex = hour.date
                 }
-                hourlyForecasts.append(hour)
+                hourlySnapshots.append(hour)
             }
             if let dailyForecasts = forecast.oneDayForecasts {
-                hourlyForecasts.appendContentsOf(almanac(dailyForecasts, date: dateIndex!))
+                hourlySnapshots.appendContentsOf(almanac(dailyForecasts, date: dateIndex))
             }
-            forecasts.append(hourlyForecasts.sort())
+            allSnapshots.append(hourlySnapshots.sort())
         }
-        illuminateForecasts(forecasts: forecasts)
-        return forecasts
+        illuminateForecasts(forecasts: allSnapshots)
+        return allSnapshots
     }
 
+    ///  Adds day/night background shading to the (displayable) weather forcast snapshots.
+    ///
+    ///  - parameter forecasts: A set of weather snapshots.
+    ///
     private class func illuminateForecasts(forecasts forecasts: [[WeatherSnapshot]]) {
         var snapshots = forecasts
         for dayIndex in 0..<snapshots.count {

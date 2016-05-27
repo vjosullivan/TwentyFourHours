@@ -27,8 +27,9 @@ class WeatherDataSourceTests: XCTestCase {
         super.setUp()
 
         // Create a weather forecast containg one one-hour forecast.
-        var forecasts = [OneHourForecast]()
-        let oneForecast = OneHourForecast(unixTime: 1, icon: "sun", summary: "rain", temperature: expectedTemperature)
+        var forecasts = [WeatherSnapshot]()
+        let unixTimeNow = Int(NSDate().timeIntervalSince1970)
+        let oneForecast = WeatherSnapshot(unixTime: unixTimeNow, icon: "sun", summary: "rain", temperature: expectedTemperature, units: nil)
         forecasts.append(oneForecast)
         mockForecast = Forecast(
             latitude: 51.3,
@@ -68,10 +69,12 @@ class WeatherDataSourceTests: XCTestCase {
         mockTableView = UITableView(frame: CGRectZero)
         mockTableView.dataSource = weatherDS
         mockTableView.registerClass(mockWeatherTableViewCell.self, forCellReuseIdentifier: "HourCell")
-        XCTAssertEqual(0, weatherDS?.tableView(mockTableView, numberOfRowsInSection: 0))
+        XCTAssertEqual(0, weatherDS?.numberOfSectionsInTableView(mockTableView))
+        //XCTAssertEqual(0, weatherDS?.tableView(mockTableView, numberOfRowsInSection: 0))
     }
 
     func testCellPopulating() {
+        print("XXX")
         let ip = NSIndexPath(forRow: 0, inSection: 0)
         let cell = weatherDS?.tableView(mockTableView, cellForRowAtIndexPath: ip) as? mockWeatherTableViewCell
 
