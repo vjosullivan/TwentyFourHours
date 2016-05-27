@@ -13,6 +13,8 @@ class WeatherDataSource:  NSObject {
     private let forecast: Forecast
     private let displayableForecast: DisplayableForecast
 
+    private var expandedIndexPath: NSIndexPath?
+
     init(forecast: Forecast) {
         self.forecast = forecast
         self.displayableForecast = DisplayableForecast(forecast: forecast)
@@ -41,6 +43,17 @@ extension WeatherDataSource: UITableViewDataSource {
         let formatter = NSDateFormatter()
         formatter.dateFormat = "EEEE, d MMMM"
         return formatter.stringFromDate(displayableForecast.forecast(day: section, line: 0).date)
+    }
+
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        print("Wahey!")
+        tableView.beginUpdates()
+        expandedIndexPath = (expandedIndexPath != indexPath) ? indexPath : nil
+        tableView.endUpdates()
+    }
+
+    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        return (expandedIndexPath == indexPath) ? 132.0 : 44.0
     }
 }
 
