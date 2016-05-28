@@ -13,7 +13,7 @@ class WeatherDataSource:  NSObject {
     private let forecast: Forecast
     private let displayableForecast: DisplayableForecast
 
-    private var expandedIndexPath: NSIndexPath?
+    private var selectedIndexPath: NSIndexPath?
 
     init(forecast: Forecast) {
         self.forecast = forecast
@@ -33,9 +33,18 @@ extension WeatherDataSource: UITableViewDataSource {
     }
 
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("HourCell") as! WeatherTableViewCell
-
-        cell.configure(displayableForecast.forecast(day: indexPath.section, line: indexPath.row))
+        let cell: UITableViewCell
+        if indexPath == selectedIndexPath {
+            print("A")
+            cell = tableView.dequeueReusableCellWithIdentifier("HourDetailCell") as! WeatherDetailTableViewCell
+            cell.selectionStyle = UITableViewCellSelectionStyle.None
+            (cell as! WeatherDetailTableViewCell).configure(displayableForecast.forecast(day: indexPath.section, line: indexPath.row))
+        } else {
+            print("B i=\(indexPath); e=\(selectedIndexPath)")
+            cell = tableView.dequeueReusableCellWithIdentifier("HourCell") as! WeatherTableViewCell
+            cell.selectionStyle = UITableViewCellSelectionStyle.None
+            (cell as! WeatherTableViewCell).configure(displayableForecast.forecast(day: indexPath.section, line: indexPath.row))
+        }
         return cell
     }
 
@@ -48,12 +57,27 @@ extension WeatherDataSource: UITableViewDataSource {
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         print("Wahey!")
         tableView.beginUpdates()
-        expandedIndexPath = (expandedIndexPath != indexPath) ? indexPath : nil
+        if selectedIndexPath != indexPath {
+            print("C")
+            let paths = selectedIndexPath != nil ? [selectedIndexPath!, indexPath] : [indexPath]
+
+            tableView.reloadRowsAtIndexPaths(paths, withRowAnimation: .Automatic)
+            selectedIndexPath = indexPath
+        } else {
+            print("D")
+            tableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
+            tableView.deselectRowAtIndexPath(indexPath, animated: true)
+            selectedIndexPath = nil
+        }
         tableView.endUpdates()
     }
 
+    func tableView(tableView: UITableView, didDeselectRowAtIndexPath indexPath: NSIndexPath) {
+        print("Wahoo!")
+    }
+
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        return (expandedIndexPath == indexPath) ? 132.0 : 44.0
+        return (selectedIndexPath == indexPath) ? 132.0 : 44.0
     }
 }
 
@@ -66,10 +90,7 @@ extension WeatherDataSource: UITableViewDelegate {
         headerView.textLabel!.textColor = UIColor.orangeColor()
         let font = headerView.textLabel!.font
         headerView.textLabel!.font = font.bold()
-
-        
     }
-
 }
 
 extension UIFont {
@@ -83,5 +104,4 @@ extension UIFont {
     func bold() -> UIFont {
         return withTraits(.TraitBold)
     }
-    
 }
