@@ -10,7 +10,7 @@ import UIKit
 
 class DisplayableForecast {
 
-    private let forecasts: [[WeatherSnapshot]]
+    private let forecasts: [[DataPoint]]
 
     /// The number of separate (local) calendar days included in the forecast.
     var dayCount: Int {
@@ -34,7 +34,7 @@ class DisplayableForecast {
     ///
     ///  - returns: A line of (displayable) weather data.
     ///
-    func forecast(day day: Int, line: Int) -> WeatherSnapshot {
+    func forecast(day day: Int, line: Int) -> DataPoint {
         return forecasts[day][line]
     }
 
@@ -50,10 +50,10 @@ class DisplayableForecast {
     ///  - returns: The resulting weather snapshots.  An empty array is returned
     ///             if the source data contains no data.
     ///
-    private class func configureForecasts(forecast: Forecast) -> [[WeatherSnapshot]] {
+    private class func configureForecasts(forecast: Forecast) -> [[DataPoint]] {
         var dateIndex = NSDate() //forecast.currentConditions?.date
-        var allSnapshots    = [[WeatherSnapshot]]()  // (An array of snaphot arrays.)
-        var hourlySnapshots = [WeatherSnapshot]() // (a snapshot array.)
+        var allSnapshots    = [[DataPoint]]()  // (An array of snaphot arrays.)
+        var hourlySnapshots = [DataPoint]() // (a snapshot array.)
         if let current = forecast.currentConditions {
             hourlySnapshots.append(current)
         }
@@ -67,7 +67,7 @@ class DisplayableForecast {
                     if hourlySnapshots.count > 0 {
                         allSnapshots.append(hourlySnapshots.sort())
                     }
-                    hourlySnapshots = [WeatherSnapshot]()
+                    hourlySnapshots = [DataPoint]()
                     dateIndex = hour.date
                 }
                 hourlySnapshots.append(hour)
@@ -85,7 +85,7 @@ class DisplayableForecast {
     ///
     ///  - parameter forecasts: A set of weather snapshots.
     ///
-    private class func illuminateForecasts(forecasts forecasts: [[WeatherSnapshot]]) {
+    private class func illuminateForecasts(forecasts forecasts: [[DataPoint]]) {
         var snapshots = forecasts
         for dayIndex in 0..<snapshots.count {
             let timeOf = sunTimes(forecasts: snapshots[dayIndex])
@@ -107,7 +107,7 @@ class DisplayableForecast {
         }
     }
 
-    private class func sunTimes(forecasts forecasts: [WeatherSnapshot]) -> (sunrise: Int?, sunset: Int?) {
+    private class func sunTimes(forecasts forecasts: [DataPoint]) -> (sunrise: Int?, sunset: Int?) {
         return (sunrise: 1, sunset: 1)
     }
 
@@ -121,8 +121,8 @@ class DisplayableForecast {
     ///             no sunrise or sunset on that day then no entry is returned.
     ///             If neither occur then an empty array is returned.
     ///
-    private class func almanac(dayForecasts: [OneDayForecast], date: NSDate) -> [WeatherSnapshot] {
-        var twilights = [WeatherSnapshot]()
+    private class func almanac(dayForecasts: [OneDayForecast], date: NSDate) -> [DataPoint] {
+        var twilights = [DataPoint]()
         for forecast in dayForecasts {
             if let sunrise = takeSnapshot(event: .sunrise, date: date, data: forecast) {
                 // Ignore past sunrises.
@@ -149,14 +149,14 @@ class DisplayableForecast {
     ///
     ///  - returns: If found, a snapshot of the event is returned.
     ///
-    private class func takeSnapshot(event event: EventType, date: NSDate, data: OneDayForecast) -> WeatherSnapshot? {
-        var result: WeatherSnapshot?
+    private class func takeSnapshot(event event: EventType, date: NSDate, data: OneDayForecast) -> DataPoint? {
+        var result: DataPoint?
         let eventTime = event == .sunrise ? data.sunriseTime : data.sunsetTime
         if let time = eventTime {
             let sunriseDate = NSDate(timeIntervalSince1970: NSTimeInterval(time))
             if NSCalendar.currentCalendar().isDate(sunriseDate, inSameDayAsDate: date) {
                 let text = event == .sunrise ? "Sunrise" : "Sunset"
-                result = WeatherSnapshot(unixTime: time, icon: "unknown", summary: text, temperature: nil, units: nil)
+                result = DataPoint(unixTime: time, icon: "unknown", summary: text, temperature: nil, units: nil)
             }
         }
         return result

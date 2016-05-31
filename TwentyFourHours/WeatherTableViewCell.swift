@@ -17,7 +17,7 @@ class WeatherTableViewCell: UITableViewCell {
     @IBOutlet var rainLabel: UILabel!
     @IBOutlet var weatherIcon: UIImageView!
 
-    func configure(snapshot: WeatherSnapshot) {
+    func configure(snapshot: DataPoint) {
         tempLabel!.text = snapshot.temperature != nil ? "\(Int(round(snapshot.temperature!)))" : ""
 
         CFLabel.text = snapshot.units?.temperature ?? ""
@@ -63,7 +63,7 @@ class WeatherTableViewCell: UITableViewCell {
     }
 }
 
-extension WeatherTableViewCell {
+extension UITableViewCell {
 
     func dayStringFromUnixTime(unixTime: Double) -> String {
         let date = NSDate(timeIntervalSince1970: unixTime)

@@ -19,7 +19,7 @@
 		34EBD4B01CBFDF3A0033B651 /* Forecast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34EBD4AF1CBFDF3A0033B651 /* Forecast.swift */; };
 		34EBD4B61CBFDF480033B651 /* OneDayForecast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34EBD4B51CBFDF480033B651 /* OneDayForecast.swift */; };
 		34EBD4BD1CBFDF850033B651 /* UserDefaultsExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34EBD4BC1CBFDF850033B651 /* UserDefaultsExtension.swift */; };
-		34EBD4D01CBFDFE10033B651 /* WeatherSnapshot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34EBD4CF1CBFDFE10033B651 /* WeatherSnapshot.swift */; };
+		34EBD4D01CBFDFE10033B651 /* DataPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34EBD4CF1CBFDFE10033B651 /* DataPoint.swift */; };
 		34EBD4DC1CBFDFF20033B651 /* Flags.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34EBD4DB1CBFDFF20033B651 /* Flags.swift */; };
 		34EBD4E21CBFDFF80033B651 /* Units.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34EBD4E11CBFDFF80033B651 /* Units.swift */; };
 		34EBD4E81CBFE0170033B651 /* NSDateExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34EBD4E71CBFE0170033B651 /* NSDateExtension.swift */; };
@@ -66,7 +66,7 @@
 		34EBD4AF1CBFDF3A0033B651 /* Forecast.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Forecast.swift; sourceTree = "<group>"; };
 		34EBD4B51CBFDF480033B651 /* OneDayForecast.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OneDayForecast.swift; sourceTree = "<group>"; };
 		34EBD4BC1CBFDF850033B651 /* UserDefaultsExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDefaultsExtension.swift; sourceTree = "<group>"; };
-		34EBD4CF1CBFDFE10033B651 /* WeatherSnapshot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeatherSnapshot.swift; sourceTree = "<group>"; };
+		34EBD4CF1CBFDFE10033B651 /* DataPoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataPoint.swift; sourceTree = "<group>"; };
 		34EBD4DB1CBFDFF20033B651 /* Flags.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Flags.swift; sourceTree = "<group>"; };
 		34EBD4E11CBFDFF80033B651 /* Units.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Units.swift; sourceTree = "<group>"; };
 		34EBD4E71CBFE0170033B651 /* NSDateExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSDateExtension.swift; sourceTree = "<group>"; };
@@ -202,7 +202,7 @@
 			isa = PBXGroup;
 			children = (
 				34EBD4B51CBFDF480033B651 /* OneDayForecast.swift */,
-				34EBD4CF1CBFDFE10033B651 /* WeatherSnapshot.swift */,
+				34EBD4CF1CBFDFE10033B651 /* DataPoint.swift */,
 				34EBD4AF1CBFDF3A0033B651 /* Forecast.swift */,
 				34EBD4DB1CBFDFF20033B651 /* Flags.swift */,
 				34EBD4E11CBFDFF80033B651 /* Units.swift */,
@@ -391,7 +391,7 @@
 				F1673D561CF04F7B007FD80F /* DisplayableForecast.swift in Sources */,
 				34EBD4A61CBFDD3E0033B651 /* ForecastIOBuilder.swift in Sources */,
 				34EBD46E1CBFDB5F0033B651 /* AppDelegate.swift in Sources */,
-				34EBD4D01CBFDFE10033B651 /* WeatherSnapshot.swift in Sources */,
+				34EBD4D01CBFDFE10033B651 /* DataPoint.swift in Sources */,
 				34EBD4BD1CBFDF850033B651 /* UserDefaultsExtension.swift in Sources */,
 				34EBD4B01CBFDF3A0033B651 /* Forecast.swift in Sources */,
 			);

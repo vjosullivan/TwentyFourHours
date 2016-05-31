@@ -56,12 +56,12 @@ class ForecastIOBuilder {
         return forecast
     }
     
-    private func parseCurrentConditions(currentData data: JSONDictionary?) -> WeatherSnapshot? {
+    private func parseCurrentConditions(currentData data: JSONDictionary?) -> DataPoint? {
         guard let current = data else {
             return nil
         }
 
-        return WeatherSnapshot(
+        return DataPoint(
                 unixTime:    current["time"] as? Int,
                 icon:        appIcon(forecastIOIcon: current["icon"] as? String),
                 summary:     current["summary"] as? String,
@@ -97,13 +97,13 @@ class ForecastIOBuilder {
         return oneDayForecasts.count > 0 ? oneDayForecasts : nil
     }
 
-    private func parseOneHourForecasts(hourlyData data: [AnyObject]?) -> [WeatherSnapshot]? {
+    private func parseOneHourForecasts(hourlyData data: [AnyObject]?) -> [DataPoint]? {
         guard let hours = data as? [JSONDictionary] else {
             return nil
         }
-        var oneHourForecasts = [WeatherSnapshot]()
+        var oneHourForecasts = [DataPoint]()
         for hour in hours {
-            let forecast = WeatherSnapshot(
+            let forecast = DataPoint(
                 unixTime:    hour["time"] as? Int,
                 icon:        appIcon(forecastIOIcon: hour["icon"] as? String),
                 summary:     hour["summary"] as? String,

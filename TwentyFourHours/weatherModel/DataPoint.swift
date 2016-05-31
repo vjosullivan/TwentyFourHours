@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct WeatherSnapshot {
+struct DataPoint {
     
     let unixTime: Int?
     let icon: String?
@@ -34,10 +34,10 @@ struct WeatherSnapshot {
     }
 }
 
-extension WeatherSnapshot: Comparable {}
+extension DataPoint: Comparable {}
 
-func == (x: WeatherSnapshot, y: WeatherSnapshot) -> Bool { return x.unixTime == y.unixTime }
-func <  (x: WeatherSnapshot, y: WeatherSnapshot) -> Bool { return x.unixTime <  y.unixTime }
+func == (x: DataPoint, y: DataPoint) -> Bool { return x.unixTime == y.unixTime }
+func <  (x: DataPoint, y: DataPoint) -> Bool { return x.unixTime <  y.unixTime }
 
 enum LightType {
     case day
