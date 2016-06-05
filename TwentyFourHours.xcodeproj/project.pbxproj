@@ -52,7 +52,7 @@
 
 /* Begin PBXFileReference section */
 		3424C40C1CC0CB2F00ABE283 /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		34E1BFE51CCA4E6600FF1F2A /* WeatherTableViewCellTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeatherTableViewCellTests.swift; sourceTree = "<group>"; };
+		34E1BFE51CCA4E6600FF1F2A /* WeatherTableViewCellTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = WeatherTableViewCellTests.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		34EBD46A1CBFDB5F0033B651 /* TwentyFourHours.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TwentyFourHours.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		34EBD46D1CBFDB5F0033B651 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		34EBD4721CBFDB5F0033B651 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -74,9 +74,9 @@
 		F15676A51CC37F69006B5076 /* LocationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		F15676A91CC3B642006B5076 /* LocationManagerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationManagerTests.swift; sourceTree = "<group>"; };
 		F15676AC1CC3BBEA006B5076 /* WeatherDataSourceTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeatherDataSourceTests.swift; sourceTree = "<group>"; };
-		F1673D551CF04F7B007FD80F /* DisplayableForecast.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DisplayableForecast.swift; sourceTree = "<group>"; };
+		F1673D551CF04F7B007FD80F /* DisplayableForecast.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = DisplayableForecast.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		F16B19E91CC8C871008B39EC /* OneHourForecastTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OneHourForecastTests.swift; sourceTree = "<group>"; };
-		F17327331CF96B3E00E9F5BC /* WeatherDetailTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeatherDetailTableViewCell.swift; sourceTree = "<group>"; };
+		F17327331CF96B3E00E9F5BC /* WeatherDetailTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = WeatherDetailTableViewCell.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		F17CF9A71CC2204500F5C4A9 /* FlagsTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlagsTests.swift; sourceTree = "<group>"; };
 		F17CF9A91CC226C100F5C4A9 /* UnitsTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UnitsTests.swift; sourceTree = "<group>"; };
 		F17CF9AE1CC2332B00F5C4A9 /* UserDefaultsExtensionTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDefaultsExtensionTests.swift; sourceTree = "<group>"; };
@@ -84,7 +84,7 @@
 		F17CF9B41CC24B7C00F5C4A9 /* NSDateExtensionTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSDateExtensionTests.swift; sourceTree = "<group>"; };
 		F18C4FC21CCAB27F000CD94F /* ForecastIOBuilderTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ForecastIOBuilderTests.swift; sourceTree = "<group>"; };
 		F1C4AC601CC81DED007B276D /* mockWeatherTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = mockWeatherTableViewCell.swift; sourceTree = "<group>"; };
-		F1E09CF71CC0353000D9B55B /* WeatherTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WeatherTableViewCell.swift; path = ../WeatherTableViewCell.swift; sourceTree = "<group>"; };
+		F1E09CF71CC0353000D9B55B /* WeatherTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; name = WeatherTableViewCell.swift; path = ../WeatherTableViewCell.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */

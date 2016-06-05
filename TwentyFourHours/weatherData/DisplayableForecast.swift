@@ -43,17 +43,17 @@ class DisplayableForecast {
     }
 
     ///  Converts a 1D array of hourly weather forecasts into a 2D array of
-    ///  displayable weather snapshots (grouped by day).
+    ///  displayable weather datapoints (grouped by day).
     ///
     ///  - parameter forecast: The source weather forcast.
     ///
-    ///  - returns: The resulting weather snapshots.  An empty array is returned
+    ///  - returns: The resulting weather datapoints.  An empty array is returned
     ///             if the source data contains no data.
     ///
     private class func configureForecasts(forecast: Forecast) -> [[DataPoint]] {
         var dateIndex = NSDate() //forecast.currentConditions?.date
         var allSnapshots    = [[DataPoint]]()  // (An array of snaphot arrays.)
-        var hourlySnapshots = [DataPoint]() // (a snapshot array.)
+        var hourlySnapshots = [DataPoint]() // (a datapoint array.)
         if let current = forecast.currentConditions {
             hourlySnapshots.append(current)
         }
@@ -81,28 +81,28 @@ class DisplayableForecast {
         return allSnapshots
     }
 
-    ///  Adds day/night background shading to the (displayable) weather forcast snapshots.
+    ///  Adds day/night background shading to the (displayable) weather forcast datapoints.
     ///
-    ///  - parameter forecasts: A set of weather snapshots.
+    ///  - parameter forecasts: A set of weather datapoints.
     ///
     private class func illuminateForecasts(forecasts forecasts: [[DataPoint]]) {
-        var snapshots = forecasts
-        for dayIndex in 0..<snapshots.count {
-            let timeOf = sunTimes(forecasts: snapshots[dayIndex])
-            for lineIndex in 0..<snapshots[dayIndex].count {
+        var datapoints = forecasts
+        for dayIndex in 0..<datapoints.count {
+            let timeOf = sunTimes(forecasts: datapoints[dayIndex])
+            for lineIndex in 0..<datapoints[dayIndex].count {
                 if let sunrise = timeOf.sunrise {
-                    if snapshots[dayIndex][lineIndex].unixTime < sunrise {
-                        snapshots[dayIndex][lineIndex].brightness = LightType.night
+                    if datapoints[dayIndex][lineIndex].unixTime < sunrise {
+                        datapoints[dayIndex][lineIndex].brightness = LightType.night
                         continue
                     }
                 }
                 if let sunset = timeOf.sunset {
-                    if snapshots[dayIndex][lineIndex].unixTime > sunset {
-                        snapshots[dayIndex][lineIndex].brightness = LightType.night
+                    if datapoints[dayIndex][lineIndex].unixTime > sunset {
+                        datapoints[dayIndex][lineIndex].brightness = LightType.night
                         continue
                     }
                 }
-                snapshots[dayIndex][lineIndex].brightness = LightType.day
+                datapoints[dayIndex][lineIndex].brightness = LightType.day
             }
         }
     }
@@ -147,7 +147,7 @@ class DisplayableForecast {
     ///    - date:  The event data.
     ///    - data:  Data for the day (that may include the event).
     ///
-    ///  - returns: If found, a snapshot of the event is returned.
+    ///  - returns: If found, a datapoint of the event is returned.
     ///
     private class func takeSnapshot(event event: EventType, date: NSDate, data: OneDayForecast) -> DataPoint? {
         var result: DataPoint?
@@ -156,7 +156,7 @@ class DisplayableForecast {
             let sunriseDate = NSDate(timeIntervalSince1970: NSTimeInterval(time))
             if NSCalendar.currentCalendar().isDate(sunriseDate, inSameDayAsDate: date) {
                 let text = event == .sunrise ? "Sunrise" : "Sunset"
-                result = DataPoint(unixTime: time, icon: "unknown", summary: text, temperature: nil, units: nil)
+                result = DataPoint(unixTime: time, icon: "unknown", summary: text, temperature: nil, precipitationIntensity: nil, precipitationProbability: nil, precipitationType: nil, units: nil)
             }
         }
         return result

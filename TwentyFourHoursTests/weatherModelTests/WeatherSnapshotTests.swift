@@ -17,7 +17,7 @@ class WeatherSnapshotTests: XCTestCase {
         let testSumy = "OK"
         let testTemp = 20.0
         let testUnits = Units(units: "si")
-        let current  = WeatherSnapshot(unixTime: testTime, icon: testIcon, summary: testSumy, temperature: testTemp, units: testUnits)
+        let current  = DataPoint(unixTime: testTime, icon: testIcon, summary: testSumy, temperature: testTemp, precipitationIntensity: nil, precipitationProbability: nil, precipitationType: nil, units: testUnits)
         XCTAssertNotNil(current)
         XCTAssertEqual(testTime, current.unixTime)
         XCTAssertEqual(testIcon, current.icon)
@@ -28,7 +28,7 @@ class WeatherSnapshotTests: XCTestCase {
     func testDate() {
         let testTime = 1460723696 // 2016-04-15 12:34:56
         let testDate = NSDate(timeIntervalSince1970: 1460723696) // 2016-04-15 12:34:56
-        let current  = WeatherSnapshot(unixTime: testTime, icon: nil, summary: nil, temperature: nil, units: nil)
+        let current  = DataPoint(unixTime: testTime, icon: nil, summary: nil, temperature: nil, precipitationIntensity: nil, precipitationProbability: nil, precipitationType: nil, units: nil)
         XCTAssertEqual(testDate, current.date)
     }
 }

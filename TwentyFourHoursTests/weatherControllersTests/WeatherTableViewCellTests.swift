@@ -11,7 +11,7 @@ import XCTest
 
 class WeatherTableViewCellTests: XCTestCase {
 
-    let snapshotNil = WeatherSnapshot(unixTime: nil, icon: nil, summary: nil, temperature: nil, units: nil)
+    let datapointNil = DataPoint(unixTime: 0, icon: nil, summary: nil, temperature: nil, precipitationIntensity: nil, precipitationProbability: nil, precipitationType: nil, units: nil)
 
     var cell: WeatherTableViewCell?
 
@@ -35,31 +35,37 @@ class WeatherTableViewCellTests: XCTestCase {
 
     func testConfigureWithNoSnapshot() {
         cell!.tempLabel = UILabel(frame: CGRectZero)
-        cell!.configure(snapshotNil)
+        cell!.configure(datapointNil)
 
         // Check result: No forecast, no text.
         XCTAssertEqual("", cell!.tempLabel.text)
     }
 
     func testConfigureWithEmptyHourForecast() {
-        cell!.configure(snapshotNil)
+        cell!.configure(datapointNil)
 
         XCTAssertEqual("", cell!.tempLabel.text)
     }
 
     func testWeatherImageGood() {
-        let snapshotGoodIcon = WeatherSnapshot(unixTime: nil, icon: "snow", summary: nil, temperature: nil, units: nil)
-        cell!.configure(snapshotGoodIcon)
+        let datapointGoodIcon = DataPoint(unixTime: 0, icon: "snow", summary: nil, temperature: nil, precipitationIntensity: nil, precipitationProbability: nil, precipitationType: nil, units: nil)
+        cell!.configure(datapointGoodIcon)
 
         let expectedIcon = UIImage(named: "snow")
         XCTAssertEqual(expectedIcon, cell!.weatherIcon.image)
     }
 
     func testWeatherImageBad() {
-        let snapshotBadIcon = WeatherSnapshot(unixTime: nil, icon: "BANANA", summary: nil, temperature: nil, units: nil)
-        cell!.configure(snapshotBadIcon)
+        let datapointBadIcon = DataPoint(unixTime: 0, icon: "BANANA", summary: nil, temperature: nil, precipitationIntensity: nil, precipitationProbability: nil, precipitationType: nil, units: nil)
+        cell!.configure(datapointBadIcon)
 
         let expectedIcon = UIImage(named: "unknown")
         XCTAssertEqual(expectedIcon, cell!.weatherIcon.image)
+    }
+
+    func testDayFromUnixTime() {
+
+        let unixTime = 946728000.0
+        XCTAssertEqual("Sa", cell!.dayStringFromUnixTime(unixTime))
     }
 }

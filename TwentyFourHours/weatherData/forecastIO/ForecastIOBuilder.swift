@@ -57,16 +57,19 @@ class ForecastIOBuilder {
     }
     
     private func parseCurrentConditions(currentData data: JSONDictionary?) -> DataPoint? {
-        guard let current = data else {
+        guard let current = data, let timestamp = current["time"] as? Int else {
             return nil
         }
 
         return DataPoint(
-                unixTime:    current["time"] as? Int,
-                icon:        appIcon(forecastIOIcon: current["icon"] as? String),
-                summary:     current["summary"] as? String,
-                temperature: current["temperature"] as? Double,
-                units: self.units
+            unixTime:    timestamp,
+            icon:        appIcon(forecastIOIcon: current["icon"] as? String),
+            summary:     current["summary"] as? String,
+            temperature: current["temperature"] as? Double,
+            precipitationIntensity: current["precipIntensity"] as? Double,
+            precipitationProbability: current["precipProbability"] as? Double,
+            precipitationType: current["precipType"] as? String,
+            units: self.units
         )
     }
 
@@ -85,12 +88,13 @@ class ForecastIOBuilder {
 
         var oneDayForecasts = [OneDayForecast]()
         for day in days {
-            let oneDayForecast = OneDayForecast(
-                unixTime:    day["time"] as? Int,
-                sunriseTime: day["sunriseTime"] as? Int,
-                sunsetTime:  day["sunsetTime"]  as? Int)
-            if oneDayForecast.containsData {
-                oneDayForecasts.append(oneDayForecast)
+            let sunriseTime = day["sunriseTime"] as? Int
+            let sunsetTime  = day["sunsetTime"]  as? Int
+            if sunriseTime != nil || sunsetTime != nil {
+                oneDayForecasts.append(OneDayForecast(
+                    unixTime:    day["time"] as? Int,
+                    sunriseTime: sunriseTime,
+                    sunsetTime:  sunsetTime))
             }
         }
 
@@ -103,14 +107,17 @@ class ForecastIOBuilder {
         }
         var oneHourForecasts = [DataPoint]()
         for hour in hours {
-            let forecast = DataPoint(
-                unixTime:    hour["time"] as? Int,
-                icon:        appIcon(forecastIOIcon: hour["icon"] as? String),
-                summary:     hour["summary"] as? String,
-                temperature: hour["temperature"] as? Double,
-                units: self.units
-            )
-            if forecast.containsData {
+            if let timestamp = hour["time"] as? Int {
+                let forecast = DataPoint(
+                    unixTime:    timestamp,
+                    icon:        appIcon(forecastIOIcon: hour["icon"] as? String),
+                    summary:     hour["summary"] as? String,
+                    temperature: hour["temperature"] as? Double,
+                    precipitationIntensity: hour["precipIntensity"] as? Double,
+                    precipitationProbability: hour["precipProbability"] as? Double,
+                    precipitationType: hour["precipType"] as? String,
+                    units: self.units
+                )
                 oneHourForecasts.append(forecast)
             }
         }

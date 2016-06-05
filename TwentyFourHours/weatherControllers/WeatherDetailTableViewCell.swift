@@ -17,22 +17,18 @@ class WeatherDetailTableViewCell: UITableViewCell {
     @IBOutlet var rainLabel: UILabel!
     @IBOutlet var weatherIcon: UIImageView!
 
-    func configure(snapshot: DataPoint) {
-        tempLabel!.text = snapshot.temperature != nil ? "\(Int(round(snapshot.temperature!)))" : ""
+    func configure(datapoint: DataPoint) {
+        tempLabel!.text = datapoint.temperature != nil ? "\(Int(round(datapoint.temperature!)))" : ""
 
-        CFLabel.text = snapshot.units?.temperature ?? ""
+        CFLabel.text = datapoint.units?.temperature ?? ""
 
-        if let dateTime = snapshot.unixTime {
-            timeLabel!.text = hour(Double(dateTime))
-            minsLabel!.text = minute(Double(dateTime))
-        } else {
-            timeLabel!.text = ""
-            minsLabel!.text = ""
-        }
-        rainLabel!.text = snapshot.summary ?? ""
+        timeLabel!.text = hour(Double(datapoint.unixTime))
+        minsLabel!.text = minute(Double(datapoint.unixTime))
+
+        rainLabel!.text = datapoint.summary ?? ""
         // Unit test work around (because UIImageView is always nil in my unit tests).
         if let weatherIcon = self.weatherIcon,
-            let iconName = snapshot.icon {
+            let iconName = datapoint.icon {
             weatherIcon.image = weatherImage(iconName)
         }
         cellColours()

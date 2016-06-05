@@ -9,28 +9,41 @@
 import Foundation
 
 struct DataPoint {
-    
-    let unixTime: Int?
+
+    let unixTime: Int
+
     let icon: String?
     let summary: String?
+    let precipitationIntensity: Double?
+    let precipitationProbability: Double?
+    let precipitationType: String?
     let temperature: Double?
-
     let units: Units?
+
     var brightness: LightType? = nil
 
-    init(unixTime: Int?, icon: String?, summary: String?, temperature: Double?, units: Units?) {
+    init(unixTime: Int,
+         icon: String?,
+         summary: String?,
+         temperature: Double?,
+         precipitationIntensity: Double?,
+         precipitationProbability: Double?,
+         precipitationType: String?,
+         units: Units?) {
         self.unixTime    = unixTime
         self.icon        = icon
         self.summary     = summary
         self.temperature = temperature
+
+        self.precipitationIntensity = precipitationIntensity
+        self.precipitationProbability = precipitationProbability
+        self.precipitationType = precipitationType
+
         self.units       = units
-    }
-    var containsData: Bool {
-        return unixTime != nil && icon != nil && summary != nil && temperature != nil
     }
 
     var date: NSDate {
-        return NSDate(timeIntervalSince1970: NSTimeInterval(unixTime!))
+        return NSDate(timeIntervalSince1970: NSTimeInterval(unixTime))
     }
 }
 
