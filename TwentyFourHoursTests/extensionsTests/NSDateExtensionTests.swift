@@ -34,6 +34,36 @@ class NSDateExtensionTests: XCTestCase {
         XCTAssertEqual(expected, testTime)
     }
 
+    func testSameDay() {
+        let date1 = NSDate(timeIntervalSince1970: 946728000.0) // Midday, Jan 1 2000.
+        let date2 = NSDate(timeIntervalSince1970: 946749600.0) // 6pm, Jan 1 2000.
+        XCTAssertTrue(date1.isSameDay(date2))
+    }
+
+    func testDifferentDay() {
+        let date1 = NSDate(timeIntervalSince1970: 946728000.0) // Midday, Jan 1 2000.
+        let date2 = NSDate(timeIntervalSince1970: 946814400.0) // Midday, Jan 2 2000.
+        XCTAssertFalse(date1.isSameDay(date2))
+    }
+
+    func testDatesAreEqual() {
+        let date1  = NSDate(timeIntervalSince1970: 946728000.0) // Midday, Jan 1 2000 UST.
+        let date1a = NSDate(timeIntervalSince1970: 946728000.0) // Midday, Jan 1 2000.
+        let date2  = NSDate(timeIntervalSince1970: 946814400.0) // Midday, Jan 2 2000.
+        XCTAssertTrue( date1 == date1a)
+        XCTAssertFalse(date1 != date1a)
+        XCTAssertFalse(date1 <  date1a)
+        XCTAssertTrue( date1 <= date1a)
+        XCTAssertFalse(date1 >  date1a)
+        XCTAssertTrue( date1 >= date1a)
+        XCTAssertFalse(date1 == date2)
+        XCTAssertTrue( date1 != date2)
+        XCTAssertTrue( date1 <  date2)
+        XCTAssertTrue( date1 <= date2)
+        XCTAssertFalse(date1 >  date2)
+        XCTAssertFalse(date1 >= date2)
+    }
+
     /// Returns the given date in a local time format.
     private func asHHMM(date: NSDate) -> String {
         let formatter = NSDateFormatter()
