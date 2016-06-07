@@ -56,12 +56,12 @@ class ForecastIOBuilder {
         return forecast
     }
     
-    private func parseCurrentConditions(currentData data: JSONDictionary?) -> DataPoint? {
+    private func parseCurrentConditions(currentData data: JSONDictionary?) -> CurrentDataPoint? {
         guard let current = data, let timestamp = current["time"] as? Int else {
             return nil
         }
 
-        return DataPoint(
+        return HourlyDataPoint(
             unixTime:    timestamp,
             icon:        appIcon(forecastIOIcon: current["icon"] as? String),
             summary:     current["summary"] as? String,
@@ -108,7 +108,7 @@ class ForecastIOBuilder {
         var oneHourForecasts = [DataPoint]()
         for hour in hours {
             if let timestamp = hour["time"] as? Int {
-                let forecast = DataPoint(
+                let forecast = HourlyDataPoint(
                     unixTime:    timestamp,
                     icon:        appIcon(forecastIOIcon: hour["icon"] as? String),
                     summary:     hour["summary"] as? String,

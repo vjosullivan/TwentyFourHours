@@ -2,17 +2,17 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "Moon-48.png",
+      "filename" : "moon48@1.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "filename" : "Moon-49.png",
+      "filename" : "moon48@2.png",
       "scale" : "2x"
     },
     {
       "idiom" : "universal",
-      "filename" : "Moon-50.png",
+      "filename" : "moon48@3.png",
       "scale" : "3x"
     }
   ],

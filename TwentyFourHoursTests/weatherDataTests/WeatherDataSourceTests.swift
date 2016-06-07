@@ -29,7 +29,7 @@ class WeatherDataSourceTests: XCTestCase {
         // Create a weather forecast containg one one-hour forecast.
         var forecasts = [DataPoint]()
         let unixTimeNow = Int(NSDate().timeIntervalSince1970)
-        let oneForecast = DataPoint(unixTime: unixTimeNow, icon: "sun", summary: "rain", temperature: expectedTemperature, precipitationIntensity: nil, precipitationProbability: nil, precipitationType: nil, units: nil)
+        let oneForecast = HourlyDataPoint(unixTime: unixTimeNow, icon: "sun", summary: "rain", temperature: expectedTemperature, precipitationIntensity: nil, precipitationProbability: nil, precipitationType: nil, units: nil)
         forecasts.append(oneForecast)
         mockForecast = Forecast(
             latitude: 51.3,

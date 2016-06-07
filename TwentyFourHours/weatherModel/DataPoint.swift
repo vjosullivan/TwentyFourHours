@@ -1,5 +1,5 @@
 //
-//  OneHourForecast.swift
+//  DataPoint.swift
 //  VOSForecast
 //
 //  Created by Vincent O'Sullivan on 29/02/2016.
@@ -8,51 +8,30 @@
 
 import Foundation
 
-struct DataPoint {
+protocol DataPoint {
 
-    let unixTime: Int
+    var unixTime: Int { get }
 
-    let icon: String?
-    let summary: String?
-    let precipitationIntensity: Double?
-    let precipitationProbability: Double?
-    let precipitationType: String?
-    let temperature: Double?
-    let units: Units?
+    var temperature: Double? { get }
+    var units: Units? { get }
+    var summary: String? { get }
+    var icon: String? { get }
 
-    var brightness: LightType? = nil
+    var brightness: LightType? { get set }
+}
 
-    init(unixTime: Int,
-         icon: String?,
-         summary: String?,
-         temperature: Double?,
-         precipitationIntensity: Double?,
-         precipitationProbability: Double?,
-         precipitationType: String?,
-         units: Units?) {
-        self.unixTime    = unixTime
-        self.icon        = icon
-        self.summary     = summary
-        self.temperature = temperature
-
-        self.precipitationIntensity = precipitationIntensity
-        self.precipitationProbability = precipitationProbability
-        self.precipitationType = precipitationType
-
-        self.units       = units
-    }
+extension DataPoint {
 
     var date: NSDate {
         return NSDate(timeIntervalSince1970: NSTimeInterval(unixTime))
     }
 }
 
-extension DataPoint: Comparable {}
-
-func == (x: DataPoint, y: DataPoint) -> Bool { return x.unixTime == y.unixTime }
-func <  (x: DataPoint, y: DataPoint) -> Bool { return x.unixTime <  y.unixTime }
-
-enum LightType {
-    case day
-    case night
+///  For use in sorting.
+///
+///  - returns: `true` if `dataPoint1` is before `dataPoint2`, otherwise `false`.
+///
+func dataPointOrder(point1: DataPoint, point2: DataPoint) -> Bool {
+    return point1.unixTime < point2.unixTime
 }
+

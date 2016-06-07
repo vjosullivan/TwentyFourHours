@@ -11,7 +11,7 @@ import XCTest
 
 class WeatherTableViewCellTests: XCTestCase {
 
-    let datapointNil = DataPoint(unixTime: 0, icon: nil, summary: nil, temperature: nil, precipitationIntensity: nil, precipitationProbability: nil, precipitationType: nil, units: nil)
+    let datapointNil = HourlyDataPoint(unixTime: 0, icon: nil, summary: nil, temperature: nil, precipitationIntensity: nil, precipitationProbability: nil, precipitationType: nil, units: nil)
 
     var cell: WeatherTableViewCell?
 
@@ -33,7 +33,7 @@ class WeatherTableViewCellTests: XCTestCase {
         XCTAssertNotNil(cell)
     }
 
-    func testConfigureWithNoSnapshot() {
+    func testConfigureWithNoDataPoint() {
         cell!.tempLabel = UILabel(frame: CGRectZero)
         cell!.configure(datapointNil)
 
@@ -48,7 +48,7 @@ class WeatherTableViewCellTests: XCTestCase {
     }
 
     func testWeatherImageGood() {
-        let datapointGoodIcon = DataPoint(unixTime: 0, icon: "snow", summary: nil, temperature: nil, precipitationIntensity: nil, precipitationProbability: nil, precipitationType: nil, units: nil)
+        let datapointGoodIcon = HourlyDataPoint(unixTime: 0, icon: "snow", summary: nil, temperature: nil, precipitationIntensity: nil, precipitationProbability: nil, precipitationType: nil, units: nil)
         cell!.configure(datapointGoodIcon)
 
         let expectedIcon = UIImage(named: "snow")
@@ -56,7 +56,7 @@ class WeatherTableViewCellTests: XCTestCase {
     }
 
     func testWeatherImageBad() {
-        let datapointBadIcon = DataPoint(unixTime: 0, icon: "BANANA", summary: nil, temperature: nil, precipitationIntensity: nil, precipitationProbability: nil, precipitationType: nil, units: nil)
+        let datapointBadIcon = HourlyDataPoint(unixTime: 0, icon: "BANANA", summary: nil, temperature: nil, precipitationIntensity: nil, precipitationProbability: nil, precipitationType: nil, units: nil)
         cell!.configure(datapointBadIcon)
 
         let expectedIcon = UIImage(named: "unknown")

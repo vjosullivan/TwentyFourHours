@@ -48,63 +48,64 @@ class DisplayableForecast {
     ///  - parameter forecast: The source weather forcast.
     ///
     ///  - returns: The resulting weather datapoints.  An empty array is returned
-    ///             if the source data contains no data.
+    ///             if the source data contains no data./Applications/Audirvana Plus 2.app
     ///
     private class func configureForecasts(forecast: Forecast) -> [[DataPoint]] {
         var dateIndex = NSDate() //forecast.currentConditions?.date
-        var allSnapshots    = [[DataPoint]]()  // (An array of snaphot arrays.)
-        var hourlySnapshots = [DataPoint]() // (a datapoint array.)
+        var allDataPoints    = [[DataPoint]]()  // (An array of DataPoint arrays.)
+        var hourlyDataPoints = [DataPoint]() // (a datapoint array.)
         if let current = forecast.currentConditions {
-            hourlySnapshots.append(current)
+            hourlyDataPoints.append(current)
         }
-        if let hours = forecast.oneHourForecasts?.sort() {
+        if let hours = forecast.oneHourForecasts?.sort(dataPointOrder) {
             for hour in hours {
                 // Start a new day, if needed.
                 if !NSCalendar.currentCalendar().isDate(hour.date, inSameDayAsDate: dateIndex) {
                     if let dailyForecasts = forecast.oneDayForecasts {
-                        hourlySnapshots.appendContentsOf(almanac(dailyForecasts, date: dateIndex))
+                        hourlyDataPoints.appendContentsOf(almanac(dailyForecasts, date: dateIndex))
                     }
-                    if hourlySnapshots.count > 0 {
-                        allSnapshots.append(hourlySnapshots.sort())
+                    if hourlyDataPoints.count > 0 {
+                        allDataPoints.append(hourlyDataPoints.sort(dataPointOrder))
                     }
-                    hourlySnapshots = [DataPoint]()
+                    hourlyDataPoints = [DataPoint]()
                     dateIndex = hour.date
                 }
-                hourlySnapshots.append(hour)
+                hourlyDataPoints.append(hour)
             }
             if let dailyForecasts = forecast.oneDayForecasts {
-                hourlySnapshots.appendContentsOf(almanac(dailyForecasts, date: dateIndex))
+                hourlyDataPoints.appendContentsOf(almanac(dailyForecasts, date: dateIndex))
             }
-            allSnapshots.append(hourlySnapshots.sort())
+            allDataPoints.append(hourlyDataPoints.sort(dataPointOrder))
         }
-        illuminateForecasts(forecasts: allSnapshots)
-        return allSnapshots
+
+        return illuminateDataPoints(allDataPoints)
     }
 
     ///  Adds day/night background shading to the (displayable) weather forcast datapoints.
     ///
     ///  - parameter forecasts: A set of weather datapoints.
     ///
-    private class func illuminateForecasts(forecasts forecasts: [[DataPoint]]) {
-        var datapoints = forecasts
-        for dayIndex in 0..<datapoints.count {
-            let timeOf = sunTimes(forecasts: datapoints[dayIndex])
-            for lineIndex in 0..<datapoints[dayIndex].count {
+    private class func illuminateDataPoints(dataPoints: [[DataPoint]]) -> [[DataPoint]] {
+        var newPoints = dataPoints
+        for dayIndex in 0..<newPoints.count {
+            let timeOf = sunTimes(forecasts: newPoints[dayIndex])
+            for lineIndex in 0..<newPoints[dayIndex].count {
                 if let sunrise = timeOf.sunrise {
-                    if datapoints[dayIndex][lineIndex].unixTime < sunrise {
-                        datapoints[dayIndex][lineIndex].brightness = LightType.night
+                    if newPoints[dayIndex][lineIndex].unixTime < sunrise {
+                        newPoints[dayIndex][lineIndex].brightness = LightType.night
                         continue
                     }
                 }
                 if let sunset = timeOf.sunset {
-                    if datapoints[dayIndex][lineIndex].unixTime > sunset {
-                        datapoints[dayIndex][lineIndex].brightness = LightType.night
+                    if newPoints[dayIndex][lineIndex].unixTime > sunset {
+                        newPoints[dayIndex][lineIndex].brightness = LightType.night
                         continue
                     }
                 }
-                datapoints[dayIndex][lineIndex].brightness = LightType.day
+                newPoints[dayIndex][lineIndex].brightness = LightType.day
             }
         }
+        return newPoints
     }
 
     private class func sunTimes(forecasts forecasts: [DataPoint]) -> (sunrise: Int?, sunset: Int?) {
@@ -122,25 +123,26 @@ class DisplayableForecast {
     ///             If neither occur then an empty array is returned.
     ///
     private class func almanac(dayForecasts: [OneDayForecast], date: NSDate) -> [DataPoint] {
-        var twilights = [DataPoint]()
+        var twilightTimes = [DataPoint]()
         for forecast in dayForecasts {
-            if let sunrise = takeSnapshot(event: .sunrise, date: date, data: forecast) {
+            if let sunrise = createDataPoint(event: .sunrise, date: date, data: forecast) {
                 // Ignore past sunrises.
                 if sunrise.date > nowMinus1Hour {
-                    twilights.append(sunrise)
+                    twilightTimes.append(sunrise)
                 }
             }
-            if let sunset = takeSnapshot(event: .sunset, date: date, data: forecast) {
+            if let sunset = createDataPoint(event: .sunset, date: date, data: forecast) {
                 // Ignore too far distant sunrises.
                 if sunset.date <= nowPlus49Hours {
-                    twilights.append(sunset)
+                    twilightTimes.append(sunset)
                 }
             }
         }
-        return twilights
+        return twilightTimes
     }
 
-    ///  Looks for a event occurring on the given date in the supplied data.
+    ///  Looks for a event occurring on the given date in the supplied data
+    ///  and return a `DataPoint` for that event.
     ///
     ///  - parameters:
     ///    - event: The event (sunrise, etc.) being sought
@@ -149,14 +151,14 @@ class DisplayableForecast {
     ///
     ///  - returns: If found, a datapoint of the event is returned.
     ///
-    private class func takeSnapshot(event event: EventType, date: NSDate, data: OneDayForecast) -> DataPoint? {
+    private class func createDataPoint(event event: EventType, date: NSDate, data: OneDayForecast) -> DataPoint? {
         var result: DataPoint?
         let eventTime = event == .sunrise ? data.sunriseTime : data.sunsetTime
         if let time = eventTime {
             let sunriseDate = NSDate(timeIntervalSince1970: NSTimeInterval(time))
             if NSCalendar.currentCalendar().isDate(sunriseDate, inSameDayAsDate: date) {
                 let text = event == .sunrise ? "Sunrise" : "Sunset"
-                result = DataPoint(unixTime: time, icon: "unknown", summary: text, temperature: nil, precipitationIntensity: nil, precipitationProbability: nil, precipitationType: nil, units: nil)
+                result = HourlyDataPoint(unixTime: time, icon: "sunrise", summary: text, temperature: nil, precipitationIntensity: nil, precipitationProbability: nil, precipitationType: nil, units: nil)
             }
         }
         return result

@@ -2,17 +2,17 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "Sun-48.png",
+      "filename" : "sun48@1.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "filename" : "Sun-49.png",
+      "filename" : "sun48@2.png",
       "scale" : "2x"
     },
     {
       "idiom" : "universal",
-      "filename" : "Sun-50.png",
+      "filename" : "sun48@3.png",
       "scale" : "3x"
     }
   ],
