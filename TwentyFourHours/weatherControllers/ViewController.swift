@@ -41,7 +41,6 @@ class ViewController: UIViewController {
 
         currentIcon.image = weatherImage(forecast.currentConditions?.icon)
         currentSummary.text = forecast.currentConditions?.summary ?? ""
-        forecast.currentConditions?.
     }
 
     func weatherImage(iconName: String?) -> UIImage {

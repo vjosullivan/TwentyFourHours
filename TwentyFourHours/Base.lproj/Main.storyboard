@@ -144,7 +144,7 @@
                                                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="108" textAlignment="center" lineBreakMode="tailTruncation" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hI0-ad-Gdi" userLabel="tempLabel">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="108" lineBreakMode="tailTruncation" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hI0-ad-Gdi" userLabel="tempLabel">
                                                     <rect key="frame" x="0.0" y="0.0" width="131" height="131"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" secondItem="hI0-ad-Gdi" secondAttribute="height" multiplier="1:1" id="Enm-TW-xdU"/>
@@ -210,8 +210,8 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="U71-lZ-HCX" userLabel="Current conditions">
                                 <rect key="frame" x="0.0" y="53" width="600" height="132"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VTD-CM-vFO" userLabel="Temperature">
-                                        <rect key="frame" x="0.0" y="0.0" width="132" height="132"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="25" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VTD-CM-vFO" userLabel="Temperature">
+                                        <rect key="frame" x="0.0" y="18" width="96" height="96"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="VTD-CM-vFO" secondAttribute="height" multiplier="1:1" id="g3x-cg-mX3"/>
@@ -237,12 +237,24 @@
                                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Currently" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qlm-xB-V0r">
+                                        <rect key="frame" x="0.0" y="0.0" width="600" height="21"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="21" id="I9T-9J-uBJ"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                 </subviews>
                                 <color key="backgroundColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
+                                    <constraint firstItem="qlm-xB-V0r" firstAttribute="top" secondItem="U71-lZ-HCX" secondAttribute="top" id="8IO-5D-oEc"/>
+                                    <constraint firstAttribute="trailing" secondItem="qlm-xB-V0r" secondAttribute="trailing" id="Eoc-Mg-FXH"/>
+                                    <constraint firstItem="qlm-xB-V0r" firstAttribute="leading" secondItem="U71-lZ-HCX" secondAttribute="leading" id="FSu-US-EcG"/>
                                     <constraint firstItem="J69-JU-HAO" firstAttribute="top" secondItem="U71-lZ-HCX" secondAttribute="top" constant="18" id="Fun-Da-QTp"/>
-                                    <constraint firstItem="VTD-CM-vFO" firstAttribute="top" secondItem="U71-lZ-HCX" secondAttribute="top" id="JSc-nr-EZq"/>
-                                    <constraint firstAttribute="bottom" secondItem="VTD-CM-vFO" secondAttribute="bottom" id="Ou8-Yz-bke"/>
+                                    <constraint firstItem="VTD-CM-vFO" firstAttribute="top" secondItem="U71-lZ-HCX" secondAttribute="top" constant="18" id="JSc-nr-EZq"/>
+                                    <constraint firstAttribute="bottom" secondItem="VTD-CM-vFO" secondAttribute="bottom" constant="18" id="Ou8-Yz-bke"/>
                                     <constraint firstAttribute="bottom" secondItem="J69-JU-HAO" secondAttribute="bottom" constant="18" id="V5x-Vl-BcL"/>
                                     <constraint firstItem="VTD-CM-vFO" firstAttribute="leading" secondItem="U71-lZ-HCX" secondAttribute="leading" id="X3x-t8-1ba"/>
                                     <constraint firstAttribute="height" constant="132" id="b3D-qz-7Vc"/>
