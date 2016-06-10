@@ -11,6 +11,10 @@ import CoreLocation
 
 class ViewController: UIViewController {
 
+    @IBOutlet weak var currentTemperature: UILabel!
+    @IBOutlet weak var currentIcon: UIImageView!
+    @IBOutlet weak var currentSummary: UILabel!
+
     @IBOutlet weak var weatherTable: UITableView!
     
     private var weatherData: WeatherDataSource?
@@ -28,6 +32,23 @@ class ViewController: UIViewController {
         weatherTable.dataSource = weatherData
         weatherTable.delegate   = weatherData
         weatherTable.reloadData()
+
+        if let temperature = forecast.currentConditions?.temperature {
+            currentTemperature.text = String(Int(round(temperature)))
+        } else {
+            currentTemperature.text = ""
+        }
+
+        currentIcon.image = weatherImage(forecast.currentConditions?.icon)
+        currentSummary.text = forecast.currentConditions?.summary ?? ""
+        forecast.currentConditions?.
+    }
+
+    func weatherImage(iconName: String?) -> UIImage {
+        guard let foundImage = UIImage(named: iconName!) else {
+            return UIImage(named: "unknown")!
+        }
+        return foundImage
     }
 }
 
