@@ -23,6 +23,7 @@
 		34EBD4DC1CBFDFF20033B651 /* Flags.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34EBD4DB1CBFDFF20033B651 /* Flags.swift */; };
 		34EBD4E21CBFDFF80033B651 /* Units.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34EBD4E11CBFDFF80033B651 /* Units.swift */; };
 		34EBD4E81CBFE0170033B651 /* NSDateExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34EBD4E71CBFE0170033B651 /* NSDateExtension.swift */; };
+		F11A66BB1D0C1FF000A71CC5 /* LightDataPointTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F11A66BA1D0C1FF000A71CC5 /* LightDataPointTests.swift */; };
 		F15676A41CC2ED59006B5076 /* WeatherDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = F15676A31CC2ED59006B5076 /* WeatherDataSource.swift */; };
 		F15676A61CC37F69006B5076 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F15676A51CC37F69006B5076 /* LocationManager.swift */; };
 		F15676AA1CC3B642006B5076 /* LocationManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F15676A91CC3B642006B5076 /* LocationManagerTests.swift */; };
@@ -73,6 +74,7 @@
 		34EBD4DB1CBFDFF20033B651 /* Flags.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Flags.swift; sourceTree = "<group>"; };
 		34EBD4E11CBFDFF80033B651 /* Units.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Units.swift; sourceTree = "<group>"; };
 		34EBD4E71CBFE0170033B651 /* NSDateExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSDateExtension.swift; sourceTree = "<group>"; };
+		F11A66BA1D0C1FF000A71CC5 /* LightDataPointTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LightDataPointTests.swift; sourceTree = "<group>"; };
 		F15676A31CC2ED59006B5076 /* WeatherDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeatherDataSource.swift; sourceTree = "<group>"; };
 		F15676A51CC37F69006B5076 /* LocationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		F15676A91CC3B642006B5076 /* LocationManagerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationManagerTests.swift; sourceTree = "<group>"; };
@@ -260,6 +262,7 @@
 				F17CF9A71CC2204500F5C4A9 /* FlagsTests.swift */,
 				F17CF9A91CC226C100F5C4A9 /* UnitsTests.swift */,
 				F17CF9B01CC2415B00F5C4A9 /* HourlyDataPointTests.swift */,
+				F11A66BA1D0C1FF000A71CC5 /* LightDataPointTests.swift */,
 				F16B19E91CC8C871008B39EC /* OneHourForecastTests.swift */,
 				F1B5BDF51D06B70A0088BDF0 /* DataPointTests.swift */,
 			);
@@ -423,6 +426,7 @@
 				F15676AA1CC3B642006B5076 /* LocationManagerTests.swift in Sources */,
 				F15676AD1CC3BBEA006B5076 /* WeatherDataSourceTests.swift in Sources */,
 				F17CF9A81CC2204500F5C4A9 /* FlagsTests.swift in Sources */,
+				F11A66BB1D0C1FF000A71CC5 /* LightDataPointTests.swift in Sources */,
 				F17CF9B11CC2415B00F5C4A9 /* HourlyDataPointTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
