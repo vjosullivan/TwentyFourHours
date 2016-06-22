@@ -22,14 +22,14 @@ class WeatherTableViewCell: UITableViewCell {
 
         CFLabel.text = datapoint.units?.temperature ?? ""
 
-        timeLabel!.text = hour(Double(datapoint.unixTime))
-        minsLabel!.text = minute(Double(datapoint.unixTime))
+        timeLabel!.text = hour(unixTime: Double(datapoint.unixTime))
+        minsLabel!.text = minute(unixTime: Double(datapoint.unixTime))
 
         rainLabel!.text = datapoint.summary ?? ""
         // Unit test work around (because UIImageView is always nil in my unit tests).
         if let weatherIcon = self.weatherIcon,
             let iconName = datapoint.icon {
-            weatherIcon.image = weatherImage(iconName)
+            weatherIcon.image = weatherImage(iconName: iconName)
         }
         cellColours()
 
@@ -39,8 +39,8 @@ class WeatherTableViewCell: UITableViewCell {
     }
 
     func cellColours() {
-        let cellBackgroundColor = UIColor.blackColor()
-        let cellForegroundColor = minsLabel.text == ":00" ? UIColor.whiteColor() : UIColor.greenColor()
+        let cellBackgroundColor = UIColor.black()
+        let cellForegroundColor = minsLabel.text == ":00" ? UIColor.white() : UIColor.green()
 
         backgroundColor     = cellBackgroundColor
         
@@ -62,11 +62,11 @@ class WeatherTableViewCell: UITableViewCell {
 extension UITableViewCell {
 
     func dayStringFromUnixTime(unixTime: Double) -> String {
-        let date = NSDate(timeIntervalSince1970: unixTime)
+        let date = Date(timeIntervalSince1970: unixTime)
 
-        let dateFormatter = NSDateFormatter()
+        let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "EEEEEE"  // 2 letter day.
-        return dateFormatter.stringFromDate(date)
+        return dateFormatter.string(from: date)
     }
 
     ///  Returns the hour value in the current calendar.
@@ -76,11 +76,11 @@ extension UITableViewCell {
     ///  - returns: A hour value in the range 0 to 23.
     ///
     func hour(unixTime: Double) -> String {
-        let date = NSDate(timeIntervalSince1970: unixTime)
+        let date = Date(timeIntervalSince1970: unixTime)
 
-        let dateFormatter = NSDateFormatter()
+        let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "H"
-        return dateFormatter.stringFromDate(date)
+        return dateFormatter.string(from: date)
     }
 
     ///  Returns the minute value in the current calendar.
@@ -90,10 +90,10 @@ extension UITableViewCell {
     ///  - returns: A minute value in the range 0 to 59.
     ///
     func minute(unixTime: Double) -> String {
-        let date = NSDate(timeIntervalSince1970: unixTime)
+        let date = Date(timeIntervalSince1970: unixTime)
 
-        let dateFormatter = NSDateFormatter()
+        let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = ":mm"
-        return dateFormatter.stringFromDate(date)
+        return dateFormatter.string(from: date)
     }
 }

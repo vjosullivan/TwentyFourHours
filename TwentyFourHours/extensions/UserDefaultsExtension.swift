@@ -8,27 +8,27 @@
 
 import Foundation
 
-extension NSUserDefaults {
+extension UserDefaults {
     
-    class func write(key key: String, value: String) {
-        let userDefaults = NSUserDefaults.standardUserDefaults()
+    class func write(key: String, value: String) {
+        let userDefaults = UserDefaults.standard()
         userDefaults.setValue(value, forKey: "vos.forecast." + key)
         userDefaults.synchronize()
     }
 
-    class func writeInt(key key: String, value: Int) {
-        let userDefaults = NSUserDefaults.standardUserDefaults()
+    class func writeInt(key: String, value: Int) {
+        let userDefaults = UserDefaults.standard()
         userDefaults.setValue(value, forKey: "vos.forecast." + key)
         userDefaults.synchronize()
     }
 
-    class func read(key key: String, defaultValue: String) -> String {
-        let userDefaults = NSUserDefaults.standardUserDefaults()
-        return userDefaults.valueForKey("vos.forecast." + key) as? String ?? defaultValue
+    class func read(key: String, defaultValue: String) -> String {
+        let userDefaults = UserDefaults.standard()
+        return userDefaults.value(forKey: "vos.forecast." + key) as? String ?? defaultValue
     }
 
-    class func readInt(key key: String, defaultValue: Int) -> Int {
-        let userDefaults = NSUserDefaults.standardUserDefaults()
-        return userDefaults.valueForKey("vos.forecast." + key) as? Int ?? defaultValue
+    class func readInt(key: String, defaultValue: Int) -> Int {
+        let userDefaults = UserDefaults.standard()
+        return userDefaults.value(forKey: "vos.forecast." + key) as? Int ?? defaultValue
     }
 }

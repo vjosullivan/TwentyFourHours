@@ -1,5 +1,5 @@
 //
-//  NSDateExtension.swift
+//  DateExtension.swift
 //  VOSForecast
 //
 //  Created by Vincent O'Sullivan on 17/03/2016.
@@ -8,52 +8,52 @@
 
 import Foundation
 
-extension NSDate {
+extension Date {
 
     func asYYYYMMDD() -> String {
-        let formatter = NSDateFormatter()
+        let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd"
-        return formatter.stringFromDate(self)
+        return formatter.string(from: self)
     }
 
     func asHHMM() -> String {
-        let formatter = NSDateFormatter()
+        let formatter = DateFormatter()
         formatter.dateFormat = "HH:mm"
-        return formatter.stringFromDate(self)
+        return formatter.string(from: self)
     }
 
     func asHpm() -> String {
-        let formatter = NSDateFormatter()
+        let formatter = DateFormatter()
         formatter.dateFormat = "ha"
-        return formatter.stringFromDate(self).lowercaseString
+        return formatter.string(from: self).lowercased()
     }
 
     ///  Returns the exact date for the local start of today.
     ///
-    class func startOfToday() -> NSDate {
-        let cal = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian)!
-        cal.timeZone = NSTimeZone.localTimeZone()
-        let components = cal.components([.Day , .Month, .Year ], fromDate: NSDate())
-        return cal.dateFromComponents(components)!
+    static func startOfToday() -> Date {
+        let cal = Calendar(calendarIdentifier: Calendar.Identifier.gregorian)!
+        cal.timeZone = TimeZone.local()
+        let components = cal.components([.day , .month, .year], from: Date())
+        return cal.date(from: components)!
     }
 
 
-    func isSameDay(date1:NSDate) -> Bool {
-        let calendar = NSCalendar.currentCalendar()
-        let comps1 = calendar.components([NSCalendarUnit.Month , NSCalendarUnit.Year , NSCalendarUnit.Day], fromDate: date1)
-        let comps2 = calendar.components([NSCalendarUnit.Month , NSCalendarUnit.Year , NSCalendarUnit.Day], fromDate: self)
+    func isSameDay(date1:Date) -> Bool {
+        let calendar = Calendar.current()
+        let comps1 = calendar.components([.month, .year, .day], from: date1)
+        let comps2 = calendar.components([.month, .year, .day], from: self)
 
         return (comps1.day == comps2.day) && (comps1.month == comps2.month) && (comps1.year == comps2.year)
     }
 }
 
-extension NSDate: Comparable { }
-
-public func ==(lhs: NSDate, rhs: NSDate) -> Bool {
-    return lhs === rhs || lhs.compare(rhs) == .OrderedSame
-}
-
-public func <(lhs: NSDate, rhs: NSDate) -> Bool {
-    return lhs.compare(rhs) == .OrderedAscending
-}
+//extension Date: Comparable { }
+//
+//public func ==(lhs: Date, rhs: Date) -> Bool {
+//    return lhs === rhs || lhs.compare(rhs) == .OrderedSame
+//}
+//
+//public func <(lhs: Date, rhs: Date) -> Bool {
+//    return lhs.compare(rhs) == .OrderedAscending
+//}
 

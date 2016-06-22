@@ -28,7 +28,7 @@ class WeatherDataSourceTests: XCTestCase {
 
         // Create a weather forecast containg one one-hour forecast.
         var forecasts = [DataPoint]()
-        let unixTimeNow = Int(NSDate().timeIntervalSince1970)
+        let unixTimeNow = Int(Date().timeIntervalSince1970)
         let oneForecast = HourlyDataPoint(unixTime: unixTimeNow, icon: "sun", summary: "rain", temperature: expectedTemperature, precipitationIntensity: nil, precipitationProbability: nil, precipitationType: nil, units: nil)
         forecasts.append(oneForecast)
         mockForecast = Forecast(
@@ -75,7 +75,7 @@ class WeatherDataSourceTests: XCTestCase {
 
     func testCellPopulating() {
 
-        let ip = NSIndexPath(forRow: 0, inSection: 0)
+        let ip = IndexPath(forRow: 0, inSection: 0)
         let cell = weatherDS?.tableView(mockTableView, cellForRowAtIndexPath: ip) as? mockWeatherTableViewCell
 
         XCTAssertEqual(Int(expectedTemperature), Int((cell?.tempLabel.text)!))

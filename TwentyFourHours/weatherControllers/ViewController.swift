@@ -22,12 +22,12 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        ForecastIOManager(forecastDelegate: self).updateForecast()
+        ForecastIOAPIClient(forecastDelegate: self).updateForecast()
     }
 
     ///  Update the view with the current weather forecast.
     ///
-    private func updateView(forecast forecast: Forecast) {
+    private func updateView(forecast: Forecast) {
         weatherData = WeatherDataSource(forecast: forecast)
         weatherTable.dataSource = weatherData
         weatherTable.delegate   = weatherData
@@ -39,7 +39,7 @@ class ViewController: UIViewController {
             currentTemperature.text = ""
         }
 
-        currentIcon.image = weatherImage(forecast.currentConditions?.icon)
+        currentIcon.image = weatherImage(iconName: forecast.currentConditions?.icon)
         currentSummary.text = forecast.currentConditions?.summary ?? ""
     }
 
@@ -51,21 +51,21 @@ class ViewController: UIViewController {
     }
 }
 
-extension ViewController: ForecastManagerDelegate {
+extension ViewController: ForecastIOAPIClientDelegate {
 
-    func forecastManager(manager: ForecastIOManager, didUpdateForecast forecast: Forecast) {
-        dispatch_async(dispatch_get_main_queue()) {
+    func forecast(client: ForecastIOAPIClient, didUpdateForecast forecast: Forecast) {
+        DispatchQueue.main.async {
             self.updateView(forecast: forecast)
         }
     }
 
-    func forecastManager(manager: ForecastIOManager, didFailWithError error: NSError) {
-        dispatch_async(dispatch_get_main_queue()) {
+    func forecast(client: ForecastIOAPIClient, didFailWithError error: NSError) {
+        DispatchQueue.main.async {
             self.updateView(forecast: nilForecast)
         }
-        let alertController = UIAlertController(title: "Current Weather", message: "No weather forecast available at the moment.\n\n\(error)", preferredStyle: .Alert)
-        let okAction = UIAlertAction(title: "OK", style: .Default, handler: nil)
+        let alertController = UIAlertController(title: "Current Weather", message: "No weather forecast available at the moment.\n\n\(error)", preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
         alertController.addAction(okAction)
-        self.presentViewController(alertController, animated: true, completion: nil)
+        self.present(alertController, animated: true, completion: nil)
     }
 }

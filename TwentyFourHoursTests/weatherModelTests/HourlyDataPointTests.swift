@@ -27,7 +27,7 @@ class CurrentDataPointTests: XCTestCase {
 
     func testDate() {
         let testTime = 1460723696 // 2016-04-15 12:34:56
-        let testDate = NSDate(timeIntervalSince1970: 1460723696) // 2016-04-15 12:34:56
+        let testDate = Date(timeIntervalSince1970: 1460723696) // 2016-04-15 12:34:56
         let dataPoint  = CurrentDataPoint(unixTime: testTime, icon: nil, summary: nil, temperature: nil, precipitationIntensity: nil, precipitationProbability: nil, precipitationType: nil, units: nil)
         XCTAssertEqual(testDate, dataPoint.date)
     }

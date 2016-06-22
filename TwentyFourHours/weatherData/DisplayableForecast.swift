@@ -34,12 +34,12 @@ class DisplayableForecast {
     ///
     ///  - returns: A line of (displayable) weather data.
     ///
-    func forecast(day day: Int, line: Int) -> DataPoint {
+    func forecast(day: Int, line: Int) -> DataPoint {
         return forecasts[day][line]
     }
 
     init(forecast: Forecast) {
-        self.forecasts = DisplayableForecast.configureForecasts(forecast)
+        self.forecasts = DisplayableForecast.configureForecasts(forecast: forecast)
     }
 
     ///  Converts a 1D array of hourly weather forecasts into a 2D array of
@@ -51,34 +51,33 @@ class DisplayableForecast {
     ///             if the source data contains no data./Applications/Audirvana Plus 2.app
     ///
     private class func configureForecasts(forecast: Forecast) -> [[DataPoint]] {
-        var dateIndex = NSDate() //forecast.currentConditions?.date
+        var dateIndex = Date() //forecast.currentConditions?.date
         var allDataPoints    = [[DataPoint]]()  // (An array of DataPoint arrays.)
         var hourlyDataPoints = [DataPoint]() // (a datapoint array.)
         if let current = forecast.currentConditions {
             hourlyDataPoints.append(current)
         }
-        if let hours = forecast.oneHourForecasts?.sort(dataPointOrder) {
-            for hour in hours {
-                // Start a new day, if needed.
-                if !NSCalendar.currentCalendar().isDate(hour.date, inSameDayAsDate: dateIndex) {
-                    if let dailyForecasts = forecast.oneDayForecasts {
-                        hourlyDataPoints.appendContentsOf(almanac(dailyForecasts, date: dateIndex))
-                    }
-                    if hourlyDataPoints.count > 0 {
-                        allDataPoints.append(hourlyDataPoints.sort(dataPointOrder))
-                    }
-                    hourlyDataPoints = [DataPoint]()
-                    dateIndex = hour.date
+        let hourlyForecasts = (forecast.oneHourForecasts ?? [DataPoint]()).sorted(isOrderedBefore: dataPointOrder)
+        for hour in hourlyForecasts {
+            // Start a new day, if needed.
+            if !Calendar.current().isDate(hour.date, inSameDayAs: dateIndex) {
+                if let dailyForecasts = forecast.oneDayForecasts {
+                    hourlyDataPoints.append(contentsOf: almanac(dayForecasts: dailyForecasts, date: dateIndex))
                 }
-                hourlyDataPoints.append(hour)
+                if hourlyDataPoints.count > 0 {
+                    allDataPoints.append(hourlyDataPoints.sorted(isOrderedBefore: dataPointOrder))
+                }
+                hourlyDataPoints = [DataPoint]()
+                dateIndex = hour.date
             }
-            if let dailyForecasts = forecast.oneDayForecasts {
-                hourlyDataPoints.appendContentsOf(almanac(dailyForecasts, date: dateIndex))
-            }
-            allDataPoints.append(hourlyDataPoints.sort(dataPointOrder))
+            hourlyDataPoints.append(hour)
         }
+        if let dailyForecasts = forecast.oneDayForecasts {
+            hourlyDataPoints.append(contentsOf: almanac(dayForecasts: dailyForecasts, date: dateIndex))
+        }
+        allDataPoints.append(hourlyDataPoints.sorted(isOrderedBefore: dataPointOrder))
 
-        return illuminateDataPoints(allDataPoints)
+        return illuminateDataPoints(dataPoints: allDataPoints)
     }
 
     ///  Adds day/night background shading to the (displayable) weather forcast datapoints.
@@ -108,7 +107,7 @@ class DisplayableForecast {
         return newPoints
     }
 
-    private class func sunTimes(forecasts forecasts: [DataPoint]) -> (sunrise: Int?, sunset: Int?) {
+    private class func sunTimes(forecasts: [DataPoint]) -> (sunrise: Int?, sunset: Int?) {
         return (sunrise: 1, sunset: 1)
     }
 
@@ -122,7 +121,7 @@ class DisplayableForecast {
     ///             no sunrise or sunset on that day then no entry is returned.
     ///             If neither occur then an empty array is returned.
     ///
-    private class func almanac(dayForecasts: [OneDayForecast], date: NSDate) -> [DataPoint] {
+    private class func almanac(dayForecasts: [OneDayForecast], date: Date) -> [DataPoint] {
         var twilightTimes = [DataPoint]()
         for forecast in dayForecasts {
             if let sunrise = createDataPoint(event: .sunrise, date: date, data: forecast) {
@@ -151,12 +150,12 @@ class DisplayableForecast {
     ///
     ///  - returns: If found, a datapoint of the event is returned.
     ///
-    private class func createDataPoint(event event: EventType, date: NSDate, data: OneDayForecast) -> DataPoint? {
+    private class func createDataPoint(event: EventType, date: Date, data: OneDayForecast) -> DataPoint? {
         var result: DataPoint?
         let eventTime = event == .sunrise ? data.sunriseTime : data.sunsetTime
         if let time = eventTime {
-            let sunriseDate = NSDate(timeIntervalSince1970: NSTimeInterval(time))
-            if NSCalendar.currentCalendar().isDate(sunriseDate, inSameDayAsDate: date) {
+            let sunriseDate = Date(timeIntervalSince1970: TimeInterval(time))
+            if Calendar.current().isDate(sunriseDate, inSameDayAs: date) {
                 let text = event == .sunrise ? "Sunrise" : "Sunset"
                 result = HourlyDataPoint(unixTime: time, icon: "sunrise", summary: text, temperature: nil, precipitationIntensity: nil, precipitationProbability: nil, precipitationType: nil, units: nil)
             }
@@ -165,25 +164,15 @@ class DisplayableForecast {
     }
 
     /// The time 1 hour ago.
-    class var nowMinus1Hour: NSDate {
-        let now = NSDate()
-        let plus49 = NSCalendar.currentCalendar().dateByAddingUnit(
-            .Hour,
-            value: -1,
-            toDate: now,
-            options: NSCalendarOptions(rawValue: 0))
-        return plus49!
+    class var nowMinus1Hour: Date {
+        let oneHourAgo = Calendar.current().date(byAdding: .hour, value: -1, to: Date(), options: Calendar.Options(rawValue: 0))
+        return oneHourAgo!
     }
 
     /// The time 49 hours from now.
-    class var nowPlus49Hours: NSDate {
-        let now = NSDate()
-        let plus49 = NSCalendar.currentCalendar().dateByAddingUnit(
-            .Hour,
-            value: 49,
-            toDate: now,
-            options: NSCalendarOptions(rawValue: 0))
-        return plus49!
+    class var nowPlus49Hours: Date {
+        let result = Calendar.current().date(byAdding: .hour, value: -1, to: Date(), options: Calendar.Options(rawValue: 0))
+        return result!
     }
 }
 

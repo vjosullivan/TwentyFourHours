@@ -22,8 +22,9 @@ protocol DataPoint {
 
 extension DataPoint {
 
-    var date: NSDate {
-        return NSDate(timeIntervalSince1970: NSTimeInterval(unixTime))
+    var date: Date {
+        return Date(timeIntervalSince1970:
+            TimeInterval(unixTime))
     }
 }
 

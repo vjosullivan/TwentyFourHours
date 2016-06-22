@@ -22,14 +22,14 @@ class WeatherDetailTableViewCell: UITableViewCell {
 
         CFLabel.text = datapoint.units?.temperature ?? ""
 
-        timeLabel!.text = hour(Double(datapoint.unixTime))
-        minsLabel!.text = minute(Double(datapoint.unixTime))
+        timeLabel!.text = hour(unixTime: Double(datapoint.unixTime))
+        minsLabel!.text = minute(unixTime: Double(datapoint.unixTime))
 
         rainLabel!.text = datapoint.summary ?? ""
         // Unit test work around (because UIImageView is always nil in my unit tests).
         if let weatherIcon = self.weatherIcon,
             let iconName = datapoint.icon {
-            weatherIcon.image = weatherImage(iconName)
+            weatherIcon.image = weatherImage(iconName: iconName)
         }
         cellColours()
 
@@ -39,8 +39,8 @@ class WeatherDetailTableViewCell: UITableViewCell {
     }
 
     func cellColours() {
-        let cellBackgroundColor = UIColor.blackColor()
-        let cellForegroundColor = minsLabel.text == ":00" ? UIColor.whiteColor() : UIColor.greenColor()
+        let cellBackgroundColor = UIColor.black()
+        let cellForegroundColor = minsLabel.text == ":00" ? UIColor.white() : UIColor.green()
 
         backgroundColor     = cellBackgroundColor
 

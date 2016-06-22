@@ -22,7 +22,7 @@ struct Units {
     }
 
     init(units: String) {
-        if let index = systems.indexOf(units) {
+        if let index = systems.index(of: units) {
             unitSystem = index
         } else {
             unitSystem = 0

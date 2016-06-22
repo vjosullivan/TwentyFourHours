@@ -1,5 +1,5 @@
 //
-//  LocationManager.swift
+//  LocationAPIClient.swift
 //  TwentyFourHours
 //
 //  Created by Vincent O'Sullivan on 17/04/2016.
@@ -9,11 +9,11 @@
 import UIKit
 import CoreLocation
 
-class LocationManager: CLLocationManager {
+class LocationAPIClient: CLLocationManager {
 
-    let locationDelegate: LocationManagerDelegate
+    let locationDelegate: LocationAPIClientDelegate
 
-    init(delegate: LocationManagerDelegate) {
+    init(delegate: LocationAPIClientDelegate) {
         self.locationDelegate = delegate
         super.init()
         requestAuthorization()
@@ -40,32 +40,32 @@ class LocationManager: CLLocationManager {
     }
 }
 
-extension LocationManager: CLLocationManagerDelegate {
+extension LocationAPIClient: CLLocationManagerDelegate {
 
-    func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+    func locationManager(_ client: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         let coords = locations[0].coordinate
         let location = (latitude: coords.latitude, longitude: coords.longitude)
-        locationDelegate.locationManager(self, didUpdateLocation: location)
+        locationDelegate.location(client: self, didUpdateLocation: location)
     }
 
-    func locationManager(manager: CLLocationManager, didFailWithError error: NSError) {
-        locationDelegate.locationManager(self, didFailWithError: error)
+    func locationManager(_ client: CLLocationManager, didFailWithError error: NSError) {
+        locationDelegate.location(client: self, didFailWithError: error)
     }
 }
 
-protocol LocationManagerDelegate {
+protocol LocationAPIClientDelegate {
 
     ///  Tells the delegate that new location information is available.
     ///
-    ///  - parameter manager:  The location manager that updated the location information.
+    ///  - parameter client:  The location API client that updated the location information.
     ///  - parameter location: The new location data.
     ///
-    func locationManager(manager: LocationManager, didUpdateLocation location: (latitude: Double, longitude: Double))
+    func location(client: LocationAPIClient, didUpdateLocation location: (latitude: Double, longitude: Double))
 
     ///  Tells the delegate that the location manager failed to obtain a location.
     ///
-    ///  - parameter manager: The location manager that failed.
+    ///  - parameter client: The location API client that failed.
     ///  - parameter error:   The nature of the error encountered.
     ///
-    func locationManager(manager: LocationManager, didFailWithError error: NSError)
+    func location(client: LocationAPIClient, didFailWithError error: NSError)
 }

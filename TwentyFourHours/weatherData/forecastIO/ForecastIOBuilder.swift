@@ -138,7 +138,7 @@ class ForecastIOBuilder {
     }
 }
 
-enum ForecastParsingError: ErrorType {
+enum ForecastParsingError: ErrorProtocol {
     case NilForecastSupplied
     case EmptyForecastSupplied
 }
